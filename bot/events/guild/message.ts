@@ -1,6 +1,6 @@
 import { PREFIX } from "../../constants";
 import commands from "../../commands/commands.json";
-import { commandType } from "server/types";
+import { commandType } from "bot/types";
 
 module.exports = async (Discord: any, client: any, message: any) => {
   try {

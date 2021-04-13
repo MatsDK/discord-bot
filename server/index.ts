@@ -1,9 +1,9 @@
 require("dotenv").config();
 import next from "next";
 import Discord from "discord.js";
-import { commandHandler } from "./handlers/commandHandler";
-import { eventHandler } from "./handlers/eventHandler";
-import { clientState } from "./client";
+import { commandHandler } from "../bot/handlers/commandHandler";
+import { eventHandler } from "../bot/handlers/eventHandler";
+import { clientState } from "../bot/client";
 import express, { Application, Request, Response } from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
@@ -21,7 +21,9 @@ app
     server.use(cors());
 
     server.get("/api/getData", async (req: Request, res: Response) => {
-      const { default: commands } = await import("./commands/commands.json");
+      const { default: commands } = await import(
+        "../bot/commands/commands.json"
+      );
       res.json({ err: false, data: commands });
     });
 
@@ -47,5 +49,7 @@ client.events = new Discord.Collection();
 
 commandHandler(client, Discord);
 eventHandler(client, Discord);
+
+console.log(process.env.DC_BOT_TOKEN);
 
 client.login(process.env.DC_BOT_TOKEN);

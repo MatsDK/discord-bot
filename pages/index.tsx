@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { commandType } from "server/types";
+import { commandType } from "bot/types";
 
 const Index = ({ data }): JSX.Element => {
   const [commands] = useState<commandType[]>(
@@ -14,7 +14,7 @@ const Index = ({ data }): JSX.Element => {
   return <div></div>;
 };
 
-export async function getStaticProps(context) {
+export const getStaticProps = async () => {
   const res = await axios({
     method: "GET",
     url: "http://localhost:3001/api/getData",
@@ -24,5 +24,5 @@ export async function getStaticProps(context) {
   return {
     props: { data: res.data.data },
   };
-}
+};
 export default Index;
