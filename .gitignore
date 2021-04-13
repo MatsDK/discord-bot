@@ -1,3 +1,4 @@
+.env
 /node_modules
 /data
 /trash
@@ -35,4 +36,3 @@ yarn-error.log*
 .vercel
 
 # /tcpServer
-.env
