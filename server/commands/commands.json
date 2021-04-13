@@ -1,0 +1,8 @@
+{
+  "hello": {
+    "name": "hello",
+    "description": "say hello to user",
+    "consentedRoles": [],
+    "reply": "Hello" 
+  }
+}
