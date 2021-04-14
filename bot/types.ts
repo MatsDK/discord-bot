@@ -1,6 +1,9 @@
 export interface commandType {
-  name: string;
+  keyword: string;
   description: string;
   consentedRoles: string[];
+  channels: string[];
+  action: boolean;
   reply: any;
+  id?: string;
 }

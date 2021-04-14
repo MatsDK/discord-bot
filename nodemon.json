@@ -1,5 +1,5 @@
 {
-  "watch": ["server/**/*.ts"],
+  "watch": ["server/**/*.ts", "pages/**/*.tsx", "bot/**/*ts"],
   "execMap": {
     "ts": "ts-node"
   }

@@ -1,4 +1,4 @@
-export = {
+export default {
   name: "clear",
   async execute(client: any, msg: any, args: any) {
     if (args[0] === "info")

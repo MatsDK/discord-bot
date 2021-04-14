@@ -1,8 +1,38 @@
 {
-  "hello": {
-    "name": "hello",
+  "b4iwx-RxAGUjix10ZVfRy": {
+    "keyword": "hello",
     "description": "say hello to user",
     "consentedRoles": [],
-    "reply": "Hello" 
+    "channels": [],
+    "action": false,
+    "reply": "Hello",
+    "id": "b4iwx-RxAGUjix10ZVfRy"
+  },
+  "BCxXDN6GQZpaQZ1aKWMtF": {
+    "keyword": "youtube",
+    "description": "Youtube Link",
+    "consentedRoles": [],
+    "channels": [],
+    "action": false,
+    "reply": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "id": "BCxXDN6GQZpaQZ1aKWMtF"
+  },
+  "wECe8nRxF42surIHaZZ5w": {
+    "keyword": "clear",
+    "description": "clear messages",
+    "constedRoles": [],
+    "channels": [],
+    "action": true,
+    "reply": "",
+    "id": "wECe8nRxF42surIHaZZ5w"
+  },
+  "RaTIDZJkwgiPghsGRdxS_": {
+    "keyword": "poll",
+    "description": "send poll",
+    "constedRoles": [],
+    "channels": [],
+    "action": true,
+    "reply": "",
+    "id": "RaTIDZJkwgiPghsGRdxS_"
   }
 }

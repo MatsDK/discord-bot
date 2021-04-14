@@ -1,6 +1,6 @@
 import Discord from "discord.js";
 
-export = {
+export default {
   name: "poll",
   description: "hello command",
   async execute(client: any, message: any, args: any) {

@@ -7,6 +7,7 @@ import { clientState } from "../bot/client";
 import express, { Application, Request, Response } from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
+import apiRouter from "./routers/apiRouter";
 
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
@@ -19,13 +20,7 @@ app
 
     server.use(bodyParser());
     server.use(cors());
-
-    server.get("/api/getData", async (req: Request, res: Response) => {
-      const { default: commands } = await import(
-        "../bot/commands/commands.json"
-      );
-      res.json({ err: false, data: commands });
-    });
+    server.use("/api", apiRouter);
 
     server.get("*", (req: Request, res: Response) => {
       return handle(req, res);
@@ -49,7 +44,5 @@ client.events = new Discord.Collection();
 
 commandHandler(client, Discord);
 eventHandler(client, Discord);
-
-console.log(process.env.DC_BOT_TOKEN);
 
 client.login(process.env.DC_BOT_TOKEN);
