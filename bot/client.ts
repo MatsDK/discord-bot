@@ -1,6 +1,6 @@
 export const clientState: any = {
-  client: {},
-  setClient(client: any) {
-    clientState.client = client;
-  },
+   client: {},
+   setClient(client: any) {
+      clientState.client = client;
+   },
 };

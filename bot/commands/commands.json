@@ -1,17 +1,11 @@
 {
-  "b4iwx-RxAGUjix10ZVfRy": {
-    "keyword": "hello",
-    "description": "say hello to user",
-    "consentedRoles": [],
-    "channels": [],
-    "action": false,
-    "reply": "Hello",
-    "id": "b4iwx-RxAGUjix10ZVfRy"
-  },
   "BCxXDN6GQZpaQZ1aKWMtF": {
     "keyword": "youtube",
     "description": "Youtube Link",
-    "consentedRoles": [],
+    "roles": {
+      "allRoles": false,
+      "consentedRoles": ["831232420425498675", "831232473144754307"]
+    },
     "channels": [],
     "action": false,
     "reply": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
@@ -20,8 +14,8 @@
   "wECe8nRxF42surIHaZZ5w": {
     "keyword": "clear",
     "description": "clear messages",
-    "constedRoles": [],
     "channels": [],
+    "roles": { "allRoles": false, "consentedRoles": ["831232420425498675"] },
     "action": true,
     "reply": "",
     "id": "wECe8nRxF42surIHaZZ5w"
@@ -29,10 +23,45 @@
   "RaTIDZJkwgiPghsGRdxS_": {
     "keyword": "poll",
     "description": "send poll",
-    "constedRoles": [],
+    "roles": { "allRoles": true, "consentedRoles": [] },
     "channels": [],
     "action": true,
     "reply": "",
     "id": "RaTIDZJkwgiPghsGRdxS_"
+  },
+  "awtHboWkr4khiS3C8hcqS": {
+    "keyword": "ban",
+    "roles": { "allRoles": false, "consentedRoles": ["831232420425498675"] },
+    "channels": [],
+    "action": true,
+    "description": "",
+    "reply": ""
+  },
+  "xbuwBLwgrO--lcvAYSbeG": {
+    "keyword": "kick",
+    "roles": { "allRoles": false, "consentedRoles": ["831232420425498675"] },
+    "channels": [],
+    "action": true,
+    "description": "",
+    "reply": ""
+  },
+  "Y7s3NOHzrTSeHkKP79HND": {
+    "keyword": "twitter",
+    "roles": { "allRoles": true, "consentedRoles": [] },
+    "channels": [],
+    "action": false,
+    "description": "Link twitter",
+    "reply": "\nhttps://www.twitter.com"
+  },
+  "3gZU3hIXFDr4P_JnKzSf9": {
+    "keyword": "prefix",
+    "roles": {
+      "allRoles": false,
+      "consentedRoles": ["831232420425498675", "831232473144754307"]
+    },
+    "channels": [],
+    "action": true,
+    "description": "",
+    "reply": ""
   }
 }

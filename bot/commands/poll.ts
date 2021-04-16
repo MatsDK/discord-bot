@@ -2,7 +2,6 @@ import Discord from "discord.js";
 
 export default {
   name: "poll",
-  description: "hello command",
   async execute(client: any, message: any, args: any) {
     const poll = new Discord.MessageEmbed()
       .setTitle("this is a poll")

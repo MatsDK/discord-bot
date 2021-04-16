@@ -1,7 +1,9 @@
 import axios from "axios";
 import { FormEvent, useState } from "react";
+import { useRouter } from "next/router";
 
-const NewCommandForm = ({ prefix, setCommands }) => {
+const NewCommandForm = ({ prefix }) => {
+  const router = useRouter();
   const [keyWordInput, setKeyWordInput] = useState<string>("");
   const [descriptionInput, setDesriptionInput] = useState<string>("");
   const [replyInput, setReplyInput] = useState<string>("");
@@ -21,14 +23,10 @@ const NewCommandForm = ({ prefix, setCommands }) => {
     })
       .then((res) => {
         if (res.data.err) return alert(res.data.err);
-        setCommands(
-          Object.keys(res.data.data).map(
-            (cmdName: string) => res.data.data[cmdName]
-          )
-        );
         setKeyWordInput("");
         setReplyInput("");
         setDesriptionInput("");
+        router.push("/");
       })
       .catch((err) => {
         alert(err);

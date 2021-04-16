@@ -1,16 +1,16 @@
 import axios from "axios";
-import { commandType } from "bot/types";
-import NewCommandForm from "components/newCommandForm";
+import { commandType } from "@/bot/types";
+import Link from "next/link";
 import React, { useState } from "react";
 
 const Index = ({ cmds, prefix }): JSX.Element => {
-  const [commands, setCommands] = useState<commandType[]>(
+  const [commands] = useState<commandType[]>(
     Object.keys(cmds).map((cmdName: string) => cmds[cmdName])
   );
 
   return (
     <div>
-      <NewCommandForm prefix={prefix} setCommands={setCommands} />
+      <Link href={"/newCommand"}>New Commands</Link>
       {commands.reverse().map((_: commandType, idx: number) => {
         return (
           <div key={idx} style={{ display: "flex" }}>
@@ -35,7 +35,10 @@ export const getStaticProps = async () => {
 
   if (res.data.err) return { props: { data: {} } };
   return {
-    props: { cmds: res.data.data.commands, prefix: res.data.data.prefix },
+    props: {
+      cmds: res.data.data.commands,
+      prefix: res.data.data.prefix,
+    },
   };
 };
 
