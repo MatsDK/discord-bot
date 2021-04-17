@@ -1,24 +1,34 @@
 import Discord from "discord.js";
 import checkPermission from "./utils/checkPermission";
+import conf from "../conf.json";
 
 export default {
   name: "ban",
   async execute(client: any, message: any, args: any) {
     try {
-      const target = message.mentions.members.first();
-      const { err } = checkPermission(target, message, args);
-      if (err) message.reply(err);
+      const target =
+        message.mentions.members.first() ||
+        message.guild.members.cache.get(args[0]);
 
+      const { err } = checkPermission(target, message, args, "BAN_MEMBERS");
+      if (err) return message.reply(err);
+
+      const reason: string = args.slice(1).join(" ") || "Unspecified";
       const embed = new Discord.MessageEmbed()
         .setTitle("Action: Ban")
-        .setDescription(`Banned ${target} (${target.id})`)
+        .setDescription(`Banned ${target} (${target.id})\n Reason: ${reason}`)
         .setFooter(`Banned by ${message.author.username}`);
-      message.channel.send(embed);
 
-      target.ban({ reason: args[1], days: 7 }).catch((err: any) => {
-        console.log(err);
-      });
+      target
+        .ban({ reason, days: conf.defaultBanDuration })
+        .catch((err: any) => {
+          console.log(err);
+          message.reply("An error occured");
+        });
+
+      message.channel.send(embed);
     } catch (err) {
+      console.log(err);
       message.reply("An error occured");
     }
   },

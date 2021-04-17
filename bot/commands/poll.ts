@@ -9,7 +9,9 @@ export default {
       .setColor("BLUE");
 
     let msgEmbed = await message.channel.send(poll);
-    await msgEmbed.react("👍");
-    await msgEmbed.react("👎");
+    // await msgEmbed.react("👍");
+    // await msgEmbed.react("👎");
+    await msgEmbed.react("✔️");
+    await msgEmbed.react("❌");
   },
 };

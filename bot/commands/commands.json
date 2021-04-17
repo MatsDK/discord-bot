@@ -63,5 +63,49 @@
     "action": true,
     "description": "",
     "reply": ""
+  },
+  "dbZVu-ducj01xqSDouRfT": {
+    "keyword": "createpoll",
+    "roles": {
+      "allRoles": false,
+      "consentedRoles": ["831232420425498675", "831232473144754307"]
+    },
+    "channels": [],
+    "action": true,
+    "description": "",
+    "reply": ""
+  },
+  "rsBaOGbD8m2FPhx19_NOf": {
+    "keyword": "mute",
+    "roles": {
+      "allRoles": false,
+      "consentedRoles": ["831232420425498675", "831232473144754307"]
+    },
+    "channels": [],
+    "action": true,
+    "description": "",
+    "reply": ""
+  },
+  "VVaFAd_yvYyNc3h3oTYLQ": {
+    "keyword": "unmute",
+    "roles": {
+      "allRoles": false,
+      "consentedRoles": ["831232420425498675", "831232473144754307"]
+    },
+    "channels": [],
+    "action": true,
+    "description": "Unmute muted user",
+    "reply": ""
+  },
+  "VkjVaFAd_yvYyNc3h3oTYLQ": {
+    "keyword": "unban",
+    "roles": {
+      "allRoles": false,
+      "consentedRoles": ["831232420425498675", "831232473144754307"]
+    },
+    "channels": [],
+    "action": true,
+    "description": "Unban banned user",
+    "reply": ""
   }
 }
