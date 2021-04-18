@@ -6,7 +6,10 @@
       "allRoles": false,
       "consentedRoles": ["831232420425498675", "831232473144754307"]
     },
-    "channels": [],
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
     "action": false,
     "reply": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     "id": "BCxXDN6GQZpaQZ1aKWMtF"
@@ -14,7 +17,10 @@
   "wECe8nRxF42surIHaZZ5w": {
     "keyword": "clear",
     "description": "clear messages",
-    "channels": [],
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
     "roles": { "allRoles": false, "consentedRoles": ["831232420425498675"] },
     "action": true,
     "reply": "",
@@ -24,7 +30,10 @@
     "keyword": "poll",
     "description": "send poll",
     "roles": { "allRoles": true, "consentedRoles": [] },
-    "channels": [],
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
     "action": true,
     "reply": "",
     "id": "RaTIDZJkwgiPghsGRdxS_"
@@ -32,26 +41,38 @@
   "awtHboWkr4khiS3C8hcqS": {
     "keyword": "ban",
     "roles": { "allRoles": false, "consentedRoles": ["831232420425498675"] },
-    "channels": [],
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
     "action": true,
     "description": "",
-    "reply": ""
+    "reply": "",
+    "id": "awtHboWkr4khiS3C8hcqS"
   },
   "xbuwBLwgrO--lcvAYSbeG": {
     "keyword": "kick",
     "roles": { "allRoles": false, "consentedRoles": ["831232420425498675"] },
-    "channels": [],
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
     "action": true,
     "description": "",
-    "reply": ""
+    "reply": "",
+    "id": "xbuwBLwgrO--lcvAYSbeG"
   },
   "Y7s3NOHzrTSeHkKP79HND": {
     "keyword": "twitter",
     "roles": { "allRoles": true, "consentedRoles": [] },
-    "channels": [],
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
     "action": false,
     "description": "Link twitter",
-    "reply": "\nhttps://www.twitter.com"
+    "reply": "\nhttps://www.twitter.com",
+    "id": "Y7s3NOHzrTSeHkKP79HND"
   },
   "3gZU3hIXFDr4P_JnKzSf9": {
     "keyword": "prefix",
@@ -59,10 +80,14 @@
       "allRoles": false,
       "consentedRoles": ["831232420425498675", "831232473144754307"]
     },
-    "channels": [],
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
     "action": true,
     "description": "",
-    "reply": ""
+    "reply": "",
+    "id": "3gZU3hIXFDr4P_JnKzSf9"
   },
   "dbZVu-ducj01xqSDouRfT": {
     "keyword": "createpoll",
@@ -70,10 +95,14 @@
       "allRoles": false,
       "consentedRoles": ["831232420425498675", "831232473144754307"]
     },
-    "channels": [],
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
     "action": true,
     "description": "",
-    "reply": ""
+    "reply": "",
+    "id": "dbZVu-ducj01xqSDouRfT"
   },
   "rsBaOGbD8m2FPhx19_NOf": {
     "keyword": "mute",
@@ -81,10 +110,14 @@
       "allRoles": false,
       "consentedRoles": ["831232420425498675", "831232473144754307"]
     },
-    "channels": [],
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
     "action": true,
     "description": "",
-    "reply": ""
+    "reply": "",
+    "id": "rsBaOGbD8m2FPhx19_NOf"
   },
   "VVaFAd_yvYyNc3h3oTYLQ": {
     "keyword": "unmute",
@@ -92,10 +125,14 @@
       "allRoles": false,
       "consentedRoles": ["831232420425498675", "831232473144754307"]
     },
-    "channels": [],
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
     "action": true,
     "description": "Unmute muted user",
-    "reply": ""
+    "reply": "",
+    "id": "VVaFAd_yvYyNc3h3oTYLQ"
   },
   "VkjVaFAd_yvYyNc3h3oTYLQ": {
     "keyword": "unban",
@@ -103,9 +140,27 @@
       "allRoles": false,
       "consentedRoles": ["831232420425498675", "831232473144754307"]
     },
-    "channels": [],
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
     "action": true,
     "description": "Unban banned user",
-    "reply": ""
+    "reply": "",
+    "id": "VkjVaFAd_yvYyNc3h3oTYLQ"
+  },
+  "9sc5geKP2c_snuKt3T_Ia": {
+    "keyword": "test",
+    "roles": {
+      "allRoles": false,
+      "consentedRoles": ["831232420425498675", "831165194603462727"]
+    },
+    "channels": {
+      "allChannels": false,
+      "allowedChannels": ["831144092435218435"]
+    },
+    "action": false,
+    "description": "test",
+    "reply": "test"
   }
 }

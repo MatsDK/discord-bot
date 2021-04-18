@@ -1,36 +1,13 @@
-import axios from "axios";
 import { FormEvent, useState } from "react";
-import { useRouter } from "next/router";
 
-const NewCommandForm = ({ prefix }) => {
-  const router = useRouter();
+const NewCommandForm = ({ prefix, create }) => {
   const [keyWordInput, setKeyWordInput] = useState<string>("");
   const [descriptionInput, setDesriptionInput] = useState<string>("");
   const [replyInput, setReplyInput] = useState<string>("");
 
   const createCommand = (e: FormEvent) => {
     e.preventDefault();
-    if (!keyWordInput.trim().length) return alert("You must enter a keyword");
-
-    axios({
-      method: "POST",
-      url: "http://localhost:3001/api/createCmd",
-      data: {
-        keyWord: keyWordInput.trim(),
-        description: descriptionInput,
-        reply: replyInput,
-      },
-    })
-      .then((res) => {
-        if (res.data.err) return alert(res.data.err);
-        setKeyWordInput("");
-        setReplyInput("");
-        setDesriptionInput("");
-        router.push("/");
-      })
-      .catch((err) => {
-        alert(err);
-      });
+    create(keyWordInput, descriptionInput, replyInput);
   };
 
   return (

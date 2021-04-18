@@ -19,14 +19,21 @@ export default async (Discord: any, client: any, message: any) => {
 
     Object.keys(commands).forEach((key: string) => {
       const thisCmd: commandType = commands[key];
+
       if (thisCmd.keyword.toLowerCase() === cmd.toLowerCase()) {
+        if (
+          !thisCmd.channels.allChannels &&
+          !thisCmd.channels.allowedChannels.includes(message.channel.id)
+        )
+          return message.reply("This Command can't be used in this channel");
+
         if (
           !thisCmd.roles.allRoles &&
           !message.member.roles.cache.some((role: any) =>
             thisCmd.roles.consentedRoles.includes(role.id)
           )
         )
-          return message.reply("You don't have the permissions.");
+          return message.reply("You don't have the permissions");
 
         if (thisCmd.action) {
           const command = client.commands.get(cmd.toLowerCase());

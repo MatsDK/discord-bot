@@ -7,6 +7,7 @@ export default {
   async execute(client: any, message: any, args: any) {
     const target: any = message.mentions.members.first();
     if (!target) message.reply("Please mention the person you want to mute");
+    if (target.user.bot) return message.reply("You can't mute a bot");
 
     if (target.id == message.author.id)
       return message.reply("You can't mute yourself");
@@ -32,25 +33,29 @@ export default {
     target.roles.remove(memberRole);
     target.roles.add(mutedRole);
 
-    let timeInMs: any = getTimeInMs(args[1].trim()),
+    let timeInMs: any = getTimeInMs(args[1]?.trim()),
       reason: string = "";
+    if (timeInMs >= 604800000) return message.reply("Max mute time is 7 days");
+
     if (timeInMs.err) {
       setTimeout(() => {
         target.roles.remove(mutedRole);
         target.roles.add(memberRole);
-      }, conf.defaultBanDuration);
+      }, conf.defaultMuteDuration);
       reason = args.slice(1).join(" ") || "Unspecified";
     } else {
       setTimeout(() => {
         target.roles.remove(mutedRole);
         target.roles.add(memberRole);
-      }, timeInMs);
+      }, timeInMs.ms);
       reason = args.slice(2).join(" ") || "Unspecified";
     }
 
     const embed = new Discord.MessageEmbed()
       .setTitle(`Muted ${target.user.username}`)
-      .setDescription(`Duration: \n Reason: ${reason}`)
+      .setDescription(
+        `Duration: ${timeInMs.formattedDuration || 0} \n Reason: ${reason}`
+      )
       .setFooter(`Muted By ${message.author.username}`);
 
     message.channel.send(embed);

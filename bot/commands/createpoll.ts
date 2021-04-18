@@ -4,7 +4,6 @@ import getTimeInMs from "./utils/getTimeInMs";
 export default {
   name: "createpoll",
   async execute(client: any, message: any, args: any) {
-    message.delete();
     let time: any = args[0];
 
     const regex = new RegExp(/^([0-9]{2}|[0-9]{1})[sSmM]$/);
@@ -12,7 +11,9 @@ export default {
     if (args.length < 1) return message.reply("Provide a question");
 
     if (regex.test(time)) {
-      time = getTimeInMs(time);
+      const timeMs: any = getTimeInMs(time);
+      if (timeMs.err) return message.reply(timeMs.err);
+      time = timeMs.ms;
 
       const question = args.slice(1).join(" ");
       if (!question.trim()) return message.reply("Provide a question");
@@ -42,5 +43,6 @@ export default {
       await msgEmbed.react("✔️");
       await msgEmbed.react("❌");
     }
+    message.delete();
   },
 };

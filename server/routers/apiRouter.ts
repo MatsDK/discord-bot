@@ -1,9 +1,11 @@
 import { prefixState } from "../../bot/constants";
 import { Request, Response, Router } from "express";
-import { commandType } from "bot/types";
+import { channelsType, commandType, createCmdBody, rolesType } from "bot/types";
 import { nanoid } from "nanoid";
 import fs from "fs";
 import path from "path";
+import { clientState } from "../../bot/client";
+
 const router = Router();
 
 router.get("/getData", async (req: Request, res: Response) => {
@@ -14,11 +16,36 @@ router.get("/getData", async (req: Request, res: Response) => {
     commands[key].id = key;
   });
 
-  res.json({ err: false, data: { commands, prefix: prefixState.PREFIX } });
+  const client = clientState.client;
+  const channelsArr: channelsType[] = Array.from(
+    client.channels.cache
+      .filter((channel: any) => channel.type === "text")
+      .entries()
+  ).map(([_, value]: any) => ({ name: value.name, id: value.id }));
+
+  const rolesArr: rolesType[] = Array.from(
+    client.guilds.cache.first().roles.cache.entries()
+  ).map(([_, value]: any) => ({
+    id: value.id,
+    name: value.name,
+    color: value.color,
+    rawPosition: value.rawPosition,
+  }));
+
+  res.json({
+    err: false,
+    data: {
+      commands,
+      prefix: prefixState.PREFIX,
+      channels: channelsArr,
+      roles: rolesArr,
+    },
+  });
 });
 
 router.post("/createCmd", async (req: Request, res: Response) => {
-  const { keyWord, description, reply } = req.body;
+  const { keyWord, description, reply, ...rest }: createCmdBody = req.body;
+  const { channels, allChannels, roles, allRoles } = rest;
   const { default: commands } = await import(
     "../../bot/commands/commands.json"
   );
@@ -38,10 +65,13 @@ router.post("/createCmd", async (req: Request, res: Response) => {
   const newCmd: commandType = {
     keyword: keyWord,
     roles: {
-      allRoles: true,
-      consentedRoles: [],
+      allRoles,
+      consentedRoles: allRoles ? [] : roles,
     },
-    channels: [],
+    channels: {
+      allChannels,
+      allowedChannels: allChannels ? [] : channels,
+    },
     action: false,
     description,
     reply,
