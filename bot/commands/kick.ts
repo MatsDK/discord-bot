@@ -7,7 +7,7 @@ export default {
     try {
       const target = message.mentions.members.first();
 
-      const { err } = checkPermission(target, message, args, "KICK_MEMBERS");
+      const { err } = checkPermission(target, message, "KICK_MEMBERS");
       if (err) message.reply(err);
 
       const embed = new Discord.MessageEmbed()

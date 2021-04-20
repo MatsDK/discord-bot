@@ -10,7 +10,7 @@ export default {
         message.mentions.members.first() ||
         message.guild.members.cache.get(args[0]);
 
-      const { err } = checkPermission(target, message, args, "BAN_MEMBERS");
+      const { err } = checkPermission(target, message, "BAN_MEMBERS");
       if (err) return message.reply(err);
 
       const reason: string = args.slice(1).join(" ") || "Unspecified";

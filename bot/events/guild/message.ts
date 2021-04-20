@@ -12,6 +12,7 @@ export default async (Discord: any, client: any, message: any) => {
       message.author.bot
     )
       return;
+
     const [cmd, ...args] = message.content
       .trim()
       .slice(prefixState.PREFIX.length)

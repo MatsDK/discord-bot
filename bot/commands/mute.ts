@@ -18,12 +18,12 @@ export default {
       );
 
     const mutedRole = message.guild.roles.cache.find(
-      (role: any) => role.name === "Muted"
+      (role: any) => role.name.toLowerCase() === "muted"
     );
     if (!mutedRole) message.reply("There is no Muted role on this server");
 
     const memberRole = message.guild.roles.cache.find(
-      (role: any) => role.name === "Member"
+      (role: any) => role.name.toLowerCase() === "member"
     );
     if (!memberRole) message.reply("There is no Member role on this server");
 

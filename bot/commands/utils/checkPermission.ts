@@ -1,7 +1,6 @@
 export default (
   target: any,
   message: any,
-  args: any[],
   action: string
 ): { err: string | boolean } => {
   if (!target) return { err: `Please mention a person` };
@@ -20,8 +19,6 @@ export default (
     return {
       err: "This bot doesn't have enough permissions to use this command",
     };
-
-  // if (!args[1]) return { err: "Please give a reason" };
 
   return { err: false };
 };

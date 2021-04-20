@@ -162,5 +162,19 @@
     "action": false,
     "description": "test",
     "reply": "test"
+  },
+  "9sc5geKP2c_snduKt3T_Ia": {
+    "keyword": "role",
+    "roles": {
+      "allRoles": false,
+      "consentedRoles": ["831232420425498675", "831165194603462727"]
+    },
+    "channels": {
+      "allChannels": false,
+      "allowedChannels": ["831144092435218435"]
+    },
+    "action": true,
+    "description": "",
+    "reply": ""
   }
 }
