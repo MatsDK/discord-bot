@@ -40,7 +40,8 @@ export default {
         msgEmbed.delete().catch(console.error);
       }, time);
 
-      await msgEmbed.react("✔️");
+      // await msgEmbed.react("✔️");
+      await msgEmbed.react("✔");
       await msgEmbed.react("❌");
     } else {
       const question = args.join(" ");
@@ -52,7 +53,8 @@ export default {
 
       const msgEmbed = await message.channel.send(poll);
 
-      await msgEmbed.react("✔️");
+      // await msgEmbed.react("✔️");
+      await msgEmbed.react("✔");
       await msgEmbed.react("❌");
     }
     message.delete();

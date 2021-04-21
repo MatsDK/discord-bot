@@ -190,5 +190,33 @@
     "action": true,
     "description": "",
     "reply": ""
+  },
+  "ds9sc5geKP2c_snduKt3T_Ia": {
+    "keyword": "roles",
+    "roles": {
+      "allRoles": true,
+      "consentedRoles": []
+    },
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
+    "action": true,
+    "description": "",
+    "reply": ""
+  },
+  "ds9sc5geKP2c_sndeuKt3T_Ia": {
+    "keyword": "ping",
+    "roles": {
+      "allRoles": true,
+      "consentedRoles": []
+    },
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
+    "action": true,
+    "description": "",
+    "reply": ""
   }
 }

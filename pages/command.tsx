@@ -4,6 +4,8 @@ import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { GetStaticProps } from "next";
+import SelectChannelsContainer from "@/components/SelectChannelsContainer";
+import SelectRolesContainer from "@/components/selectRolesContainer";
 
 interface newCommandProps {
   prefix: string;
@@ -53,62 +55,17 @@ const newCommand = ({ prefix, channels, roles }: newCommandProps) => {
     <div>
       <NewCommandForm create={createCommand} prefix={prefix} />
       <h3>Channels</h3>
-      {channels.map((_: channelsType, idx: number) => {
-        const active: boolean = !!selectedChannels.find(
-          (channelId: string) => channelId === _.id
-        );
-
-        return (
-          <div
-            style={{ color: active ? "blue" : "black" }}
-            key={idx}
-            onClick={() => {
-              const i: number = selectedChannels.indexOf(_.id);
-              if (i < 0)
-                setSelectedChannels((selectedChannels) => [
-                  _.id,
-                  ...selectedChannels,
-                ]);
-              else
-                setSelectedChannels((selectedChannels) =>
-                  selectedChannels.filter(
-                    (_: string, index: number) => index !== i
-                  )
-                );
-            }}
-          >
-            {_.name}
-          </div>
-        );
-      })}
+      <SelectChannelsContainer
+        channels={channels}
+        setSelectedChannels={setSelectedChannels}
+        selectedChannels={selectedChannels}
+      />
       <h3>Roles</h3>
-      {roles
-        .sort((a: rolesType, b: rolesType) => b.rawPosition - a.rawPosition)
-        .map((_: rolesType, idx: number) => {
-          const active: boolean = !!selectedRoles.find(
-            (channelId: string) => channelId === _.id
-          );
-
-          return (
-            <div
-              key={idx}
-              style={{ color: active ? "blue" : "black" }}
-              onClick={() => {
-                const i: number = selectedRoles.indexOf(_.id);
-                if (i < 0)
-                  setSelectedRoles((selectedRoles) => [_.id, ...selectedRoles]);
-                else
-                  setSelectedRoles((selectedRoles) =>
-                    selectedRoles.filter(
-                      (_: string, index: number) => index !== i
-                    )
-                  );
-              }}
-            >
-              {_.name}
-            </div>
-          );
-        })}
+      <SelectRolesContainer
+        roles={roles}
+        setSelectedRoles={setSelectedRoles}
+        selectedRoles={selectedRoles}
+      />
     </div>
   );
 };

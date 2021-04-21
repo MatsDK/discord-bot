@@ -11,6 +11,7 @@ export default {
   action: true,
   description: "",
   reply: "",
+  id: "2qA_U1NWJf3X4Z_zK_HgC",
   async execute(client: any, message: any, args: any) {
     try {
       const target = message.mentions.members.first();
@@ -53,7 +54,6 @@ export default {
           changed.added.push(role.name);
         }
       }
-      // console.log(changed);
     } catch (err) {
       console.log(err);
     }

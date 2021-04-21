@@ -11,6 +11,7 @@ export default {
   action: true,
   description: "",
   reply: "",
+  id: "or29OAcrJF1qLf9TgFnz7",
   async execute(client: any, message: any, args: any[]) {
     const target = message.mentions.members.first();
     if (!target) return message.reply("You need to mention a person");

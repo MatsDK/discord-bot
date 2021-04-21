@@ -17,6 +17,7 @@ export const commandHandler = async (client: any, Discord: any) => {
 
   Object.keys(commands).forEach((key: string) => {
     const cmd: commandType = commands[key];
-    if (!cmd.action) client.commands.set(cmd.keyword, cmd);
+
+    if (!cmd.action) client.commands.set(cmd.keyword.toLowerCase(), cmd);
   });
 };

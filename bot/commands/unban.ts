@@ -14,7 +14,7 @@ export default {
   action: true,
   description: "Unban banned user",
   reply: "",
-  id: "VkjVaFAd_yvYyNc3h3oTYLQ",
+  id: "PDdER0-XF0La0hZ1NHojg",
   async execute(client: any, message: any, args: any) {
     try {
       const target = await client.users.fetch(args[0]);
