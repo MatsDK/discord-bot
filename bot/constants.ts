@@ -15,3 +15,19 @@ export const prefixState = {
     );
   },
 };
+
+export const COMMAND_OBJECT = {
+  keyWord: "",
+  roles: {
+    allRoles: true,
+    consentedRoles: [],
+  },
+  channels: {
+    allChannels: true,
+    allowedChannels: [],
+  },
+  action: false,
+  description: "",
+  reply: "",
+  id: "",
+};

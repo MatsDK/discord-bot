@@ -3,7 +3,16 @@ import checkPermission from "./utils/checkPermission";
 import conf from "../conf.json";
 
 export default {
-  name: "ban",
+  keyword: "ban",
+  roles: { allRoles: false, consentedRoles: ["831232420425498675"] },
+  channels: {
+    allChannels: true,
+    allowedChannels: [],
+  },
+  action: true,
+  description: "",
+  reply: "",
+  id: "awtHboWkr4khiS3C8hcqS",
   async execute(client: any, message: any, args: any) {
     try {
       const target =

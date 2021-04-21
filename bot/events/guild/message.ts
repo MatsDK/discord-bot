@@ -18,6 +18,7 @@ export default async (Discord: any, client: any, message: any) => {
       .slice(prefixState.PREFIX.length)
       .split(/\s+/);
 
+    console.log(client.commands);
     Object.keys(commands).forEach((key: string) => {
       const thisCmd: commandType = commands[key];
 

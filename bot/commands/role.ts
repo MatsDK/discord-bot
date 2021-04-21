@@ -1,5 +1,16 @@
 export default {
-  name: "role",
+  keyword: "role",
+  roles: {
+    allRoles: false,
+    consentedRoles: ["831232420425498675", "831165194603462727"],
+  },
+  channels: {
+    allChannels: false,
+    allowedChannels: ["831144092435218435"],
+  },
+  action: true,
+  description: "",
+  reply: "",
   async execute(client: any, message: any, args: any) {
     try {
       const target = message.mentions.members.first();

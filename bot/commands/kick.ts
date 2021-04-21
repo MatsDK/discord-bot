@@ -2,7 +2,16 @@ import Discord from "discord.js";
 import checkPermission from "./utils/checkPermission";
 
 export default {
-  name: "kick",
+  keyword: "kick",
+  roles: { allRoles: false, consentedRoles: ["831232420425498675"] },
+  channels: {
+    allChannels: true,
+    allowedChannels: [],
+  },
+  action: true,
+  description: "",
+  reply: "",
+  id: "xbuwBLwgrO--lcvAYSbeG",
   async execute(client: any, message: any, args: any) {
     try {
       const target = message.mentions.members.first();

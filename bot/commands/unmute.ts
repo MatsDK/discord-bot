@@ -1,5 +1,17 @@
 export default {
-  name: "unmute",
+  keyword: "unmute",
+  roles: {
+    allRoles: false,
+    consentedRoles: ["831232420425498675", "831232473144754307"],
+  },
+  channels: {
+    allChannels: true,
+    allowedChannels: [],
+  },
+  action: true,
+  description: "Unmute muted user",
+  reply: "",
+  id: "VVaFAd_yvYyNc3h3oTYLQ",
   async execute(client: any, message: any, args: any) {
     const target = message.mentions.members.first();
     if (!target)

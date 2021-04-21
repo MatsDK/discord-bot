@@ -1,5 +1,14 @@
 export default {
-  name: "clear",
+  keyword: "clear",
+  description: "clear messages",
+  channels: {
+    allChannels: true,
+    allowedChannels: [],
+  },
+  roles: { allRoles: false, consentedRoles: ["831232420425498675"] },
+  action: true,
+  reply: "",
+  id: "wECe8nRxF42surIHaZZ5w",
   async execute(client: any, msg: any, args: any) {
     if (args[0] === "info")
       return msg.reply(

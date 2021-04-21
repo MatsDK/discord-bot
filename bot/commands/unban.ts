@@ -2,7 +2,19 @@ import checkPermission from "./utils/checkPermission";
 import Discord from "discord.js";
 
 export default {
-  name: "unban",
+  keyword: "unban",
+  roles: {
+    allRoles: false,
+    consentedRoles: ["831232420425498675", "831232473144754307"],
+  },
+  channels: {
+    allChannels: true,
+    allowedChannels: [],
+  },
+  action: true,
+  description: "Unban banned user",
+  reply: "",
+  id: "VkjVaFAd_yvYyNc3h3oTYLQ",
   async execute(client: any, message: any, args: any) {
     try {
       const target = await client.users.fetch(args[0]);

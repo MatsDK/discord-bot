@@ -3,7 +3,19 @@ import conf from "../conf.json";
 import Discord from "discord.js";
 
 export default {
-  name: "mute",
+  keyword: "mute",
+  roles: {
+    allRoles: false,
+    consentedRoles: ["831232420425498675", "831232473144754307"],
+  },
+  channels: {
+    allChannels: true,
+    allowedChannels: [],
+  },
+  action: true,
+  description: "",
+  reply: "",
+  id: "rsBaOGbD8m2FPhx19_NOf",
   async execute(client: any, message: any, args: any) {
     const target: any = message.mentions.members.first();
     if (!target) message.reply("Please mention the person you want to mute");

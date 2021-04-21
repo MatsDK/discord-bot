@@ -2,7 +2,19 @@ import Discord from "discord.js";
 import getTimeInMs from "./utils/getTimeInMs";
 
 export default {
-  name: "createpoll",
+  keyword: "createpoll",
+  roles: {
+    allRoles: false,
+    consentedRoles: ["831232420425498675", "831232473144754307"],
+  },
+  channels: {
+    allChannels: true,
+    allowedChannels: [],
+  },
+  action: true,
+  description: "",
+  reply: "",
+  id: "dbZVu-ducj01xqSDouRfT",
   async execute(client: any, message: any, args: any) {
     let time: any = args[0];
 

@@ -176,5 +176,19 @@
     "action": true,
     "description": "",
     "reply": ""
+  },
+  "s9sc5geKP2c_snduKt3T_Ia": {
+    "keyword": "nickname",
+    "roles": {
+      "allRoles": true,
+      "consentedRoles": []
+    },
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
+    "action": true,
+    "description": "",
+    "reply": ""
   }
 }

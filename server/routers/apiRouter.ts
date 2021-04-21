@@ -9,13 +9,6 @@ import { clientState } from "../../bot/client";
 const router = Router();
 
 router.get("/getData", async (req: Request, res: Response) => {
-  const { default: commands } = await import(
-    "../../bot/commands/commands.json"
-  );
-  Object.keys(commands).forEach((key: string) => {
-    commands[key].id = key;
-  });
-
   const client = clientState.client;
   const channelsArr: channelsType[] = Array.from(
     client.channels.cache
@@ -35,7 +28,7 @@ router.get("/getData", async (req: Request, res: Response) => {
   res.json({
     err: false,
     data: {
-      commands,
+      commands: client.commands,
       prefix: prefixState.PREFIX,
       channels: channelsArr,
       roles: rolesArr,

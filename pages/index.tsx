@@ -10,19 +10,25 @@ const Index = ({ cmds, prefix }): JSX.Element => {
 
   return (
     <div>
-      <Link href={"/newCommand"}>New Commands</Link>
-      {commands.reverse().map((_: commandType, idx: number) => {
-        return (
-          <div key={idx} style={{ display: "flex" }}>
-            <p className="keyWord">
-              {prefix}
-              {_.keyword}
-            </p>
-            <p className="desc">{_.description}</p>
-            <p className="reply">{_.reply}</p>
-          </div>
-        );
-      })}
+      <Link href={"/command"}>New Commands</Link>
+      {commands
+        .sort((a: commandType, b: commandType) => {
+          const textA = a.keyword.toUpperCase();
+          const textB = b.keyword.toUpperCase();
+          return textA < textB ? -1 : textA > textB ? 1 : 0;
+        })
+        .map((_: commandType, idx: number) => {
+          return (
+            <div key={idx} style={{ display: "flex" }}>
+              <p className="keyWord">
+                {prefix}
+                {_.keyword}
+              </p>
+              <p className="desc">{_.description}</p>
+              <p className="reply">{_.reply}</p>
+            </div>
+          );
+        })}
     </div>
   );
 };
