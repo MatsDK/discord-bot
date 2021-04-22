@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { GetStaticProps } from "next";
 import SelectChannelsContainer from "@/components/SelectChannelsContainer";
-import SelectRolesContainer from "@/components/selectRolesContainer";
+import SelectRolesContainer from "@/components/SelectRolesContainer";
 
 interface newCommandProps {
   prefix: string;

@@ -23,7 +23,7 @@ const SelectRolesContainer: React.FC<SelectRolesProps> = ({
           return (
             <div
               key={idx}
-              style={{ color: active ? "blue" : "black" }}
+              style={{ color: active ? `blue` : "black" }}
               onClick={() => {
                 const i: number = selectedRoles.indexOf(_.id);
                 if (i < 0)

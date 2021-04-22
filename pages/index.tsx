@@ -10,7 +10,8 @@ const Index = ({ cmds, prefix }): JSX.Element => {
 
   return (
     <div>
-      <Link href={"/command"}>New Commands</Link>
+      <Link href={"/command/new"}>New Command</Link>
+      <Link href={"/command/edit"}>edit Command</Link>
       {commands
         .sort((a: commandType, b: commandType) => {
           const textA = a.keyword.toUpperCase();
