@@ -1,4 +1,30 @@
 {
+  "awtHboWksssiS3C8hcqS": {
+    "keyword": "clear",
+    "roles": { "allRoles": false, "consentedRoles": ["831232420425498675"] },
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
+    "action": true,
+    "description": "",
+    "reply": "",
+    "id": "awtHboWksssiS3C8hcqS",
+    "fileName": "clear.ts"
+  },
+  "awtHboWkr4khiS3C8hcqS": {
+    "keyword": "ban",
+    "roles": { "allRoles": false, "consentedRoles": ["831232420425498675"] },
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
+    "action": true,
+    "description": "",
+    "reply": "",
+    "id": "awtHboWkr4khiS3C8hcqS",
+    "fileName": "ban.ts"
+  },
   "e3gZU3hIXFDr4P_JnKzSf9": {
     "keyword": "ping",
     "roles": {
@@ -14,5 +40,199 @@
     "reply": "",
     "id": "e3gZU3hIXFDr4P_JnKzSf9",
     "fileName": "ping.ts"
+  },
+  "wwxbuwBLwgrO--lcvAYSbeG": {
+    "keyword": "commands",
+    "roles": { "allRoles": true, "consentedRoles": [] },
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
+    "action": true,
+    "description": "List commands for role",
+    "reply": "",
+    "id": "wwxbuwBLwgrO--lcvAYSbeG",
+    "fileName": "commands.ts"
+  },
+  "dbZVu-ducj01xqSDouRfT": {
+    "keyword": "createpoll",
+    "roles": {
+      "allRoles": false,
+      "consentedRoles": ["831232420425498675", "831232473144754307"]
+    },
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
+    "action": true,
+    "description": "",
+    "reply": "",
+    "id": "dbZVu-ducj01xqSDouRfT",
+    "fileName": "createpoll.ts"
+  },
+  "or29OAcrJF1qLf9TgFnz7ejj": {
+    "keyword": "flip",
+    "roles": {
+      "allRoles": true,
+      "consentedRoles": []
+    },
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
+    "action": true,
+    "description": "",
+    "reply": "",
+    "id": "or29OAcrJF1qLf9TgFnz7ejj",
+    "fileName": "flip.ts"
+  },
+  "xbuwBLwgrO--lcvAYSbeG": {
+    "keyword": "kick",
+    "roles": { "allRoles": false, "consentedRoles": ["831232420425498675"] },
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
+    "action": true,
+    "description": "",
+    "reply": "",
+    "id": "xbuwBLwgrO--lcvAYSbeG",
+
+    "fileName": "kick.ts"
+  },
+  "wxbuwBLwgrO--lcvAYSbeG": {
+    "keyword": "members",
+    "roles": { "allRoles": false, "consentedRoles": ["831232420425498675"] },
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
+    "action": true,
+    "description": "",
+    "reply": "",
+    "id": "wxbuwBLwgrO--lcvAYSbeG",
+    "fileName": "members.ts"
+  },
+  "rsBaOGbD8m2FPhx19_NOf": {
+    "keyword": "mute",
+    "roles": {
+      "allRoles": false,
+      "consentedRoles": ["831232420425498675", "831232473144754307"]
+    },
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
+    "action": true,
+    "description": "",
+    "reply": "",
+    "id": "rsBaOGbD8m2FPhx19_NOf",
+    "fileName": "mute.ts"
+  },
+  "or29OAcrJF1qLf9TgFnz7": {
+    "keyword": "nickname",
+    "roles": {
+      "allRoles": true,
+      "consentedRoles": []
+    },
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
+    "action": true,
+    "description": "",
+    "reply": "",
+    "id": "or29OAcrJF1qLf9TgFnz7",
+    "fileName": "nickname.ts"
+  },
+  "3gZU3hIXFDr4P_JnKzSf9": {
+    "keyword": "prefix",
+    "roles": {
+      "allRoles": false,
+      "consentedRoles": ["831232420425498675", "831232473144754307"]
+    },
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
+    "action": true,
+    "description": "",
+    "reply": "",
+    "id": "3gZU3hIXFDr4P_JnKzSf9",
+    "fileName": "prefix.ts"
+  },
+  "2qA_U1NWJf3X4Z_zK_HgC": {
+    "keyword": "role",
+    "roles": {
+      "allRoles": false,
+      "consentedRoles": ["831232420425498675", "831165194603462727"]
+    },
+    "channels": {
+      "allChannels": false,
+      "allowedChannels": ["831144092435218435"]
+    },
+    "action": true,
+    "description": "",
+    "reply": "",
+    "id": "2qA_U1NWJf3X4Z_zK_HgC",
+    "fileName": "role.ts"
+  },
+  "BctIqW8XUfwDMxVXmTPFi": {
+    "keyword": "roles",
+    "roles": { "allRoles": true, "consentedRoles": [] },
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
+    "action": true,
+    "description": "",
+    "reply": "",
+    "id": "BctIqW8XUfwDMxVXmTPFi",
+    "fileName": "roles.ts"
+  },
+  "xbuwBLwgrO--lcvAYSdbeG": {
+    "keyword": "rps",
+    "roles": { "allRoles": true, "consentedRoles": [] },
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
+    "action": true,
+    "description": "Play rock paper scissors with the bot.",
+    "reply": "",
+    "id": "xbuwBLwgrO--lcvAYSdbeG",
+    "fileName": "rps.ts"
+  },
+  "PDdER0-XF0La0hZ1NHojg": {
+    "keyword": "unban",
+    "roles": {
+      "allRoles": false,
+      "consentedRoles": ["831232420425498675", "831232473144754307"]
+    },
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
+    "action": true,
+    "description": "Unban banned user",
+    "reply": "",
+    "id": "PDdER0-XF0La0hZ1NHojg",
+    "fileName": "unban.ts"
+  },
+  "VVaFAd_yvYyNc3h3oTYLQ": {
+    "keyword": "unmute",
+    "roles": {
+      "allRoles": false,
+      "consentedRoles": ["831232420425498675", "831232473144754307"]
+    },
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
+    "action": true,
+    "description": "Unmute muted user",
+    "reply": "",
+    "id": "VVaFAd_yvYyNc3h3oTYLQ",
+    "fileName": "unmute.ts"
   }
 }

@@ -1,62 +1,58 @@
-import Discord from "discord.js";
 import getTimeInMs from "./utils/getTimeInMs";
+import Discord from "discord.js";
+import { commandType } from "../types";
+import { Command, CommandClass } from "./utils/Command";
 
-export default {
-  keyword: "createpoll",
-  roles: {
-    allRoles: false,
-    consentedRoles: ["831232420425498675", "831232473144754307"],
-  },
-  channels: {
-    allChannels: true,
-    allowedChannels: [],
-  },
-  action: true,
-  description: "",
-  reply: "",
-  id: "dbZVu-ducj01xqSDouRfT",
-  async execute(client: any, message: any, args: any) {
-    let time: any = args[0];
+export class CommandConstructor {
+  command: CommandClass;
 
-    const regex = new RegExp(/^([0-9]{2}|[0-9]{1})[sSmM]$/);
+  constructor(cmdDetails: commandType) {
+    this.command = new Command(
+      cmdDetails,
+      async (client: any, message: any, args: any[]) => {
+        let time: any = args[0];
 
-    if (args.length < 1) return message.reply("Provide a question");
+        const regex = new RegExp(/^([0-9]{2}|[0-9]{1})[sSmM]$/);
 
-    if (regex.test(time)) {
-      const timeMs: any = getTimeInMs(time);
-      if (timeMs.err) return message.reply(timeMs.err);
-      time = timeMs.ms;
+        if (args.length < 1) return message.reply("Provide a question");
 
-      const question = args.slice(1).join(" ");
-      if (!question.trim()) return message.reply("Provide a question");
+        if (regex.test(time)) {
+          const timeMs: any = getTimeInMs(time);
+          if (timeMs.err) return message.reply(timeMs.err);
+          time = timeMs.ms;
 
-      const poll = new Discord.MessageEmbed()
-        .setTitle(args.slice(1).join(" "))
-        .setFooter(`Poll by ${message.author.username}`);
+          const question = args.slice(1).join(" ");
+          if (!question.trim()) return message.reply("Provide a question");
 
-      const msgEmbed = await message.channel.send(poll);
+          const poll = new Discord.MessageEmbed()
+            .setTitle(args.slice(1).join(" "))
+            .setFooter(`Poll by ${message.author.username}`);
 
-      setTimeout(() => {
-        msgEmbed.delete().catch(console.error);
-      }, time);
+          const msgEmbed = await message.channel.send(poll);
 
-      // await msgEmbed.react("✔️");
-      await msgEmbed.react("✔");
-      await msgEmbed.react("❌");
-    } else {
-      const question = args.join(" ");
-      if (!question.trim()) return message.reply("Provide a question");
+          setTimeout(() => {
+            msgEmbed.delete().catch(console.error);
+          }, time);
 
-      const poll = new Discord.MessageEmbed()
-        .setTitle(args.join(" "))
-        .setFooter(`Poll by ${message.author.username}`);
+          // await msgEmbed.react("✔️");
+          await msgEmbed.react("✔");
+          await msgEmbed.react("❌");
+        } else {
+          const question = args.join(" ");
+          if (!question.trim()) return message.reply("Provide a question");
 
-      const msgEmbed = await message.channel.send(poll);
+          const poll = new Discord.MessageEmbed()
+            .setTitle(args.join(" "))
+            .setFooter(`Poll by ${message.author.username}`);
 
-      // await msgEmbed.react("✔️");
-      await msgEmbed.react("✔");
-      await msgEmbed.react("❌");
-    }
-    message.delete();
-  },
-};
+          const msgEmbed = await message.channel.send(poll);
+
+          // await msgEmbed.react("✔️");
+          await msgEmbed.react("✔");
+          await msgEmbed.react("❌");
+        }
+        message.delete();
+      }
+    );
+  }
+}
