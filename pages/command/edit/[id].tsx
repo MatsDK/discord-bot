@@ -40,16 +40,40 @@ const edit: nextFunctionComponent<EditPageProps> = ({
 
   const saveChanges = () => {
     if (!keywordInput.trim().length) return alert("Invalid Keyword!");
-    console.log(
-      thisCmd,
-      keywordInput,
-      descriptionInput,
-      selectedRoles,
-      selectedChannels
-    );
+
+    thisCmd.description = descriptionInput;
+    thisCmd.keyword = keywordInput;
+
+    if (
+      roles.length === selectedRoles.length &&
+      roles.every(
+        (_: rolesType) => thisCmd.roles.allRoles || selectedRoles.includes(_.id)
+      )
+    ) {
+      thisCmd.roles.allRoles = true;
+      thisCmd.roles.consentedRoles = [];
+    } else {
+      thisCmd.roles.allRoles = false;
+      thisCmd.roles.consentedRoles = selectedRoles;
+    }
+    if (
+      channels.length === selectedChannels.length &&
+      channels.every(
+        (_: channelsType) =>
+          thisCmd.channels.allChannels || selectedChannels.includes(_.id)
+      )
+    ) {
+      thisCmd.channels.allChannels = true;
+      thisCmd.channels.allowedChannels = [];
+    } else {
+      thisCmd.channels.allChannels = false;
+      thisCmd.channels.allowedChannels = selectedChannels;
+    }
+
     axios({
       method: "POST",
       url: "http://localhost:3001/api/changeCmd",
+      data: { command: thisCmd },
     })
       .then((res) => {
         console.log(res);

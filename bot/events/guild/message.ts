@@ -1,3 +1,4 @@
+import { clientState } from "../../client";
 import { prefixState } from "../../constants";
 
 export default async (Discord: any, client: any, message: any) => {
@@ -16,7 +17,7 @@ export default async (Discord: any, client: any, message: any) => {
       .slice(prefixState.PREFIX.length)
       .split(/\s+/);
 
-    const thisCmd: any = client.commands.get(cmd.toLowerCase());
+    const thisCmd: any = clientState.client.commands.get(cmd.toLowerCase());
     if (!thisCmd) return;
 
     if (
@@ -33,7 +34,7 @@ export default async (Discord: any, client: any, message: any) => {
     )
       return message.reply("You don't have the permissions");
 
-    if (thisCmd.action) thisCmd.execute(client, message, args);
+    if (thisCmd.action) thisCmd.execute(clientState.client, message, args);
     else message.reply(thisCmd.reply);
   } catch (err) {
     console.log(err);
