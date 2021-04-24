@@ -36,6 +36,7 @@ export default async (Discord: any, client: any, message: any) => {
     if (thisCmd.action) thisCmd.execute(client, message, args);
     else message.reply(thisCmd.reply);
   } catch (err) {
+    console.log(err);
     message.reply("An error occured");
   }
 };

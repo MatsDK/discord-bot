@@ -1,3 +1,6 @@
+import { commandType } from "../types";
+import { Command } from "./utils/Command";
+
 export default {
   keyword: "ping",
   roles: {
@@ -22,3 +25,19 @@ export default {
     });
   },
 };
+
+export class CommandConstructor {
+  command: any;
+
+  constructor(cmdDetails: commandType) {
+    this.command = new Command(cmdDetails, (client, message, args) => {
+      message.reply("Calculating ping...").then((returnMessage: any) => {
+        return returnMessage.edit(
+          `\nBot latency: ${
+            returnMessage.createdTimestamp - message.createdTimestamp
+          }ms \nAPI latency: ${client.ws.ping}ms`
+        );
+      });
+    });
+  }
+}

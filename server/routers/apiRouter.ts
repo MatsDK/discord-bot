@@ -1,34 +1,44 @@
 import { prefixState } from "../../bot/constants";
 import { Request, Response, Router } from "express";
-import { channelsType, commandType, createCmdBody, rolesType } from "bot/types";
+import { commandType, createCmdBody } from "bot/types";
 import { nanoid } from "nanoid";
 import fs from "fs";
+// import util from "util";:
 import path from "path";
 import { clientState } from "../../bot/client";
+import { getData } from "../utils/getData";
 
 const router = Router();
 
 router.get("/getData", async (req: Request, res: Response) => {
   const client = clientState.client;
-  const channelsArr: channelsType[] = Array.from(
-    client.channels.cache
-      .filter((channel: any) => channel.type === "text")
-      .entries()
-  ).map(([_, value]: any) => ({ name: value.name, id: value.id }));
 
-  const rolesArr: rolesType[] = Array.from(
-    client.guilds.cache.first().roles.cache.entries()
-  ).map(([_, value]: any) => ({
-    id: value.id,
-    name: value.name,
-    color: value.color,
-    rawPosition: value.rawPosition,
-  }));
-
+  const { channelsArr, rolesArr } = getData(client);
+  console.log(client.commands);
   res.json({
     err: false,
     data: {
       commands: client.commands,
+      prefix: prefixState.PREFIX,
+      channels: channelsArr,
+      roles: rolesArr,
+    },
+  });
+});
+
+router.get("/getData/:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const client = clientState.client;
+  const thisCmd: commandType | undefined = client.commands.find(
+    (_: commandType) => _.id === id
+  );
+  if (!thisCmd) return res.json({ err: "Command not found" });
+
+  const { channelsArr, rolesArr } = getData(client);
+  res.json({
+    err: false,
+    data: {
+      thisCmd,
       prefix: prefixState.PREFIX,
       channels: channelsArr,
       roles: rolesArr,
@@ -82,6 +92,37 @@ router.post("/createCmd", async (req: Request, res: Response) => {
     commands[key].id = key;
   });
   res.json({ err: false, data: commands });
+});
+
+router.post("/changeCmd", async (req: Request, res: Response) => {
+  // const { default: commands } = await import(
+  //   "../../bot/commands/commands.json"
+  // );
+
+  // commands["9sc5geKP2c_snuKt3T_Ia"].reply = "Test reply";
+
+  // fs.writeFileSync(
+  //   path.resolve(__dirname, "../../bot/commands/commands.json"),
+  //   JSON.stringify(commands),
+  //   null
+  // );
+
+  // ### ACTION ###
+  const pingId: string = "e3gZU3hIXFDr4P_JnKzSf9";
+  const commandData = await import("../../bot/commands/actions.json");
+
+  const cmdId: string | undefined = Object.keys(commandData).find(
+    (_: any) => _ === pingId
+  );
+  if (!cmdId) return res.json({ err: true });
+
+  const thisCmd: commandType | undefined = commandData[cmdId];
+  if (!thisCmd) return res.json({ err: true });
+
+  thisCmd.description = "fdjsl";
+  console.log(thisCmd, commandData);
+
+  res.json({ err: false });
 });
 
 export default router;

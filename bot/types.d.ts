@@ -14,6 +14,7 @@ export interface commandType {
   action: boolean;
   reply: any;
   id?: string;
+  fileName?: string;
 }
 
 export interface channelsType {

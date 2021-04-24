@@ -28,7 +28,7 @@ export class Bot extends Client {
     eventHandler(this, Discord);
   };
 
-  start = () => {
+  start() {
     this.login(this.#token);
-  };
+  }
 }

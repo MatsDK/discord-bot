@@ -1,0 +1,18 @@
+{
+  "e3gZU3hIXFDr4P_JnKzSf9": {
+    "keyword": "ping",
+    "roles": {
+      "allRoles": true,
+      "consentedRoles": []
+    },
+    "channels": {
+      "allChannels": true,
+      "allowedChannels": []
+    },
+    "action": true,
+    "description": "",
+    "reply": "",
+    "id": "e3gZU3hIXFDr4P_JnKzSf9",
+    "fileName": "ping.ts"
+  }
+}
