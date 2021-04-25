@@ -5,9 +5,10 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import apiRouter from "./routers/apiRouter";
 import { Bot } from "../bot/Bot";
+import { NextServer } from "next/dist/server/next";
 
-const dev = process.env.NODE_ENV !== "production";
-const app = next({ dev });
+const dev: boolean = process.env.NODE_ENV !== "production";
+const app: NextServer = next({ dev });
 const handle = app.getRequestHandler();
 
 app

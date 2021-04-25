@@ -24,7 +24,7 @@ export default async (Discord: any, client: any, message: any) => {
       !thisCmd.channels.allChannels &&
       !thisCmd.channels.allowedChannels.includes(message.channel.id)
     )
-      return message.reply("This Command can't be used in this channel");
+      return message.reply("This Command cannot be used in this channel");
 
     if (
       !thisCmd.roles.allRoles &&

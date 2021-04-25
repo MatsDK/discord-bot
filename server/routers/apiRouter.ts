@@ -125,20 +125,31 @@ router.post("/changeCmd", async (req: Request, res: Response) => {
       clientState.client.commands.clear();
       commandHandler(clientState.client, Discord);
     } else {
-      // ### ACTION ###
-      const commandData = await import("../../bot/commands/actions.json");
+      const { default: commandData } = await import(
+        "../../bot/commands/actions.json"
+      );
 
       const cmdId: string | undefined = Object.keys(commandData).find(
         (_: string) => _ === id
       );
       if (!cmdId) return res.json({ err: true });
 
-      const thisCmd: commandType | undefined = commandData[cmdId];
+      let thisCmd: commandType | undefined = commandData[cmdId];
       if (!thisCmd) return res.json({ err: true });
 
-      thisCmd.description = "fdjsl";
-      console.log(thisCmd);
+      command.fileName = thisCmd.fileName;
+      commandData[id] = command;
+
+      fs.writeFileSync(
+        path.resolve(__dirname, "../../bot/commands/actions.json"),
+        JSON.stringify(commandData),
+        null
+      );
+
+      clientState.client.commands.clear();
+      commandHandler(clientState.client, Discord);
     }
+
     res.json({ err: false });
   } catch (err) {
     console.log(err);

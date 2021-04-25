@@ -10,7 +10,7 @@ const Index = ({ cmds, prefix }): JSX.Element => {
 
   return (
     <div>
-      <Link href={"/command/new"}>New Command</Link>
+      <Link href={"/commands/new/command"}>New Command</Link>
       {commands
         .sort((a: commandType, b: commandType) => {
           const textA = a.keyword.toUpperCase();
@@ -26,7 +26,7 @@ const Index = ({ cmds, prefix }): JSX.Element => {
               </p>
               <p className="desc">{_.description}</p>
               <p className="reply">{_.reply}</p>
-              <Link href={`/command/edit/${_.id}`}>Edit</Link>
+              <Link href={`/commands/edit/${_.id}`}>Edit</Link>
             </div>
           );
         })}

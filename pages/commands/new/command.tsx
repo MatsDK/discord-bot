@@ -12,16 +12,17 @@ interface newCommandProps {
   channels: channelsType[];
   roles: rolesType[];
   cmds: commandType[];
+  redirect?: boolean;
 }
 
-const newCommand = ({ prefix, channels, roles }: newCommandProps) => {
+const newCommand = ({ prefix, channels, roles, redirect }: newCommandProps) => {
+  const router = useRouter();
   const [selectedChannels, setSelectedChannels] = useState<string[]>(
     channels.map((_: channelsType) => _.id)
   );
   const [selectedRoles, setSelectedRoles] = useState<string[]>(
     roles.map((_: rolesType) => _.id)
   );
-  const router = useRouter();
 
   const createCommand = (
     keyWordInput: string,
@@ -76,7 +77,14 @@ export const getStaticProps: GetStaticProps = async () => {
     url: "http://localhost:3001/api/getData",
   });
 
-  if (res.data.err) return { props: { data: {} } };
+  if (res.data.err)
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/",
+      },
+    };
+
   return {
     props: {
       cmds: res.data.data.commands,

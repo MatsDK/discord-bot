@@ -25,7 +25,7 @@ const edit: nextFunctionComponent<EditPageProps> = ({
 }) => {
   const [keywordInput, setKeywordInput] = useState<string>(thisCmd.keyword);
   const [descriptionInput, setDescriptionInput] = useState<string>(
-    thisCmd.keyword
+    thisCmd.description
   );
   const [selectedChannels, setSelectedChannels] = useState<Array<string>>(
     thisCmd.channels.allChannels
@@ -76,7 +76,7 @@ const edit: nextFunctionComponent<EditPageProps> = ({
       data: { command: thisCmd },
     })
       .then((res) => {
-        console.log(res);
+        if (res.data.err) return;
       })
       .catch((err) => {
         console.log(err);
