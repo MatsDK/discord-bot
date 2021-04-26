@@ -38,3 +38,17 @@ export interface createCmdBody {
   description: string;
   reply: string;
 }
+
+export interface PollOption {
+  text: string;
+  emoji: string;
+}
+
+export interface pollType {
+  name: string;
+  content: string;
+  description: string;
+  hasDuration: boolean;
+  duration: number;
+  options: Array<PollOption>;
+}

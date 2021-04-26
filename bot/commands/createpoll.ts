@@ -47,7 +47,7 @@ export class CommandConstructor {
 
           const msgEmbed = await message.channel.send(poll);
 
-          // await msgEmbed.react("✔️");
+          await msgEmbed.react("😀");
           await msgEmbed.react("✔");
           await msgEmbed.react("❌");
         }

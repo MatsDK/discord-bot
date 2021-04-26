@@ -11,6 +11,9 @@ const dev: boolean = process.env.NODE_ENV !== "production";
 const app: NextServer = next({ dev });
 const handle = app.getRequestHandler();
 
+// import polls from "../bot/poll.json";
+// console.log(JSON.stringify(polls));
+
 app
   .prepare()
   .then(() => {

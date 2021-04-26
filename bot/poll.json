@@ -1,0 +1,13 @@
+{
+  "someId": {
+    "name": "test",
+    "content": "Is this corrext",
+    "description": "ask a question",
+    "duration": 1000,
+    "hasDuration": false,
+    "options": [
+      { "text": "No", "emoji": "❌" },
+      { "text": "Yes", "emoji": "✔" }
+    ]
+  }
+}

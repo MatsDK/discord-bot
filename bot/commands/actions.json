@@ -12,11 +12,14 @@
   "awtHboWkr4khiS3C8hcqS": {
     "keyword": "ban",
     "roles": { "allRoles": false, "consentedRoles": ["831232420425498675"] },
-    "channels": { "allChannels": true, "allowedChannels": [] },
-    "action": true,
-    "description": "",
+    "channels": {
+      "allChannels": false,
+      "allowedChannels": ["831519957372239912", "833080267068538880"]
+    },
+    "description": "Ban a member",
     "reply": "",
     "id": "awtHboWkr4khiS3C8hcqS",
+    "action": true,
     "fileName": "ban.ts"
   },
   "e3gZU3hIXFDr4P_JnKzSf9": {
@@ -179,5 +182,18 @@
     "reply": "",
     "id": "VVaFAd_yvYyNc3h3oTYLQ",
     "fileName": "unmute.ts"
+  },
+  "VfdsVaFAd_yvYyNc3h3oTYLQ": {
+    "keyword": "poll",
+    "roles": {
+      "allRoles": false,
+      "consentedRoles": ["831232420425498675", "831232473144754307"]
+    },
+    "channels": { "allChannels": true, "allowedChannels": [] },
+    "action": true,
+    "description": "ask poll",
+    "reply": "",
+    "id": "VfdsVaFAd_yvYyNc3h3oTYLQ",
+    "fileName": "poll.ts"
   }
 }

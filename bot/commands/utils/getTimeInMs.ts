@@ -1,7 +1,5 @@
 export default (time: any): any => {
-  const regex = new RegExp(/^([0-9]{2}|[0-9]{1})[sSmMhH]$/);
-
-  if (regex.test(time)) {
+  if (isTimeStr(time)) {
     if (time.toLowerCase().endsWith("s")) {
       time = parseInt(time.substring(0, time.indexOf("s")));
       time *= 1000;
@@ -17,7 +15,7 @@ export default (time: any): any => {
   return { ms: time, formattedDuration: msToTime(time) };
 };
 
-const msToTime = (duration: number): string => {
+export const msToTime = (duration: number): string => {
   let seconds: any = Math.floor((duration / 1000) % 60),
     minutes: any = Math.floor((duration / (1000 * 60)) % 60),
     hours: any = Math.floor((duration / (1000 * 60 * 60)) % 24),
@@ -31,4 +29,9 @@ const msToTime = (duration: number): string => {
   if (seconds)
     dur += `${minutes ? ", " : ""}${seconds} second${seconds > 1 ? "s" : ""}`;
   return dur;
+};
+
+export const isTimeStr = (str: string): boolean => {
+  const regex = new RegExp(/^([0-9]{2}|[0-9]{1})[sSmMhH]$/);
+  return regex.test(str);
 };

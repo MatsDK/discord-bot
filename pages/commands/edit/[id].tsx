@@ -27,6 +27,7 @@ const edit: nextFunctionComponent<EditPageProps> = ({
   const [descriptionInput, setDescriptionInput] = useState<string>(
     thisCmd.description
   );
+  const [replyInput, setReplyInput] = useState<string>(thisCmd.reply);
   const [selectedChannels, setSelectedChannels] = useState<Array<string>>(
     thisCmd.channels.allChannels
       ? channels.map((_: channelsType) => _.id)
@@ -38,11 +39,10 @@ const edit: nextFunctionComponent<EditPageProps> = ({
       : thisCmd.roles.consentedRoles
   );
 
-  const saveChanges = () => {
-    if (!keywordInput.trim().length) return alert("Invalid Keyword!");
-
+  const updateChanges = () => {
     thisCmd.description = descriptionInput;
     thisCmd.keyword = keywordInput;
+    thisCmd.reply = replyInput;
 
     if (
       roles.length === selectedRoles.length &&
@@ -70,10 +70,17 @@ const edit: nextFunctionComponent<EditPageProps> = ({
       thisCmd.channels.allowedChannels = selectedChannels;
     }
 
+    return thisCmd;
+  };
+
+  const saveChanges = () => {
+    if (!keywordInput.trim().length) return alert("Invalid Keyword!");
+    const updatedCmd = updateChanges();
+
     axios({
       method: "POST",
       url: "http://localhost:3001/api/changeCmd",
-      data: { command: thisCmd },
+      data: { command: updatedCmd },
     })
       .then((res) => {
         if (res.data.err) return;
@@ -99,6 +106,11 @@ const edit: nextFunctionComponent<EditPageProps> = ({
         value={descriptionInput}
         placeholder="Description"
         onChange={(e) => setDescriptionInput(e.target.value)}
+      />
+      <textarea
+        value={replyInput}
+        onChange={(e) => setReplyInput(e.target.value)}
+        placeholder="Reply"
       />
       <SelectChannelsContainer
         channels={channels}

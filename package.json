@@ -8,6 +8,8 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "discord.js": "^12.5.3",
+    "emoji-mart": "^3.0.1",
+    "emoji-picker-react": "^3.4.4",
     "express": "^4.17.1",
     "nanoid": "^3.1.22",
     "next": "^10.0.8",
