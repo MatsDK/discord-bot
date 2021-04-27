@@ -41,27 +41,61 @@ export class CommandConstructor {
            `
             )
             .setFooter(
-              pollDuration
-                ? pollDuration.formattedDuration
-                : thisPoll.hasDuration
-                ? msToTime(thisPoll.duration)
-                : "Unspecified"
+              "Duration: " +
+                (pollDuration?.formattedDuration
+                  ? pollDuration.formattedDuration
+                  : thisPoll.hasDuration
+                  ? msToTime(thisPoll.duration)
+                  : "Unspecified")
             );
 
           const MessageEmbed = await message.channel.send(embed);
           for (let option of thisPoll.options)
             await MessageEmbed.react(option.emoji);
 
+          interface pollResultOption {
+            count: number;
+            text?: string;
+            emoji?: string;
+          }
+
+          const sendResultsMessage = (embedMsg: any) => {
+            embedMsg.channel.send(`
+              ${thisPoll.content} Results:\n\n${Array.from(
+              embedMsg.reactions.cache
+            )
+              .map(([key, _]: any) => {
+                const obj: pollResultOption = {
+                  ...thisPoll.options.find(
+                    (option: PollOption) => option.emoji == key
+                  ),
+                  count: _.count as number,
+                };
+                return obj;
+              })
+              .sort(
+                (a: pollResultOption, b: pollResultOption) => b.count - a.count
+              )
+              .map(
+                (_: pollResultOption) =>
+                  `${_.emoji} | ${_.text}: **${_.count}**`
+              )
+              .join("\n")}`);
+          };
+
           if (!pollDuration) {
             if (thisPoll.hasDuration)
               setTimeout(() => {
                 MessageEmbed.delete();
+                sendResultsMessage(MessageEmbed);
               }, thisPoll.duration);
           } else
             setTimeout(() => {
               MessageEmbed.delete();
+              sendResultsMessage(MessageEmbed);
             }, pollDuration.ms);
         } catch (err) {
+          console.log(err);
           message.reply("An error occured");
         }
       }

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 const index = (props: any) => {
-  const [polls, setPoll] = useState<Array<pollType>>(
+  const [polls] = useState<Array<pollType>>(
     Object.keys(props.polls).map((key: any) => props.polls[key])
   );
 
@@ -28,10 +28,10 @@ const index = (props: any) => {
 export const getStaticProps = async () => {
   const res = await axios({
     method: "GET",
-    url: "http://localhost:3001/api/getPolls",
+    url: "http://localhost:3001/api/poll/getPolls",
   });
 
-  if (res.data.err) return { props: { data: {} } };
+  if (res.data.err) return { props: { polls: {} } };
   return {
     props: {
       polls: res.data.polls,

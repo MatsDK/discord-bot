@@ -4,15 +4,13 @@ import express, { Application, Request, Response } from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import apiRouter from "./routers/apiRouter";
+import apiPollsRouter from "./routers/apiPollsRouter";
 import { Bot } from "../bot/Bot";
 import { NextServer } from "next/dist/server/next";
 
 const dev: boolean = process.env.NODE_ENV !== "production";
 const app: NextServer = next({ dev });
 const handle = app.getRequestHandler();
-
-// import polls from "../bot/poll.json";
-// console.log(JSON.stringify(polls));
 
 app
   .prepare()
@@ -22,6 +20,7 @@ app
     server.use(bodyParser());
     server.use(cors());
     server.use("/api", apiRouter);
+    server.use("/api/poll", apiPollsRouter);
 
     server.get("*", (req: Request, res: Response) => {
       return handle(req, res);

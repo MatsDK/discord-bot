@@ -1,14 +1,17 @@
 export default (time: any): any => {
   if (isTimeStr(time)) {
     if (time.toLowerCase().endsWith("s")) {
-      time = parseInt(time.substring(0, time.indexOf("s")));
+      time = Number(time.substring(0, time.indexOf("s")));
       time *= 1000;
     } else if (time.toLowerCase().endsWith("m")) {
-      time = parseInt(time.substring(0, time.indexOf("m")));
+      time = Number(time.substring(0, time.indexOf("m")));
       time *= 60 * 1000;
     } else if (time.toLowerCase().endsWith("h")) {
-      time = parseInt(time.substring(0, time.indexOf("h")));
+      time = Number(time.substring(0, time.indexOf("h")));
       time *= 60 * 60 * 1000;
+    } else if (time.toLowerCase().endsWith("d")) {
+      time = Number(time.substring(0, time.indexOf("d")));
+      time *= 24 * 60 * 60 * 1000;
     }
   } else return { err: "Invalid Time input" };
 
@@ -32,6 +35,6 @@ export const msToTime = (duration: number): string => {
 };
 
 export const isTimeStr = (str: string): boolean => {
-  const regex = new RegExp(/^([0-9]{2}|[0-9]{1})[sSmMhH]$/);
+  const regex = new RegExp(/^([0-9]{2}|[0-9]{1})[sSmMhHdD]$/);
   return regex.test(str);
 };

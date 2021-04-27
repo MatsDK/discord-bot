@@ -26,7 +26,6 @@ const Index = ({ cmds, prefix }): JSX.Element => {
                 {_.keyword}
               </p>
               <p className="desc">{_.description}</p>
-              {/* <p className="reply">{_.reply}</p> */}
               <Link href={`/commands/edit/${_.id}`}>Edit</Link>
             </div>
           );

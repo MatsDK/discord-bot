@@ -8,7 +8,6 @@ import path from "path";
 import { clientState } from "../../bot/client";
 import { getData } from "../utils/getData";
 import { commandHandler } from "../../bot/handlers/commandHandler";
-import polls from "../../bot/poll.json";
 
 const router = Router();
 
@@ -156,10 +155,6 @@ router.post("/changeCmd", async (req: Request, res: Response) => {
     console.log(err);
     res.json({ err: true });
   }
-});
-
-router.get("/getPolls", (req: Request, res: Response) => {
-  res.json({ polls });
 });
 
 export default router;

@@ -4,10 +4,26 @@
     "content": "Is this corrext",
     "description": "ask a question",
     "duration": 1000,
-    "hasDuration": false,
+    "hasDuration": true,
     "options": [
       { "text": "No", "emoji": "❌" },
       { "text": "Yes", "emoji": "✔" }
+    ]
+  },
+  "a6EN28VIw4rYbO9aN-XzX": {
+    "name": "country",
+    "content": "Where are you from",
+    "description": "ask where they are from",
+    "hadDuration": false,
+    "duration": 0,
+    "options": [
+      { "text": "netherlands", "emoji": "🇳🇱" },
+      { "text": "Belgium", "emoji": "🇧🇪" },
+      { "text": "Luxembourg", "emoji": "🇱🇺" },
+      { "text": "China", "emoji": "🇨🇳" },
+      { "text": "Japan", "emoji": "🇯🇵" },
+      { "text": "somalia", "emoji": "🇸🇴" },
+      { "text": "South korea", "emoji": "🇰🇵" }
     ]
   }
 }
