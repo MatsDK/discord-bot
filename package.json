@@ -29,7 +29,7 @@
     "dev": "nodemon ./server/index.ts",
     "build": "next build && tsc --project tsconfig.server.json",
     "postinstall": "npm run build",
-    "start": "node .next/production-server/index.js"
+    "start": "node .next/production-server/server/index.js"
   },
   "keywords": [],
   "author": "matsdekort <matsdekort257@gmail.com>",

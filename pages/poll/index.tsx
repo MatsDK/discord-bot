@@ -4,7 +4,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
 
-const index = (props: any) => {
+const PollPage = (props: any) => {
   const [polls] = useState<Array<pollType>>(
     Object.keys(props.polls).map((key: any) => props.polls[key])
   );
@@ -19,7 +19,7 @@ const index = (props: any) => {
   );
 };
 
-export const getStaticProps = async () => {
+PollPage.getInitialProps = async () => {
   const res = await axios({
     method: "GET",
     url: "http://localhost:3001/api/poll/getPolls",
@@ -33,4 +33,4 @@ export const getStaticProps = async () => {
   };
 };
 
-export default index;
+export default PollPage;

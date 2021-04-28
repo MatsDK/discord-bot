@@ -83,11 +83,13 @@ const edit: nextFunctionComponent<EditPageProps> = ({
         placeholder="Description"
         onChange={(e) => setDescriptionInput(e.target.value)}
       />
-      <textarea
-        value={replyInput}
-        onChange={(e) => setReplyInput(e.target.value)}
-        placeholder="Reply"
-      />
+      {!thisCmd.action && (
+        <textarea
+          value={replyInput}
+          onChange={(e) => setReplyInput(e.target.value)}
+          placeholder="Reply"
+        />
+      )}
       <SelectChannelsContainer
         channels={channels}
         setSelectedChannels={setSelectedChannels}

@@ -3,7 +3,6 @@ import NewCommandForm from "src/components/NewCommandForm";
 import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { GetStaticProps } from "next";
 import SelectChannelsContainer from "src/components/SelectChannelsContainer";
 import SelectRolesContainer from "src/components/SelectRolesContainer";
 
@@ -71,7 +70,7 @@ const newCommand = ({ prefix, channels, roles, redirect }: newCommandProps) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
+newCommand.getInitialProps = async () => {
   const res = await axios({
     method: "GET",
     url: "http://localhost:3001/api/getData",

@@ -3,7 +3,7 @@ import { commandType } from "@/bot/types";
 import Link from "next/link";
 import React, { useState } from "react";
 
-const Index = ({ cmds, prefix }): JSX.Element => {
+const HomePage = ({ cmds, prefix }) => {
   const [commands] = useState<commandType[]>(
     Object.keys(cmds).map((cmdName: string) => cmds[cmdName])
   );
@@ -34,7 +34,7 @@ const Index = ({ cmds, prefix }): JSX.Element => {
   );
 };
 
-export const getStaticProps = async () => {
+HomePage.getInitialProps = async () => {
   const res = await axios({
     method: "GET",
     url: "http://localhost:3001/api/getData",
@@ -49,4 +49,4 @@ export const getStaticProps = async () => {
   };
 };
 
-export default Index;
+export default HomePage;
