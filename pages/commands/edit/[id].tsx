@@ -1,6 +1,6 @@
 import { channelsType, commandType, rolesType } from "@/bot/types";
-import SelectChannelsContainer from "@/components/SelectChannelsContainer";
-import SelectRolesContainer from "@/components/SelectRolesContainer";
+import SelectChannelsContainer from "src/components/SelectChannelsContainer";
+import SelectRolesContainer from "src/components/SelectRolesContainer";
 import axios from "axios";
 import Link from "next/link";
 import { Context } from "node:vm";

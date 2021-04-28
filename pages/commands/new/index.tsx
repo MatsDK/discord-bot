@@ -1,11 +1,11 @@
 import { channelsType, commandType, rolesType } from "@/bot/types";
-import NewCommandForm from "@/components/NewCommandForm";
+import NewCommandForm from "src/components/NewCommandForm";
 import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { GetStaticProps } from "next";
-import SelectChannelsContainer from "@/components/SelectChannelsContainer";
-import SelectRolesContainer from "@/components/SelectRolesContainer";
+import SelectChannelsContainer from "src/components/SelectChannelsContainer";
+import SelectRolesContainer from "src/components/SelectRolesContainer";
 
 interface newCommandProps {
   prefix: string;

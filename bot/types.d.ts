@@ -50,5 +50,6 @@ export interface pollType {
   description: string;
   hasDuration: boolean;
   duration: number;
+  id: string;
   options: Array<PollOption>;
 }

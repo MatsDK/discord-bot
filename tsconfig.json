@@ -27,7 +27,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "paths": {
-      "@/components/*": ["components/*"],
+      "@/components/*": ["src/*"],
       "@/bot/*": ["bot/*"]
     }
   },

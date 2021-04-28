@@ -11,8 +11,14 @@ const SelectRolesContainer: React.FC<SelectRolesProps> = ({
   setSelectedRoles,
   selectedRoles,
 }) => {
+  const selectAll = () => {
+    if (roles.length === selectedRoles.length) setSelectedRoles([]);
+    else setSelectedRoles(roles.map((_: rolesType) => _.id));
+  };
+
   return (
     <div>
+      <button onClick={selectAll}>Select All</button>
       {roles
         .sort((a: rolesType, b: rolesType) => b.rawPosition - a.rawPosition)
         .map((_: rolesType, idx: number) => {

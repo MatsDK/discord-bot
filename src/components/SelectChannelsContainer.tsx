@@ -2,8 +2,8 @@ import { channelsType } from "@/bot/types";
 
 interface SelectChannelsProps {
   channels: Array<channelsType>;
-  setSelectedChannels: Function;
   selectedChannels: Array<string>;
+  setSelectedChannels: Function;
 }
 
 const SelectChannelsContainer: React.FC<SelectChannelsProps> = ({
@@ -11,8 +11,14 @@ const SelectChannelsContainer: React.FC<SelectChannelsProps> = ({
   setSelectedChannels,
   selectedChannels,
 }) => {
+  const selectAll = () => {
+    if (channels.length === selectedChannels.length) setSelectedChannels([]);
+    else setSelectedChannels(channels.map((_: channelsType) => _.id));
+  };
+
   return (
     <div>
+      <button onClick={selectAll}>Select All</button>
       {channels.map((_: channelsType, idx: number) => {
         const active: boolean = !!selectedChannels.find(
           (channelId: string) => channelId === _.id

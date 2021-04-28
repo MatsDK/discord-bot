@@ -10,7 +10,7 @@ const Index = ({ cmds, prefix }): JSX.Element => {
 
   return (
     <div>
-      <Link href={"/commands/new/command"}>New Command</Link>
+      <Link href={"/commands/new/"}>New Command</Link>
       <Link href={"/poll"}>Poll</Link>
       {commands
         .sort((a: commandType, b: commandType) => {
