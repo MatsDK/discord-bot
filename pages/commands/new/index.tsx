@@ -37,7 +37,7 @@ const newCommand = ({ prefix, channels, roles, redirect }: newCommandProps) => {
         channels: selectedChannels,
         allChannels: selectedChannels.length === channels.length,
         roles: selectedRoles,
-        allRoles: selectedRoles.length === channels.length,
+        allRoles: selectedRoles.length === roles.length,
 
         description: descriptionInput,
         reply: replyInput,

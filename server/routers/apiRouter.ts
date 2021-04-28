@@ -88,6 +88,9 @@ router.post("/createCmd", async (req: Request, res: Response) => {
     null
   );
 
+  clientState.client.commands.clear();
+  commandHandler(clientState.client, Discord);
+
   Object.keys(commands).forEach((key: string) => {
     commands[key].id = key;
   });

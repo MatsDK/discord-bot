@@ -5,6 +5,7 @@ import axios from "axios";
 import { Context } from "node:vm";
 import { useState } from "react";
 import { checkPoll } from "src/checkPollOptions";
+import Link from "next/link";
 
 interface nextFunctionComponent<P = {}> extends React.FC<P> {
   getInitialProps?: (ctx: any) => Promise<P>;
@@ -44,7 +45,7 @@ const edit: nextFunctionComponent<editPollProps> = ({ poll }) => {
       },
     })
       .then((res) => {
-        console.log(res.data);
+        if (res.data.err) return alert(res.data.err);
       })
       .catch((err) => {
         console.log(err);
@@ -62,6 +63,8 @@ const edit: nextFunctionComponent<editPollProps> = ({ poll }) => {
 
   return (
     <div>
+      <Link href="/">Home</Link>
+      <Link href="/poll">Polls</Link>
       <PollForm {...PollFormProps} />
       <PollOptions setOptions={setPollOptions} options={pollOptions} />
       <button onClick={saveChanges}>Save Changes</button>

@@ -5,6 +5,7 @@ import axios from "axios";
 import Link from "next/link";
 import { Context } from "node:vm";
 import { useState } from "react";
+import { updateChanges } from "@/components/components/updateCmdChanges";
 
 interface nextFunctionComponent<P = {}> extends React.FC<P> {
   getInitialProps?: (ctx: any) => Promise<P>;
@@ -39,43 +40,18 @@ const edit: nextFunctionComponent<EditPageProps> = ({
       : thisCmd.roles.consentedRoles
   );
 
-  const updateChanges = () => {
-    thisCmd.description = descriptionInput;
-    thisCmd.keyword = keywordInput;
-    thisCmd.reply = replyInput;
-
-    if (
-      roles.length === selectedRoles.length &&
-      roles.every(
-        (_: rolesType) => thisCmd.roles.allRoles || selectedRoles.includes(_.id)
-      )
-    ) {
-      thisCmd.roles.allRoles = true;
-      thisCmd.roles.consentedRoles = [];
-    } else {
-      thisCmd.roles.allRoles = false;
-      thisCmd.roles.consentedRoles = selectedRoles;
-    }
-    if (
-      channels.length === selectedChannels.length &&
-      channels.every(
-        (_: channelsType) =>
-          thisCmd.channels.allChannels || selectedChannels.includes(_.id)
-      )
-    ) {
-      thisCmd.channels.allChannels = true;
-      thisCmd.channels.allowedChannels = [];
-    } else {
-      thisCmd.channels.allChannels = false;
-      thisCmd.channels.allowedChannels = selectedChannels;
-    }
-
-    return thisCmd;
-  };
-
   const saveChanges = () => {
     if (!keywordInput.trim().length) return alert("Invalid Keyword!");
-    const updatedCmd = updateChanges();
+    const updatedCmd = updateChanges(
+      thisCmd,
+      descriptionInput,
+      keywordInput,
+      replyInput,
+      {
+        channels: { channels, selectedChannels },
+        roles: { roles, selectedRoles },
+      }
+    );
 
     axios({
       method: "POST",

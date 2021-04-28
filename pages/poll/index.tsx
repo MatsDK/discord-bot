@@ -1,4 +1,5 @@
 import { pollType } from "@/bot/types";
+import PollsList from "@/components/components/PollsList";
 import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
@@ -13,14 +14,7 @@ const index = (props: any) => {
       <Link href="/">Home</Link>
       <Link href="/poll/new">new poll</Link>
       list of polls
-      {polls.map((_: pollType, idx: number) => (
-        <div key={idx} style={{ display: "flex" }}>
-          <p>{_.name}</p>
-          <p>{_.description}</p>
-          <p>{_.options.length} options</p>
-          <Link href={`/poll/edit/${_.id}`}>Edit</Link>
-        </div>
-      ))}
+      <PollsList polls={polls} />
     </div>
   );
 };
