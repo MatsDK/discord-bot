@@ -26,10 +26,6 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "paths": {
-      "@/components/*": ["src/*"],
-      "@/bot/*": ["bot/*"]
-    }
   },
   "include": [
     "trash/next-env.d.ts",

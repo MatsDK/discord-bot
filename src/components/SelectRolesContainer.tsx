@@ -1,4 +1,4 @@
-import { rolesType } from "@/bot/types";
+import { rolesType } from "../../bot/types";
 
 interface SelectRolesProps {
   roles: Array<rolesType>;

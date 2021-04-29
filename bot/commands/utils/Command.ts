@@ -1,4 +1,4 @@
-import { commandType } from "@/bot/types";
+import { commandType } from "../../../bot/types";
 
 type executeFunc = (client: any, message: any, args: any[]) => any;
 export interface CommandClass extends commandType {

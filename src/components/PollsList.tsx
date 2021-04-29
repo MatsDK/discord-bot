@@ -1,4 +1,4 @@
-import { pollType } from "@/bot/types";
+import { pollType } from "../../bot/types";
 import Link from "next/link";
 
 interface PollsListProps {

@@ -1,4 +1,4 @@
-import { channelsType } from "@/bot/types";
+import { channelsType } from "../../bot/types";
 
 interface SelectChannelsProps {
   channels: Array<channelsType>;

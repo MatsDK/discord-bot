@@ -1,5 +1,5 @@
-import { pollType } from "@/bot/types";
-import PollsList from "@/components/components/PollsList";
+import { pollType } from "../../bot/types";
+import PollsList from "../../src/components/PollsList";
 import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
@@ -19,18 +19,34 @@ const PollPage = (props: any) => {
   );
 };
 
-PollPage.getInitialProps = async () => {
+// PollPage.getInitialProps = async () => {
+//   const res = await axios({
+//     method: "GET",
+//     url: "http://localhost:3001/api/poll/getPolls",
+//   }).catch((err) => {
+//     console.log(err);
+//   });
+
+//   if (!res || res.data.err) return { polls: {} };
+//   return {
+//     polls: res.data.polls,
+//   };
+// };
+
+export async function getServerSideProps(context: any) {
   const res = await axios({
     method: "GET",
     url: "http://localhost:3001/api/poll/getPolls",
+  }).catch((err) => {
+    console.log(err);
   });
 
-  if (res.data.err) return { props: { polls: {} } };
+  if (!res || res.data.err) return { props: { polls: {} } };
   return {
     props: {
       polls: res.data.polls,
     },
   };
-};
+}
 
 export default PollPage;

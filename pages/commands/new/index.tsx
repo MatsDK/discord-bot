@@ -1,10 +1,10 @@
-import { channelsType, commandType, rolesType } from "@/bot/types";
-import NewCommandForm from "src/components/NewCommandForm";
+import { channelsType, commandType, rolesType } from "../../../bot/types";
+import NewCommandForm from "../../../src/components/NewCommandForm";
 import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import SelectChannelsContainer from "src/components/SelectChannelsContainer";
-import SelectRolesContainer from "src/components/SelectRolesContainer";
+import SelectChannelsContainer from "../../../src/components/SelectChannelsContainer";
+import SelectRolesContainer from "../../../src/components/SelectRolesContainer";
 
 interface newCommandProps {
   prefix: string;
@@ -14,7 +14,7 @@ interface newCommandProps {
   redirect?: boolean;
 }
 
-const newCommand = ({ prefix, channels, roles, redirect }: newCommandProps) => {
+const newCommand = ({ prefix, channels, roles }: newCommandProps) => {
   const router = useRouter();
   const [selectedChannels, setSelectedChannels] = useState<string[]>(
     channels.map((_: channelsType) => _.id)
@@ -70,13 +70,15 @@ const newCommand = ({ prefix, channels, roles, redirect }: newCommandProps) => {
   );
 };
 
-newCommand.getInitialProps = async () => {
+export async function getServerSideProps(context: any) {
   const res = await axios({
     method: "GET",
     url: "http://localhost:3001/api/getData",
+  }).catch((err) => {
+    console.log(err);
   });
 
-  if (res.data.err)
+  if (!res || res.data.err)
     return {
       redirect: {
         permanent: false,
@@ -92,6 +94,6 @@ newCommand.getInitialProps = async () => {
       roles: res.data.data.roles,
     },
   };
-};
+}
 
 export default newCommand;

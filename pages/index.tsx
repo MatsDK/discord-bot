@@ -1,5 +1,5 @@
 import axios from "axios";
-import { commandType } from "@/bot/types";
+import { commandType } from "../bot/types";
 import Link from "next/link";
 import React, { useState } from "react";
 
@@ -34,19 +34,35 @@ const HomePage = ({ cmds, prefix }) => {
   );
 };
 
-HomePage.getInitialProps = async () => {
+export async function getServerSideProps(context: any) {
   const res = await axios({
     method: "GET",
     url: "http://localhost:3001/api/getData",
+  }).catch((err) => {
+    console.log(err);
   });
 
-  if (res.data.err) return { props: { data: {} } };
+  if (!res || res.data.err) return { props: { cmds: {}, prefix: "" } };
   return {
     props: {
       cmds: res.data.data.commands,
       prefix: res.data.data.prefix,
     },
   };
-};
+}
+// HomePage.getInitialProps = async () => {
+//   const res = await axios({
+//     method: "GET",
+//     url: "http://localhost:3001/api/getData",
+//   }).catch((err) => {
+//     console.log(err);
+//   });
+
+//   if (!res || res.data.err) return { cmds: {}, prefix: "" };
+//   return {
+//     cmds: res.data.data.commands,
+//     prefix: res.data.data.prefix,
+//   };
+// };
 
 export default HomePage;

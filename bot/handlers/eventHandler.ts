@@ -5,7 +5,7 @@ export const eventHandler = async (client: any, Discord: any) => {
   const loadDir = async (dirs: any) => {
     const eventsFiles = fs
       .readdirSync(path.resolve(__dirname, `../events/${dirs}`))
-      .filter((file: string) => file.endsWith(".ts"));
+      .filter((file: string) => file.endsWith(".ts") || file.endsWith(".js"));
 
     for (const file of eventsFiles) {
       const { default: event } = await import(`../events/${dirs}/${file}`);

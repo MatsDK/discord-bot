@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { useState } from "react";
 import "emoji-mart/css/emoji-mart.css";
-import { PollOption } from "@/bot/types";
-import PollOptions from "src/components/PollOptions";
+import { PollOption } from "../../bot/types";
+import PollOptions from "../../src/components/PollOptions";
 import axios from "axios";
 import { useRouter } from "next/router";
-import PollForm from "src/components/PollForm";
-import { checkPoll } from "src/checkPollOptions";
+import PollForm from "../../src/components/PollForm";
+import { checkPoll } from "../../src/checkPollOptions";
 
 const PollPage = () => {
   const router = useRouter();

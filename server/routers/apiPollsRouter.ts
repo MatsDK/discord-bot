@@ -1,4 +1,4 @@
-import { pollType } from "@/bot/types";
+import { pollType } from "../../bot/types";
 import { Request, Response, Router } from "express";
 import { nanoid } from "nanoid";
 import polls from "../../bot/poll.json";

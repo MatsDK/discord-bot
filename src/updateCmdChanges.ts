@@ -1,4 +1,4 @@
-import { channelsType, commandType, rolesType } from "@/bot/types";
+import { channelsType, commandType, rolesType } from "../bot/types";
 
 export const updateChanges = (
   thisCmd: commandType,

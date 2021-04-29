@@ -1,11 +1,11 @@
-import { channelsType, commandType, rolesType } from "@/bot/types";
+import { channelsType, commandType, rolesType } from "../../../bot/types";
 import SelectChannelsContainer from "src/components/SelectChannelsContainer";
 import SelectRolesContainer from "src/components/SelectRolesContainer";
 import axios from "axios";
 import Link from "next/link";
 import { Context } from "node:vm";
 import { useState } from "react";
-import { updateChanges } from "@/components/components/updateCmdChanges";
+import { updateChanges } from "../../../src/updateCmdChanges";
 
 interface nextFunctionComponent<P = {}> extends React.FC<P> {
   getInitialProps?: (ctx: any) => Promise<P>;
@@ -110,9 +110,11 @@ edit.getInitialProps = async ({ query, res }: Context) => {
   const apiRes = await axios({
     method: "GET",
     url: `http://localhost:3001/api/getData/${id}`,
+  }).catch((err) => {
+    console.log(err);
   });
 
-  if (apiRes.data.err) return res.redirect("/");
+  if (!apiRes || apiRes.data.err) return res.redirect("/");
   return {
     thisCmd: apiRes.data.data.thisCmd,
     prefix: apiRes.data.data.prefix,

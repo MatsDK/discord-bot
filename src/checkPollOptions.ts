@@ -1,4 +1,4 @@
-import { PollOption } from "@/bot/types";
+import { PollOption } from "../bot/types";
 
 export const checkPoll = (
   pollOptions: PollOption[],

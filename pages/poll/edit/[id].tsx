@@ -1,6 +1,6 @@
-import { PollOption, pollType } from "@/bot/types";
-import PollForm from "src/components/PollForm";
-import PollOptions from "src/components/PollOptions";
+import { PollOption, pollType } from "../../../bot/types";
+import PollForm from "../../../src/components/PollForm";
+import PollOptions from "../../../src/components/PollOptions";
 import axios from "axios";
 import { Context } from "node:vm";
 import { useState } from "react";
@@ -77,9 +77,11 @@ edit.getInitialProps = async ({ query, res }: Context) => {
   const apiRes = await axios({
     method: "GET",
     url: `http://localhost:3001/api/poll/getPoll/${id}`,
+  }).catch((err) => {
+    console.log(err);
   });
 
-  if (apiRes.data.err) return res.redirect("/");
+  if (!apiRes || apiRes.data.err) return res.redirect("/");
   return { poll: apiRes.data.data };
 };
 
