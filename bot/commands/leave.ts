@@ -9,8 +9,9 @@ export class CommandConstructor {
       cmdDetails,
       async (client: any, message: any, args: any[]) => {
         try {
-          const ans: string = ["Heads", "Tails"][Math.round(Math.random())];
-          message.reply(`The winner is \` ${ans} \``);
+          message.member.kick().catch((err) => {
+            message.reply("An error occured");
+          });
         } catch (err) {
           message.reply("An error occured");
         }

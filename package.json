@@ -9,7 +9,6 @@
     "cors": "^2.8.5",
     "discord.js": "^12.5.3",
     "emoji-mart": "^3.0.1",
-    "emoji-picker-react": "^3.4.4",
     "express": "^4.17.1",
     "nanoid": "^3.1.22",
     "react": "^17.0.1",
@@ -29,7 +28,8 @@
     "dev": "nodemon ./server/index.ts",
     "build": "next build && tsc --project tsconfig.server.json",
     "postinstall": "npm run build",
-    "start": "node .next/production-server/server/index.js"
+    "start": "node .next/production-server/server/index.js",
+    "tsnode": "npx ts-node server/index.ts"
   },
   "keywords": [],
   "author": "matsdekort <matsdekort257@gmail.com>",

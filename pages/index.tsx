@@ -50,19 +50,5 @@ export async function getServerSideProps(context: any) {
     },
   };
 }
-// HomePage.getInitialProps = async () => {
-//   const res = await axios({
-//     method: "GET",
-//     url: "http://localhost:3001/api/getData",
-//   }).catch((err) => {
-//     console.log(err);
-//   });
-
-//   if (!res || res.data.err) return { cmds: {}, prefix: "" };
-//   return {
-//     cmds: res.data.data.commands,
-//     prefix: res.data.data.prefix,
-//   };
-// };
 
 export default HomePage;

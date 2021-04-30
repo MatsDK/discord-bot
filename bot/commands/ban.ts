@@ -1,8 +1,8 @@
 import Discord from "discord.js";
-import checkPermission from "./utils/checkPermission";
+import checkPermission from "../commandUtils/checkPermission";
 import conf from "../conf.json";
 import { commandType } from "../types";
-import { Command, CommandClass } from "./utils/Command";
+import { Command, CommandClass } from "../commandUtils/Command";
 
 export class CommandConstructor {
   command: CommandClass;

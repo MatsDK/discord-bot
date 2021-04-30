@@ -6,5 +6,4 @@
     "outDir": ".next/production-server/"
   },
   "include": ["**/*.ts", "server/**/*.ts"],
-  // "exclude": ["test/**/*.ts"]
 }

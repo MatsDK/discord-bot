@@ -1,5 +1,5 @@
 import { commandType } from "../types";
-import { Command, CommandClass } from "./utils/Command";
+import { Command, CommandClass } from "../commandUtils/Command";
 import Discord from "discord.js";
 
 export class CommandConstructor {

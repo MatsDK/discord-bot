@@ -1,5 +1,5 @@
 import { commandType } from "../types";
-import { Command, CommandClass } from "./utils/Command";
+import { Command, CommandClass } from "../commandUtils/Command";
 
 export class CommandConstructor {
   command: CommandClass;
@@ -21,11 +21,14 @@ export class CommandConstructor {
           const roles: string[] = args
             .slice(1)
             .map((_: string) => _.toLowerCase());
-          const newRole = message.guild.roles.cache.filter(
+          const newRoles = message.guild.roles.cache.filter(
             (_: any) =>
               roles.includes(_.name.toLowerCase()) ||
               roles.includes(_.id.toLowerCase())
           );
+
+          for (let [key, mentionedRole] of message.mentions.roles)
+            newRoles.set(key, mentionedRole);
 
           if (!message.member.hasPermission("MANAGE_ROLES"))
             return message.reply("You don't have permissions to give roles");
@@ -35,8 +38,8 @@ export class CommandConstructor {
             removed: [],
           };
 
-          for (let idx in Array.from(newRole.entries())) {
-            const [_, role]: any = Array.from(newRole.entries())[idx];
+          for (let idx in Array.from(newRoles.entries())) {
+            const [_, role]: any = Array.from(newRoles.entries())[idx];
 
             if (
               target.roles.cache.some(
@@ -53,6 +56,7 @@ export class CommandConstructor {
             }
           }
         } catch (err) {
+          console.log(err);
           message.reply("An error occured");
         }
       }

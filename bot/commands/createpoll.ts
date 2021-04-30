@@ -1,7 +1,7 @@
-import getTimeInMs from "./utils/getTimeInMs";
+import getTimeInMs from "../commandUtils/getTimeInMs";
 import Discord from "discord.js";
 import { commandType } from "../types";
-import { Command, CommandClass } from "./utils/Command";
+import { Command, CommandClass } from "../commandUtils/Command";
 
 export class CommandConstructor {
   command: CommandClass;

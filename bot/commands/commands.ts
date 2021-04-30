@@ -1,5 +1,5 @@
 import { commandType } from "../types";
-import { Command, CommandClass } from "./utils/Command";
+import { Command, CommandClass } from "../commandUtils/Command";
 
 export class CommandConstructor {
   command: CommandClass;
@@ -20,11 +20,13 @@ export class CommandConstructor {
 
           const roleName: string = args.join(" ")?.trim();
           if (roleName.length) {
-            const targetRole = message.guild.roles.cache.find(
-              (_: any) =>
-                _.name.toLowerCase() === roleName.toLowerCase() ||
-                _.id == roleName.toLowerCase()
-            );
+            const targetRole =
+              message.mentions.roles.first() ||
+              message.guild.roles.cache.find(
+                (_: any) =>
+                  _.name.toLowerCase() === roleName.toLowerCase() ||
+                  _.id == roleName.toLowerCase()
+              );
             if (!targetRole) return message.reply("Role not found");
 
             const commands: any[] = Array.from(

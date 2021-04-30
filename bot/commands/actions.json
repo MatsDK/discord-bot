@@ -237,5 +237,28 @@
     "reply": "",
     "id": "wwaFAd_yvYyNc3h3oTYL",
     "fileName": "avatar.ts"
+  },
+  "wwwaFAd_yvYyNc3h3oTYLQ": {
+    "keyword": "mentionable",
+    "roles": {
+      "allRoles": false,
+      "consentedRoles": ["831232420425498675"]
+    },
+    "channels": { "allChannels": true, "allowedChannels": [] },
+    "action": true,
+    "description": "Toggle if roles is mentionable",
+    "reply": "",
+    "id": "wwwaFAd_yvYyNc3h3oTYL",
+    "fileName": "mentionable.ts"
+  },
+  "wxbuwBLwgrO--lcvAYSdbeG": {
+    "keyword": "leave",
+    "roles": { "allRoles": true, "consentedRoles": [] },
+    "channels": { "allChannels": true, "allowedChannels": [] },
+    "action": true,
+    "description": "Leave this server",
+    "reply": "",
+    "id": "wxbuwBLwgrO--lcvAYSdbeG",
+    "fileName": "leave.ts"
   }
 }

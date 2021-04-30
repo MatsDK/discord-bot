@@ -19,20 +19,6 @@ const PollPage = (props: any) => {
   );
 };
 
-// PollPage.getInitialProps = async () => {
-//   const res = await axios({
-//     method: "GET",
-//     url: "http://localhost:3001/api/poll/getPolls",
-//   }).catch((err) => {
-//     console.log(err);
-//   });
-
-//   if (!res || res.data.err) return { polls: {} };
-//   return {
-//     polls: res.data.polls,
-//   };
-// };
-
 export async function getServerSideProps(context: any) {
   const res = await axios({
     method: "GET",

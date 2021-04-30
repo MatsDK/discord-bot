@@ -1,9 +1,9 @@
 import { commandType, PollOption, pollType } from "../types";
-import { Command, CommandClass } from "./utils/Command";
+import { Command, CommandClass } from "../commandUtils/Command";
 import polls from "../poll.json";
 import Discord from "discord.js";
-import { isTimeStr, msToTime } from "./utils/getTimeInMs";
-import formatTime from "./utils/getTimeInMs";
+import { isTimeStr, msToTime } from "../commandUtils/getTimeInMs";
+import formatTime from "../commandUtils/getTimeInMs";
 
 export class CommandConstructor {
   command: CommandClass;
