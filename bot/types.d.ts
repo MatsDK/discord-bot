@@ -42,9 +42,11 @@ export interface createCmdBody {
 export interface PollOption {
   text: string;
   emoji: string;
+  id?: string;
 }
 
 export interface pollType {
+  rolePoll: boolean;
   name: string;
   content: string;
   description: string;

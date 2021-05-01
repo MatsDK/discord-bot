@@ -260,5 +260,28 @@
     "reply": "",
     "id": "wxbuwBLwgrO--lcvAYSdbeG",
     "fileName": "leave.ts"
+  },
+  "wxwBLwgrO--lcvAYSdbeG": {
+    "keyword": "setcolor",
+    "roles": { "allRoles": true, "consentedRoles": [] },
+    "channels": { "allChannels": true, "allowedChannels": [] },
+    "action": true,
+    "description": "Set color of role",
+    "reply": "",
+    "id": "wxwBLwgrO--lcvAYSdbeG",
+    "fileName": "setcolor.ts"
+  },
+  "wxwwBLwgrO--lcvAYSdbeG": {
+    "keyword": "polls",
+    "roles": {
+      "allRoles": false,
+      "consentedRoles": ["831232420425498675"]
+    },
+    "channels": { "allChannels": true, "allowedChannels": [] },
+    "action": true,
+    "description": "List all polss",
+    "reply": "",
+    "id": "wxwwBLwgrO--lcvAYSdbeG",
+    "fileName": "polls.ts"
   }
 }

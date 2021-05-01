@@ -53,11 +53,9 @@ router.post("/createCmd", async (req: Request, res: Response) => {
     "../../bot/commands/commands.json"
   );
 
-  const cmds: commandType[] = Object.keys(commands).map((key: string) => {
-    commands[key].id = key;
-    return commands[key];
-  });
-
+  const cmds: commandType[] = Array.from(clientState.client.commands).map(
+    ([key, cmd]: any) => cmd
+  );
   if (
     cmds.some(
       (_: commandType) => _.keyword.toLowerCase() === keyWord.toLowerCase()

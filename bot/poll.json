@@ -1,1 +1,45 @@
-{"someId":{"name":"test","content":"Is this corrext","description":"ask a question","duration":1000,"hasDuration":true,"id":"someId","options":[{"text":"No","emoji":"❌"},{"text":"Yes","emoji":"✔"}]},"a6EN28VIw4rYbO9aN-XzX":{"name":"country","content":"Where are you from","description":"ask where they are from","hadDuration":false,"duration":0,"id":"a6EN28VIw4rYbO9aN-XzX","options":[{"text":"netherlands","emoji":"🇳🇱"},{"text":"Belgium","emoji":"🇧🇪"},{"text":"Luxembourg","emoji":"🇱🇺"},{"text":"China","emoji":"🇨🇳"},{"text":"Japan","emoji":"🇯🇵"},{"text":"Somalia","emoji":"🇸🇴"}],"desriptions":"ask where they are from"}}
+{
+  "someId": {
+    "rolePoll": false,
+    "name": "test",
+    "content": "Is this corrext",
+    "description": "ask a question",
+    "duration": 1000,
+    "hasDuration": true,
+    "id": "someId",
+    "options": [
+      { "text": "No", "emoji": "❌" },
+      { "text": "Yes", "emoji": "✔" }
+    ]
+  },
+  "a6EN28VIw4rYbO9aN-XzX": {
+    "rolePoll": false,
+    "name": "country",
+    "content": "Where are you from",
+    "description": "ask where they are from",
+    "hadDuration": false,
+    "duration": 0,
+    "id": "a6EN28VIw4rYbO9aN-XzX",
+    "options": [
+      { "text": "netherlands", "emoji": "🇳🇱" },
+      { "text": "Belgium", "emoji": "🇧🇪" },
+      { "text": "Luxembourg", "emoji": "🇱🇺" },
+      { "text": "China", "emoji": "🇨🇳" },
+      { "text": "Japan", "emoji": "🇯🇵" },
+      { "text": "Somalia", "emoji": "🇸🇴" }
+    ]
+  },
+  "JOh_EaR4YRQ3B55sITb2j": {
+    "rolePoll": true,
+    "name": "language",
+    "content": "what is your language",
+    "description": "ask language",
+    "hadDuration": false,
+    "duration": 0,
+    "id": "JOh_EaR4YRQ3B55sITb2j",
+    "options": [
+      { "text": "dutch", "emoji": "🇳🇱", "id": "838006134605873172" },
+      { "text": "japanese", "emoji": "🇯🇵", "id": "838006400214368256" }
+    ]
+  }
+}

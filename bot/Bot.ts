@@ -10,7 +10,7 @@ export class Bot extends Client {
   events: Collection<string, Function> = new Collection();
 
   constructor(token: string) {
-    super();
+    super({ partials: ["MESSAGE", "CHANNEL", "REACTION"] });
 
     if (!token?.trim()) throw "Invalid Login Token";
     this.#token = token;
