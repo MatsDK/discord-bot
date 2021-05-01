@@ -49,21 +49,24 @@ const handleRolePoll = async (
   pollDuration: any,
   client: Client
 ) => {
-  const embed = createPollEmbed(thisPoll, pollDuration);
-
-  interface roleOptionType extends PollOption {
+  interface RoleOptionType extends PollOption {
     role: Role;
   }
 
-  const MessageEmbed = await message.channel.send(embed),
-    rolesArr: Array<roleOptionType> = thisPoll.options.map((_: PollOption) => {
+  let rolesArr: Array<RoleOptionType> = thisPoll.options.map(
+    (_: PollOption) => {
       const thisRole = message.guild.roles.cache.find(
         (role: Role) => role.id == _.id
       );
       return { ..._, role: thisRole };
-    });
+    }
+  );
+  rolesArr = rolesArr.filter((_: RoleOptionType) => !!_.role);
 
-  rolesArr.filter((_: roleOptionType) => _.role);
+  const embed = createPollEmbed(thisPoll, rolesArr, pollDuration),
+    MessageEmbed = await message.channel.send(embed);
+
+  rolesArr = rolesArr.filter((_: RoleOptionType) => !!_.role);
   for (let option of rolesArr) await MessageEmbed.react(option.emoji);
 
   const checkReactionAndGetMember = async (
@@ -75,41 +78,39 @@ const handleRolePoll = async (
     if (reaction.partial) await reaction.fetch();
 
     if (reaction.message.channel.id === message.channel.id) {
-      const thisPollOption: roleOptionType | undefined = rolesArr.find(
-        (_: roleOptionType) => _.emoji == reaction.emoji.name
+      const thisPollOption: RoleOptionType | undefined = rolesArr.find(
+        (_: RoleOptionType) => _.emoji == reaction.emoji.name
       );
 
       if (thisPollOption) {
         const members = await message.guild.members.fetch(),
           thisMember = members.get(user.id);
 
-        return { thisMember, thisPollOption };
+        return { member: thisMember, thisPollOption };
       }
     }
   };
 
   client.on("messageReactionAdd", async (reaction, user) => {
-    const { thisMember, thisPollOption }: any = await checkReactionAndGetMember(
-      user,
-      reaction
-    );
+    const thisMember: any = await checkReactionAndGetMember(user, reaction);
 
-    if (thisMember && thisPollOption)
-      thisMember.roles.add(thisPollOption.role).catch((err: any) => {
-        console.log(err);
-      });
+    if (thisMember?.member && thisMember?.thisPollOption)
+      thisMember.member.roles
+        .add(thisMember.thisPollOption.role)
+        .catch((err: any) => {
+          console.log(err);
+        });
   });
 
   client.on("messageReactionRemove", async (reaction, user) => {
-    const { thisMember, thisPollOption }: any = await checkReactionAndGetMember(
-      user,
-      reaction
-    );
+    const thisMember: any = await checkReactionAndGetMember(user, reaction);
 
-    if (thisMember && thisPollOption)
-      thisMember.roles.remove(thisPollOption.role).catch((err: any) => {
-        console.log(err);
-      });
+    if (thisMember?.member && thisMember?.thisPollOption)
+      thisMember.member.roles
+        .remove(thisMember.thisPollOption.role)
+        .catch((err: any) => {
+          console.log(err);
+        });
   });
 };
 
@@ -119,7 +120,7 @@ const handlePollCommand = async (
   thisPoll: pollType,
   pollDuration: any
 ) => {
-  const embed = createPollEmbed(thisPoll, pollDuration);
+  const embed = createPollEmbed(thisPoll, thisPoll.options, pollDuration);
 
   const MessageEmbed = await message.channel.send(embed);
   for (let option of thisPoll.options) await MessageEmbed.react(option.emoji);
@@ -160,13 +161,17 @@ const handlePollCommand = async (
     }, pollDuration.ms);
 };
 
-const createPollEmbed = (thisPoll: pollType, pollDuration: any) => {
+const createPollEmbed = (
+  thisPoll: pollType,
+  options: any[],
+  pollDuration: any
+) => {
   return new Discord.MessageEmbed()
     .setTitle(thisPoll.content)
     .setDescription(
       `
            ${thisPoll.description}\n
-            ${thisPoll.options
+            ${options
               .map((_: PollOption) => `${_.emoji}  |   ${_.text}`)
               .join("\n")}
            `

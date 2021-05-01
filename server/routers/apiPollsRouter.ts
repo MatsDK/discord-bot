@@ -4,6 +4,8 @@ import { nanoid } from "nanoid";
 import polls from "../../bot/poll.json";
 import fs from "fs";
 import path from "path";
+import { getData } from "../../server/utils/getData";
+import { clientState } from "../../bot/client";
 
 const router = Router();
 
@@ -39,7 +41,11 @@ router.get("/getPoll/:id", (req: Request, res: Response) => {
     const thisPoll: pollType = polls[id];
     if (!thisPoll) return res.json({ err: "poll not found" });
 
-    return res.json({ err: false, data: thisPoll });
+    return res.json({
+      err: false,
+      data: thisPoll,
+      roles: getData(clientState.client).rolesArr || [],
+    });
   } catch (err) {
     console.log(err);
     res.json({ err: "An error occured" });

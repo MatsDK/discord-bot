@@ -43,7 +43,7 @@
     "fileName": "commands.ts"
   },
   "dbZVu-ducj01xqSDouRfT": {
-    "keyword": "createpoll",
+    "keyword": "create_poll",
     "roles": {
       "allRoles": false,
       "consentedRoles": ["831232420425498675", "831232473144754307"]
@@ -183,7 +183,7 @@
     "id": "VVaFAd_yvYyNc3h3oTYLQ",
     "fileName": "unmute.ts"
   },
-  "VfdsVaFAd_yvYyNc3h3oTYLQ": {
+  "94HaSyfs_jZnBDwyN9j": {
     "keyword": "poll",
     "roles": {
       "allRoles": false,
@@ -193,7 +193,7 @@
     "action": true,
     "description": "ask poll",
     "reply": "",
-    "id": "VfdsVaFAd_yvYyNc3h3oTYLQ",
+    "id": "94HaSyfs_jZnBDwyN9j",
     "fileName": "poll.ts"
   },
   "VfwwdsVaFAd_yvYyNc3h3oTYLQ": {
@@ -212,7 +212,7 @@
     "action": true,
     "fileName": "announce.ts"
   },
-  "wVfwwdsVaFAd_yvYyNc3h3oTYLQ": {
+  "R0ZrO_dFoYVqPR7d0NTMe": {
     "keyword": "channel",
     "roles": {
       "allRoles": false,
@@ -222,7 +222,7 @@
     "action": true,
     "description": "create channels",
     "reply": "",
-    "id": "wVfwwdsVaFAd_yvYyNc3h3oTYLQ",
+    "id": "R0ZrO_dFoYVqPR7d0NTMe",
     "fileName": "channel.ts"
   },
   "wwaFAd_yvYyNc3h3oTYLQ": {
@@ -238,7 +238,7 @@
     "id": "wwaFAd_yvYyNc3h3oTYL",
     "fileName": "avatar.ts"
   },
-  "wwwaFAd_yvYyNc3h3oTYLQ": {
+  "ur3riSCKU1vtgHRoMWial": {
     "keyword": "mentionable",
     "roles": {
       "allRoles": false,
@@ -248,7 +248,7 @@
     "action": true,
     "description": "Toggle if roles is mentionable",
     "reply": "",
-    "id": "wwwaFAd_yvYyNc3h3oTYL",
+    "id": "ur3riSCKU1vtgHRoMWial",
     "fileName": "mentionable.ts"
   },
   "wxbuwBLwgrO--lcvAYSdbeG": {

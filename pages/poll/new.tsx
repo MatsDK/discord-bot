@@ -61,7 +61,12 @@ const PollPage = () => {
       <Link href="/poll">Polls</Link>
       <Link href="/">Home</Link>
       <PollForm {...PollFormProps} />
-      <PollOptions options={pollOptions} setOptions={setPollOptions} />
+      <PollOptions
+        options={pollOptions}
+        setOptions={setPollOptions}
+        withRoles={false}
+        roles={[]}
+      />
 
       <button onClick={savePoll}>Save Poll</button>
     </div>

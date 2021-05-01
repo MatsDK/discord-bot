@@ -12,7 +12,8 @@
     "express": "^4.17.1",
     "nanoid": "^3.1.22",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "react-select": "^4.3.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.11",

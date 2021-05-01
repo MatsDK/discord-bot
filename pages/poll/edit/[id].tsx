@@ -1,4 +1,4 @@
-import { PollOption, pollType } from "../../../bot/types";
+import { PollOption, pollType, rolesType } from "../../../bot/types";
 import PollForm from "../../../src/components/PollForm";
 import PollOptions from "../../../src/components/PollOptions";
 import axios from "axios";
@@ -13,9 +13,10 @@ interface nextFunctionComponent<P = {}> extends React.FC<P> {
 
 interface editPollProps {
   poll: pollType;
+  roles: Array<rolesType>;
 }
 
-const edit: nextFunctionComponent<editPollProps> = ({ poll }) => {
+const edit: nextFunctionComponent<editPollProps> = ({ poll, roles }) => {
   const [pollOptions, setPollOptions] = useState<PollOption[]>(poll.options);
   const [pollNameInput, setPollNameInput] = useState<string>(poll.name);
   const [pollContentInput, setPollContentInput] = useState<string>(
@@ -26,6 +27,7 @@ const edit: nextFunctionComponent<editPollProps> = ({ poll }) => {
   );
 
   const saveChanges = () => {
+    console.log(poll.rolePoll);
     const checkPollOptions = checkPoll(
       pollOptions,
       pollContentInput,
@@ -66,7 +68,12 @@ const edit: nextFunctionComponent<editPollProps> = ({ poll }) => {
       <Link href="/">Home</Link>
       <Link href="/poll">Polls</Link>
       <PollForm {...PollFormProps} />
-      <PollOptions setOptions={setPollOptions} options={pollOptions} />
+      <PollOptions
+        setOptions={setPollOptions}
+        options={pollOptions}
+        withRoles={poll.rolePoll}
+        roles={roles}
+      />
       <button onClick={saveChanges}>Save Changes</button>
     </div>
   );
@@ -82,7 +89,7 @@ edit.getInitialProps = async ({ query, res }: Context) => {
   });
 
   if (!apiRes || apiRes.data.err) return res.redirect("/");
-  return { poll: apiRes.data.data };
+  return { poll: apiRes.data.data, roles: apiRes.data.roles };
 };
 
 export default edit;
