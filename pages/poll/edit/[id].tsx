@@ -4,7 +4,7 @@ import PollOptions from "../../../src/components/PollOptions";
 import axios from "axios";
 import { Context } from "node:vm";
 import { useState } from "react";
-import { checkPoll } from "src/checkPollOptions";
+import { checkPoll } from "../../../src/checkPollOptions";
 import Link from "next/link";
 
 interface nextFunctionComponent<P = {}> extends React.FC<P> {
@@ -16,7 +16,7 @@ interface editPollProps {
   roles: Array<rolesType>;
 }
 
-const edit: nextFunctionComponent<editPollProps> = ({ poll, roles }) => {
+const Edit: nextFunctionComponent<editPollProps> = ({ poll, roles }) => {
   const [pollOptions, setPollOptions] = useState<PollOption[]>(poll.options);
   const [pollNameInput, setPollNameInput] = useState<string>(poll.name);
   const [pollContentInput, setPollContentInput] = useState<string>(
@@ -27,11 +27,11 @@ const edit: nextFunctionComponent<editPollProps> = ({ poll, roles }) => {
   );
 
   const saveChanges = () => {
-    console.log(poll.rolePoll);
     const checkPollOptions = checkPoll(
       pollOptions,
       pollContentInput,
-      pollNameInput
+      pollNameInput,
+      poll.rolePoll
     );
     if (checkPollOptions.err) return alert(checkPollOptions.err);
 
@@ -79,7 +79,7 @@ const edit: nextFunctionComponent<editPollProps> = ({ poll, roles }) => {
   );
 };
 
-edit.getInitialProps = async ({ query, res }: Context) => {
+Edit.getInitialProps = async ({ query, res }: Context) => {
   const { id }: { id: string } = query;
   const apiRes = await axios({
     method: "GET",
@@ -92,4 +92,4 @@ edit.getInitialProps = async ({ query, res }: Context) => {
   return { poll: apiRes.data.data, roles: apiRes.data.roles };
 };
 
-export default edit;
+export default Edit;

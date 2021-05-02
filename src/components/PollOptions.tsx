@@ -137,8 +137,7 @@ const RoleOption: React.FC<RoleOptionProps> = ({
   );
 
   useEffect(() => {
-    // console.log(selectedRole);
-    funcs.updateOption(optionTextInput, selectedEmoji, selectedRole);
+    funcs.updateOption(optionTextInput, selectedEmoji, selectedRole?.value);
   }, [selectedRole]);
 
   return (

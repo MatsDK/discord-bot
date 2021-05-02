@@ -3,7 +3,8 @@ import { PollOption } from "../bot/types";
 export const checkPoll = (
   pollOptions: PollOption[],
   pollContentInput: string,
-  pollNameInput: string
+  pollNameInput: string,
+  rolePoll: boolean
 ): { err: boolean | string } => {
   if (!pollNameInput.trim().length || !pollContentInput.trim().length)
     return { err: "Pleace provide a Name and Question" };
@@ -18,6 +19,9 @@ export const checkPoll = (
       pollOptions.filter((_: PollOption) => _.emoji == option.emoji).length > 1
     )
       return { err: "You cannot use one emoji multiple times" };
+
+    if (rolePoll && !option.id)
+      return { err: "You must choose a role for all options" };
   }
 
   return { err: false };
