@@ -155,4 +155,11 @@ router.post("/changeCmd", async (req: Request, res: Response) => {
   }
 });
 
+router.post("/setPrefix", (req: Request, res: Response) => {
+  const { prefix } = req.body;
+  if (!prefix) return res.json({ err: "Invalid prefix" });
+
+  prefixState.setPrefix(prefix);
+  res.json({ err: false });
+});
 export default router;

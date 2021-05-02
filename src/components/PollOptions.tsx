@@ -173,13 +173,15 @@ const RoleOption: React.FC<RoleOptionProps> = ({
           funcs.updateOption(e.target.value, selectedEmoji);
         }}
       />
-      <Select
-        value={selectedRole}
-        onChange={(selectedRole: any) => {
-          setSelectedRole(selectedRole);
-        }}
-        options={roles}
-      />
+      <div style={{ width: "150px" }}>
+        <Select
+          value={selectedRole}
+          onChange={(selectedRole: any) => {
+            setSelectedRole(selectedRole);
+          }}
+          options={roles}
+        />
+      </div>
       <button onClick={() => funcs.deleteOption()}>Delete</button>
     </div>
   );

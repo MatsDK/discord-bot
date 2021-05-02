@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Context } from "node:vm";
 import { useState } from "react";
 import { updateChanges } from "../../../src/updateCmdChanges";
+import Router from "next/router";
 
 interface nextFunctionComponent<P = {}> extends React.FC<P> {
   getInitialProps?: (ctx: any) => Promise<P>;
@@ -114,7 +115,11 @@ edit.getInitialProps = async ({ query, res }: Context) => {
     console.log(err);
   });
 
-  if (!apiRes || apiRes.data.err) return res.redirect("/");
+  if (!apiRes || apiRes.data.err) {
+    if (typeof window === "undefined") return res.redirect("/");
+    else return Router.push("/");
+  }
+
   return {
     thisCmd: apiRes.data.data.thisCmd,
     prefix: apiRes.data.data.prefix,

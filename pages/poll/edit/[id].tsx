@@ -6,6 +6,7 @@ import { Context } from "node:vm";
 import { useState } from "react";
 import { checkPoll } from "../../../src/checkPollOptions";
 import Link from "next/link";
+import Router from "next/router";
 
 interface nextFunctionComponent<P = {}> extends React.FC<P> {
   getInitialProps?: (ctx: any) => Promise<P>;
@@ -88,7 +89,10 @@ Edit.getInitialProps = async ({ query, res }: Context) => {
     console.log(err);
   });
 
-  if (!apiRes || apiRes.data.err) return res.redirect("/");
+  if (!apiRes || apiRes.data.err) {
+    if (typeof window === "undefined") return res.redirect("/");
+    else return Router.push("/");
+  }
   return { poll: apiRes.data.data, roles: apiRes.data.roles };
 };
 

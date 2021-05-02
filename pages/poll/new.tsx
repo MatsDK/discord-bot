@@ -1,15 +1,24 @@
 import Link from "next/link";
 import { useState } from "react";
 import "emoji-mart/css/emoji-mart.css";
-import { PollOption } from "../../bot/types";
+import { PollOption, rolesType } from "../../bot/types";
 import PollOptions from "../../src/components/PollOptions";
 import axios from "axios";
 import { useRouter } from "next/router";
 import PollForm from "../../src/components/PollForm";
 import { checkPoll } from "../../src/checkPollOptions";
 
-const PollPage = () => {
+interface nextFunctionComponent<P = {}> extends React.FC<P> {
+  getInitialProps?: (ctx: any) => Promise<P>;
+}
+
+interface NewPollPageProps {
+  roles: Array<rolesType>;
+}
+
+const newPollPage: nextFunctionComponent<NewPollPageProps> = ({ roles }) => {
   const router = useRouter();
+  const [isRolePoll, setIsRolePoll] = useState<boolean>(false);
   const [pollNameInput, setPollNameInput] = useState<string>("");
   const [pollContentInput, setPollContentInput] = useState<string>("");
   const [pollDesriptionInput, setPollDesriptionInput] = useState<string>("");
@@ -22,7 +31,8 @@ const PollPage = () => {
     const checkPollOptions = checkPoll(
       pollOptions,
       pollContentInput,
-      pollContentInput
+      pollContentInput,
+      isRolePoll
     );
     if (checkPollOptions.err) return alert(checkPollOptions.err);
 
@@ -60,12 +70,19 @@ const PollPage = () => {
     <div>
       <Link href="/poll">Polls</Link>
       <Link href="/">Home</Link>
+      <label>Is role poll</label>
+      <input
+        type="checkbox"
+        defaultChecked={isRolePoll}
+        onChange={(e) => setIsRolePoll(e.target.checked)}
+      />
+
       <PollForm {...PollFormProps} />
       <PollOptions
         options={pollOptions}
         setOptions={setPollOptions}
-        withRoles={false}
-        roles={[]}
+        withRoles={isRolePoll}
+        roles={roles}
       />
 
       <button onClick={savePoll}>Save Poll</button>
@@ -73,4 +90,27 @@ const PollPage = () => {
   );
 };
 
-export default PollPage;
+export const getServerSideProps = async (context: any) => {
+  const res = await axios({
+    method: "GET",
+    url: "http://localhost:3001/api/getData",
+  }).catch((err) => {
+    console.log(err);
+  });
+
+  if (!res || res.data.err)
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/",
+      },
+    };
+
+  return {
+    props: {
+      roles: res.data.data.roles,
+    },
+  };
+};
+
+export default newPollPage;

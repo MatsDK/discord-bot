@@ -21,19 +21,19 @@ export class CommandConstructor {
             if (!args.slice(1).length)
               return message.reply("Please mention roles you want to clear");
 
-            const roles: string[] = args.slice(1);
-            const targetRoles = [
-              ...Array.from(message.mentions.roles).map(
-                ([key, role]: any) => role
-              ),
-              ...Array.from(
-                message.guild.roles.cache.filter((_: any) =>
-                  roles.includes(_.id.trim())
-                )
-              ).map(([key, role]: any) => role),
-            ].map((_: any) => _.id);
-
-            const members = await message.guild.members.fetch(),
+            const roles: string[] = args.slice(1),
+              targetRoles = [
+                ...Array.from(message.mentions.roles).map(
+                  ([key, role]: any) => role
+                ),
+                ...Array.from(
+                  message.guild.roles.cache.filter((_: any) =>
+                    roles.includes(_.id.trim())
+                  )
+                ).map(([key, role]: any) => role),
+              ].map((_: any) => _.id),
+              //
+              members = await message.guild.members.fetch(),
               targetMembers = members.filter((_: any) =>
                 targetRoles.some((role) => _._roles.includes(role))
               );

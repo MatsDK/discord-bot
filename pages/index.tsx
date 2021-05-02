@@ -2,8 +2,10 @@ import axios from "axios";
 import { commandType } from "../bot/types";
 import Link from "next/link";
 import React, { useState } from "react";
+import UpdatePrefixForm from "src/components/UpdatePrefixForm";
 
 const HomePage = ({ cmds, prefix }) => {
+  const [Prefix, setPrefix] = useState<string>(prefix);
   const [commands] = useState<commandType[]>(
     Object.keys(cmds).map((cmdName: string) => cmds[cmdName])
   );
@@ -12,6 +14,11 @@ const HomePage = ({ cmds, prefix }) => {
     <div>
       <Link href={"/commands/new/"}>New Command</Link>
       <Link href={"/poll"}>Poll</Link>
+      <UpdatePrefixForm
+        initialPrefix={prefix}
+        prefix={Prefix}
+        setPrefix={setPrefix}
+      />
       {commands
         .sort((a: commandType, b: commandType) => {
           const textA = a.keyword.toUpperCase();
@@ -22,7 +29,7 @@ const HomePage = ({ cmds, prefix }) => {
           return (
             <div key={idx} style={{ display: "flex" }}>
               <p className="keyWord">
-                {prefix}
+                {Prefix}
                 {_.keyword}
               </p>
               <p className="desc">{_.description}</p>
