@@ -1,1 +1,9 @@
-{"prefix":"!","defaultBanDuration":7,"defaultMuteDuration":86400000}
+{
+  "prefix": "!",
+  "defaultBanDuration": 7,
+  "defaultMuteDuration": 86400000,
+  "mutedRoleId": "832604586304602162",
+  "memberRoleId": "832925646173896734",
+  "modeRoleId": "831232473144754307",
+  "ignoredChannels": []
+}

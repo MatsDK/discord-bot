@@ -23,10 +23,10 @@ export class CommandConstructor {
             return message.reply(
               "I don't have permissions to change nicknames"
             );
-          // if (!target.kickable)
-          //   return message.reply(
-          //     "I cannot change that member's nickname as their role is higher then mine"
-          //   );
+          if (!target.kickable)
+            return message.reply(
+              "I cannot change that member's nickname as their role is higher then mine"
+            );
 
           const newNickName: string = args.slice(1).join(" ").trim();
           if (!args.slice(1).length || !newNickName.length)

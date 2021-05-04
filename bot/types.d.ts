@@ -1,5 +1,3 @@
-import { Client, Collection } from "discord.js";
-
 export interface commandType {
   keyword: string;
   description: string;

@@ -1,5 +1,6 @@
 import { commandType } from "../types";
 import { Command, CommandClass } from "../commandUtils/Command";
+import conf from "../conf.json";
 
 export class CommandConstructor {
   command: CommandClass;
@@ -22,13 +23,13 @@ export class CommandConstructor {
             );
 
           const mutedRole = message.guild.roles.cache.find(
-            (role: any) => role.name === "Muted"
+            (role: any) => role.id === conf.mutedRoleId
           );
           if (!mutedRole)
             message.reply("There is no Muted role on this server");
 
           const memberRole = message.guild.roles.cache.find(
-            (role: any) => role.name === "Member"
+            (role: any) => role.id === conf.memberRoleId
           );
           if (!memberRole)
             message.reply("There is no Member role on this server");

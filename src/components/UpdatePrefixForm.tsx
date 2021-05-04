@@ -16,7 +16,6 @@ const UpdatePrefixForm: React.FC<UpdatePrefixProps> = ({
     e.preventDefault();
     if (!prefix.trim().length) return alert("Invalid prefix");
 
-    console.log(prefix);
     axios({
       method: "POST",
       url: "http://localhost:3001/api/setPrefix",
@@ -25,7 +24,7 @@ const UpdatePrefixForm: React.FC<UpdatePrefixProps> = ({
       },
     })
       .then((res) => {
-        console.log(res.data);
+        if (res.data.err) return alert(res.data.err);
       })
       .catch((err) => {
         console.log(err);

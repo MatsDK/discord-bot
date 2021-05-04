@@ -34,7 +34,6 @@ export class CommandConstructor {
             msgEmbed.delete().catch(console.error);
           }, time);
 
-          // await msgEmbed.react("✔️");
           await msgEmbed.react("✔");
           await msgEmbed.react("❌");
         } else {
@@ -47,7 +46,6 @@ export class CommandConstructor {
 
           const msgEmbed = await message.channel.send(poll);
 
-          // await msgEmbed.react("😀");
           await msgEmbed.react("✔");
           await msgEmbed.react("❌");
         }

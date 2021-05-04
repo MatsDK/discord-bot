@@ -9,6 +9,16 @@ export class CommandConstructor {
       cmdDetails,
       async (client: any, message: any, args: any[]) => {
         try {
+          if (!message.member.hasPermission("MANAGE_ROLES"))
+            return message.reply(
+              "You don't have permission to change the color"
+            );
+
+          if (!message.guild.me.hasPermission("MANAGE_ROLES"))
+            return message.reply(
+              "I don't have permissions to change the color"
+            );
+
           if (!args[0] || args.length < 2)
             return message.reply(
               "Please mention a role or it's id and a hex color"

@@ -283,5 +283,18 @@
     "reply": "",
     "id": "wxwwBLwgrO--lcvAYSdbeG",
     "fileName": "polls.ts"
+  },
+  "bjdssjIQ8JbkurdnWUwru": {
+    "keyword": "ignorechannel",
+    "roles": {
+      "allRoles": false,
+      "consentedRoles": ["831232420425498675"]
+    },
+    "channels": { "allChannels": true, "allowedChannels": [] },
+    "action": true,
+    "description": "Ignore command usage in specified channels ",
+    "reply": "",
+    "id": "bjdssjIQ8JbkurdnWUwru",
+    "fileName": "ignorechannel.ts"
   }
 }

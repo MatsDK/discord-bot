@@ -14,21 +14,21 @@ export class CommandConstructor {
               "Provide a role where you want to list members from"
             );
 
-          const roleName: string = args.join(" ").trim();
-          const thisRole: any =
-            message.mentions.roles.first() ||
-            message.guild.roles.cache.find(
-              (_: any) =>
-                _.id === roleName ||
-                _.name.toLowerCase() === roleName.toLowerCase()
-            );
+          const roleName: string = args.join(" ").trim(),
+            thisRole: any =
+              message.mentions.roles.first() ||
+              message.guild.roles.cache.find(
+                (_: any) =>
+                  _.id === roleName ||
+                  _.name.toLowerCase() === roleName.toLowerCase()
+              );
           if (!thisRole) return message.reply("Role not found");
 
-          const members = await message.guild.members.fetch();
-          const membersWithRole: Array<any> = members.filter(
-            (_: any) =>
-              !!_.roles.cache.some((role: any) => role.id === thisRole.id)
-          );
+          const members = await message.guild.members.fetch(),
+            membersWithRole: Array<any> = members.filter(
+              (_: any) =>
+                !!_.roles.cache.some((role: any) => role.id === thisRole.id)
+            );
 
           message.channel.send(
             `

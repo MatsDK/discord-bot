@@ -26,13 +26,13 @@ export class CommandConstructor {
             );
 
           const mutedRole = message.guild.roles.cache.find(
-            (role: any) => role.name.toLowerCase() === "muted"
+            (role: any) => role.id === conf.mutedRoleId
           );
           if (!mutedRole)
             message.reply("There is no Muted role on this server");
 
           const memberRole = message.guild.roles.cache.find(
-            (role: any) => role.name.toLowerCase() === "member"
+            (role: any) => role.id === conf.memberRoleId
           );
           if (!memberRole)
             message.reply("There is no Member role on this server");

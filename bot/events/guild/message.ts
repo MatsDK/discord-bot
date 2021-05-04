@@ -1,9 +1,18 @@
 import { clientState } from "../../client";
-import { prefixState } from "../../constants";
+import { ignoredChannelsState, prefixState } from "../../constants";
+import conf from "../../conf.json";
 
 export default async (Discord: any, client: any, message: any) => {
   if (message.author.bot) return;
   try {
+    if (
+      !message.member._roles.includes(conf.modeRoleId) &&
+      ignoredChannelsState.IGNORED_CHANNELS.includes(
+        message.channel.id as never
+      )
+    )
+      return;
+
     if (
       !message.content
         .toLowerCase()

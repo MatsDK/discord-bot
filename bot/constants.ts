@@ -16,6 +16,20 @@ export const prefixState = {
   },
 };
 
+export const ignoredChannelsState = {
+  IGNORED_CHANNELS: conf.ignoredChannels,
+  setIgnoredChannels: (newIgnoredChannels: string[]) => {
+    ignoredChannelsState.IGNORED_CHANNELS = newIgnoredChannels as never[];
+    conf.ignoredChannels = newIgnoredChannels as never[];
+
+    fs.writeFileSync(
+      path.resolve(__dirname, "./conf.json"),
+      JSON.stringify(conf),
+      null
+    );
+  },
+};
+
 export const COMMAND_OBJECT = {
   keyWord: "",
   roles: {
