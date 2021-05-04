@@ -14,6 +14,7 @@ const HomePage = ({ cmds, prefix }) => {
     <div>
       <Link href={"/commands/new/"}>New Command</Link>
       <Link href={"/poll"}>Poll</Link>
+      <Link href={"/ignored"}>Ignored / banned</Link>
       <UpdatePrefixForm
         initialPrefix={prefix}
         prefix={Prefix}

@@ -1,10 +1,10 @@
-import { prefixState } from "../../bot/constants";
-import { Request, Response, Router } from "express";
-import { commandType, createCmdBody } from "bot/types";
-import { nanoid } from "nanoid";
 import fs from "fs";
 import Discord from "discord.js";
 import path from "path";
+import { ignoredChannelsState, prefixState } from "../../bot/constants";
+import { Request, Response, Router } from "express";
+import { commandType, createCmdBody } from "../../bot/types";
+import { nanoid } from "nanoid";
 import { clientState } from "../../bot/client";
 import { getData } from "../utils/getData";
 import { commandHandler } from "../../bot/handlers/commandHandler";
@@ -162,4 +162,28 @@ router.post("/setPrefix", (req: Request, res: Response) => {
   prefixState.setPrefix(prefix);
   res.json({ err: false });
 });
+
+router.get("/ignored", async (req: Request, res: Response) => {
+  try {
+    const guild = clientState.client.guilds.cache.first();
+    let bannedMembers = await guild.fetchBans(),
+      ignoredChannels: any[] = ignoredChannelsState.IGNORED_CHANNELS;
+
+    ignoredChannels = ignoredChannels
+      .map((_: string) =>
+        guild.channels.cache.find((channel: any) => channel.id === _)
+      )
+      .filter((_: any) => _)
+      .map((_: any) => ({ name: _.name, id: _.id }));
+
+    return res.json({
+      err: false,
+      ignoredChannels,
+      bannedMembers: bannedMembers,
+    });
+  } catch (err) {
+    res.json({ err: err.message });
+  }
+});
+
 export default router;

@@ -296,5 +296,18 @@
     "reply": "",
     "id": "bjdssjIQ8JbkurdnWUwru",
     "fileName": "ignorechannel.ts"
+  },
+  "sJUTAYaO583-yWqmjtZ24": {
+    "keyword": "ignored",
+    "roles": {
+      "allRoles": false,
+      "consentedRoles": ["831232420425498675"]
+    },
+    "channels": { "allChannels": true, "allowedChannels": [] },
+    "action": true,
+    "description": "List ignored channels",
+    "reply": "",
+    "id": "sJUTAYaO583-yWqmjtZ24",
+    "fileName": "ignored.ts"
   }
 }
