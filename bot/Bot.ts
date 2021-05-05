@@ -15,9 +15,6 @@ export class Bot extends Client {
     if (!token?.trim()) throw "Invalid Login Token";
     this.#token = token;
     clientState.setClient(this);
-
-    this.#setCommands();
-    this.#setEvents();
   }
 
   #setCommands = () => {
@@ -28,7 +25,10 @@ export class Bot extends Client {
     eventHandler(this, Discord);
   };
 
-  start() {
-    this.login(this.#token);
+  async start() {
+    await this.login(this.#token);
+
+    this.#setCommands();
+    this.#setEvents();
   }
 }

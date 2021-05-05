@@ -2,16 +2,21 @@ import axios from "axios";
 import Link from "next/link";
 
 type ignoredChannel = { name: string; id: string };
+type bannedMember = { name: string; id: string; reason: string; img: string };
+type ignoredUser = { name: string; id: string };
 
 interface IgnoredPageProps {
   ignoredChannels: Array<ignoredChannel>;
-  bannedMembers: any[];
+  bannedMembers: Array<bannedMember>;
+  ignoredUsers: Array<ignoredUser>;
 }
 
 const Ignored: React.FC<IgnoredPageProps> = ({
   ignoredChannels,
   bannedMembers,
+  ignoredUsers,
 }) => {
+  console.log(ignoredUsers);
   return (
     <div>
       <Link href="/">Home</Link>
@@ -20,6 +25,23 @@ const Ignored: React.FC<IgnoredPageProps> = ({
         return (
           <div key={idx}>
             <p>{_.name}</p>
+          </div>
+        );
+      })}
+      <h5>Ignored Users</h5>
+      {ignoredUsers.map((_: ignoredUser, idx: number) => {
+        return (
+          <div key={idx} style={{ display: "flex" }}>
+            <p>{_.name}</p>
+          </div>
+        );
+      })}
+      <h5>Banned Members</h5>
+      {bannedMembers.map((_: bannedMember, idx: number) => {
+        return (
+          <div key={idx} style={{ display: "flex" }}>
+            <p>{_.name}</p>
+            <p>{_.reason}</p>
           </div>
         );
       })}
@@ -41,6 +63,7 @@ export async function getServerSideProps(context: any) {
     props: {
       ignoredChannels: res.data.ignoredChannels,
       bannedMembers: res.data.bannedMembers,
+      ignoredUsers: res.data.ignoredUsers,
     },
   };
 }

@@ -30,6 +30,20 @@ export const ignoredChannelsState = {
   },
 };
 
+export const ignoredUsersState = {
+  IGNORED_USERS: conf.ignoredUsers,
+  setIgnoredUsers: (newIgnoredUsers: string[]) => {
+    ignoredUsersState.IGNORED_USERS = newIgnoredUsers as never[];
+    conf.ignoredUsers = newIgnoredUsers as never[];
+
+    fs.writeFileSync(
+      path.resolve(__dirname, "./conf.json"),
+      JSON.stringify(conf),
+      null
+    );
+  },
+};
+
 export const COMMAND_OBJECT = {
   keyWord: "",
   roles: {

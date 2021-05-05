@@ -309,5 +309,18 @@
     "reply": "",
     "id": "sJUTAYaO583-yWqmjtZ24",
     "fileName": "ignored.ts"
+  },
+  "wsJUTAYaO583-yWqmjtZ24": {
+    "keyword": "ignoreuser",
+    "roles": {
+      "allRoles": false,
+      "consentedRoles": ["831232420425498675"]
+    },
+    "channels": { "allChannels": true, "allowedChannels": [] },
+    "action": true,
+    "description": "Ignore user",
+    "reply": "",
+    "id": "wsJUTAYaO583-yWqmjtZ24",
+    "fileName": "ignoreuser.ts"
   }
 }
