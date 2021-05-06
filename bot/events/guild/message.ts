@@ -1,36 +1,47 @@
 import { clientState } from "../../client";
-import { ignoredChannelsState, prefixState } from "../../constants";
-import conf from "../../conf.json";
+import { clientGuildObj, commandType } from "../../types";
 
 export default async (Discord: any, client: any, message: any) => {
   if (message.author.bot) return;
   try {
+    const thisGuildCommands: Map<
+        string,
+        commandType
+      > = clientState.client.guildCommands.get(message.guild.id),
+      thisGuildObj: clientGuildObj = clientState.client.guildObjs.get(
+        message.guild.id
+      );
+    console.log(thisGuildObj);
+    if (!thisGuildCommands || !thisGuildObj) return;
+
     if (
-      !message.member._roles.includes(conf.modeRoleId) &&
-      ignoredChannelsState.IGNORED_CHANNELS.includes(
-        message.channel.id as never
-      )
+      !message.member._roles.some((_: string) =>
+        thisGuildObj.modeRolesIds.includes(_)
+      ) &&
+      thisGuildObj.ignoredChannels.includes(message.channel.id as never)
     )
       return;
 
     if (
       !message.content
         .toLowerCase()
-        .startsWith(prefixState.PREFIX.toLowerCase()) ||
+        .trim()
+        .startsWith(thisGuildObj.prefix.toLowerCase()) ||
       message.author.bot
     )
       return;
 
     const [cmd, ...args] = message.content
       .trim()
-      .slice(prefixState.PREFIX.length)
+      .slice(thisGuildObj.prefix.length)
       .split(/\s+/);
 
-    const thisCmd: any = clientState.client.commands.get(cmd.toLowerCase());
+    const thisCmd: any = thisGuildCommands.get(cmd.toLowerCase());
     if (!thisCmd) return;
 
+    // FIX TYPO IN DATABASE
     if (
-      !thisCmd.channels.allChannels &&
+      !thisCmd.channels.allChannles &&
       !thisCmd.channels.allowedChannels.includes(message.channel.id)
     )
       return message.reply("This Command cannot be used in this channel");

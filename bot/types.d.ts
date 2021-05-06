@@ -53,3 +53,33 @@ export interface pollType {
   id: string;
   options: Array<PollOption>;
 }
+
+export interface dbGuildType {
+  setup: boolean;
+  prefix: string;
+  defaultMuteDuration: number;
+  defaultBanDuration: number;
+  modeRolesIds: string[];
+  ignoredChannels: string[];
+  ignoredUsers: string[];
+  _id: any;
+  guildId: string;
+  isActive: boolean;
+  mutedRoleId: string;
+  memberRoleId: string;
+  polls: Array<pollType>;
+  commands: Array<commandType>;
+  actions: Array<commandType>;
+}
+
+export interface clientGuildObj {
+  prefix: string;
+  defaultMuteDuration: number;
+  defaultBanDuration: number;
+  modeRolesIds: string[];
+  ignoredChannels: string[];
+  ignoredUsers: string[];
+  guildId: string;
+  mutedRoleId: string;
+  memberRoleId: string;
+}

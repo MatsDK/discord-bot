@@ -1,6 +1,6 @@
 import { commandType } from "../types";
 import { Command, CommandClass } from "../commandUtils/Command";
-import { ignoredUsersState } from "../../bot/constants";
+import { ignoredUsersState } from "../states";
 
 export class CommandConstructor {
   command: CommandClass;

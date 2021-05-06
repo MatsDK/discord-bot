@@ -1,6 +1,6 @@
 import { commandType } from "../types";
 import { Command, CommandClass } from "../commandUtils/Command";
-import { ignoredChannelsState } from "../../bot/constants";
+import { ignoredChannelsState } from "../states";
 
 export class CommandConstructor {
   command: CommandClass;

@@ -9,7 +9,7 @@ const guildBotSchema = new Schema({
   defaultBanDuration: { type: Number, default: 7 },
   mutedRoleId: { type: String },
   memberRoleId: { type: String },
-  modeRoleId: { type: String },
+  modeRolesIds: [{ type: String }],
   ignoredChannels: [{ type: String }],
   ignoredUsers: [{ type: String }],
   polls: [

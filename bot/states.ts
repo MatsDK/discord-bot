@@ -1,6 +1,9 @@
 import conf from "./conf.json";
 import fs from "fs";
 import path from "path";
+import { clientState } from "./client";
+import guildBot from "../server/db/models/guildBot";
+import { clientGuildObj, dbGuildType } from "./types";
 
 export const prefixState = {
   PREFIX: conf.prefix,
@@ -14,6 +17,25 @@ export const prefixState = {
       null
     );
   },
+};
+
+export const setPrefix = async (guildId: string, newPrefix: string) => {
+  try {
+    const thisDbObj: dbGuildType = await guildBot.findOneAndUpdate(
+      { guildId },
+      { prefix: newPrefix }
+    );
+    if (!thisDbObj) return;
+    thisDbObj.prefix = newPrefix;
+
+    const thisGuildObj: clientGuildObj = clientState.client.guildObjs.get(
+      guildId
+    );
+    if (!thisGuildObj) return;
+    thisGuildObj.prefix = newPrefix;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const ignoredChannelsState = {

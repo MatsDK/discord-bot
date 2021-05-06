@@ -16,7 +16,6 @@ const Ignored: React.FC<IgnoredPageProps> = ({
   bannedMembers,
   ignoredUsers,
 }) => {
-  console.log(ignoredUsers);
   return (
     <div>
       <Link href="/">Home</Link>

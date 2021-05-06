@@ -8,6 +8,8 @@ export class Bot extends Client {
   #token: string;
   commands: Collection<string, commandType> = new Collection();
   events: Collection<string, Function> = new Collection();
+  guildCommands: Collection<string, Function> = new Collection();
+  guildObjs: Collection<string, any> = new Collection();
 
   constructor(token: string) {
     super({ partials: ["MESSAGE", "CHANNEL", "REACTION"] });
@@ -15,6 +17,8 @@ export class Bot extends Client {
     if (!token?.trim()) throw "Invalid Login Token";
     this.#token = token;
     clientState.setClient(this);
+
+    this.#setEvents();
   }
 
   #setCommands = () => {
@@ -29,6 +33,5 @@ export class Bot extends Client {
     await this.login(this.#token);
 
     this.#setCommands();
-    this.#setEvents();
   }
 }

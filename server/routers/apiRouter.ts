@@ -5,7 +5,7 @@ import {
   ignoredChannelsState,
   ignoredUsersState,
   prefixState,
-} from "../../bot/constants";
+} from "../../bot/states";
 import { Request, Response, Router } from "express";
 import { commandType, createCmdBody } from "../../bot/types";
 import { nanoid } from "nanoid";
