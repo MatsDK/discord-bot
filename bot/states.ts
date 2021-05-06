@@ -38,6 +38,40 @@ export const setPrefix = async (guildId: string, newPrefix: string) => {
   }
 };
 
+export const setIgnoredChannels = async (
+  guildId: string,
+  newIgnoredChannels: string[]
+) => {
+  const thisDbObj: dbGuildType = await guildBot.findOneAndUpdate(
+    { guildId },
+    { ignoredChannels: newIgnoredChannels }
+  );
+  if (!thisDbObj) return;
+
+  const thisGuildObj: clientGuildObj = clientState.client.guildObjs.get(
+    guildId
+  );
+  if (!thisGuildObj) return;
+  thisGuildObj.ignoredChannels = newIgnoredChannels;
+};
+
+export const setIgnoredUsers = async (
+  guildId: string,
+  newIgnoredUsers: string[]
+) => {
+  const thisDbObj: dbGuildType = await guildBot.findOneAndUpdate(
+    { guildId },
+    { ignoredUsers: newIgnoredUsers }
+  );
+  if (!thisDbObj) return;
+
+  const thisGuildObj: clientGuildObj = clientState.client.guildObjs.get(
+    guildId
+  );
+  if (!thisGuildObj) return;
+  thisGuildObj.ignoredUsers = newIgnoredUsers;
+};
+
 export const ignoredChannelsState = {
   IGNORED_CHANNELS: conf.ignoredChannels,
   setIgnoredChannels: (newIgnoredChannels: string[]) => {

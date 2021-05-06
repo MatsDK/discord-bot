@@ -13,7 +13,7 @@ export class CommandConstructor {
           if (args.length < 1)
             return message.reply("Please provide a new prefix");
           if (args[0].trim().length < 1) return message.reply("Invalid prefix");
-          // prefixState.setPrefix(args[0]);
+
           setPrefix(message.guild.id, args[0]);
 
           message.reply(`Prefix changed to \` ${args[0]} \``);

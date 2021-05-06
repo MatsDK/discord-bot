@@ -1,6 +1,6 @@
-import { commandType } from "../types";
+import { clientGuildObj, commandType } from "../types";
 import { Command, CommandClass } from "../commandUtils/Command";
-import { ignoredChannelsState } from "../states";
+import { setIgnoredChannels } from "../states";
 
 export class CommandConstructor {
   command: CommandClass;
@@ -10,6 +10,11 @@ export class CommandConstructor {
       cmdDetails,
       async (client: any, message: any, args: any[]) => {
         try {
+          const thisGuildObj: clientGuildObj = client.guildObjs.get(
+            message.guild.id
+          );
+          if (!thisGuildObj) return;
+
           const targetChannelsIds: Set<string> = new Set([
             ...args
               .map((_: string) =>
@@ -26,17 +31,17 @@ export class CommandConstructor {
           if (!targetChannelsIds.size)
             return message.reply("Please mention channels you want to ignore");
 
-          const newIgnoredChannels: string[] =
-            ignoredChannelsState.IGNORED_CHANNELS;
-          const filterArr: string[] = [];
+          const newIgnoredChannels: string[] = thisGuildObj.ignoredChannels,
+            filterArr: string[] = [];
 
           Array.from(targetChannelsIds).forEach((_: string) => {
-            if (!ignoredChannelsState.IGNORED_CHANNELS.includes(_ as never))
+            if (!thisGuildObj.ignoredChannels.includes(_ as never))
               newIgnoredChannels.push(_);
             else filterArr.push(_);
           });
 
-          ignoredChannelsState.setIgnoredChannels(
+          setIgnoredChannels(
+            message.guild.id,
             newIgnoredChannels.filter((_: string) => !filterArr.includes(_))
           );
         } catch (err) {

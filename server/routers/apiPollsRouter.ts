@@ -44,7 +44,9 @@ router.get("/getPoll/:id", (req: Request, res: Response) => {
     return res.json({
       err: false,
       data: thisPoll,
-      roles: getData(clientState.client).rolesArr || [],
+      roles:
+        getData(process.env.TMP_GUILD_ID as string, clientState.client)
+          .rolesArr || [],
     });
   } catch (err) {
     console.log(err);

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export default () => {
-  mongoose.connect("mongodb://localhost:27017/Bots", {
+  mongoose.connect(process.env.MONGODB_URL as string, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,

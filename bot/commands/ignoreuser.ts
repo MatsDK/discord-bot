@@ -1,6 +1,6 @@
-import { commandType } from "../types";
+import { clientGuildObj, commandType } from "../types";
 import { Command, CommandClass } from "../commandUtils/Command";
-import { ignoredUsersState } from "../states";
+import { setIgnoredUsers } from "../states";
 
 export class CommandConstructor {
   command: CommandClass;
@@ -10,6 +10,11 @@ export class CommandConstructor {
       cmdDetails,
       async (client: any, message: any, args: any[]) => {
         try {
+          const thisGuildObj: clientGuildObj = client.guildObjs.get(
+            message.guild.id
+          );
+          if (!thisGuildObj) return;
+
           const members = await message.guild.members.fetch(),
             targetUsers: Set<string> = new Set([
               ...args
@@ -23,16 +28,17 @@ export class CommandConstructor {
               ),
             ]);
 
-          const newIgnoredUsers: string[] = ignoredUsersState.IGNORED_USERS,
+          const newIgnoredUsers: string[] = thisGuildObj.ignoredUsers,
             filterArr: string[] = [];
 
           Array.from(targetUsers).forEach((_: string) => {
-            if (!ignoredUsersState.IGNORED_USERS.includes(_ as never))
+            if (!thisGuildObj.ignoredUsers.includes(_ as never))
               newIgnoredUsers.push(_);
             else filterArr.push(_);
           });
 
-          ignoredUsersState.setIgnoredUsers(
+          setIgnoredUsers(
+            message.guild.id,
             newIgnoredUsers.filter((_: string) => !filterArr.includes(_))
           );
         } catch (err) {

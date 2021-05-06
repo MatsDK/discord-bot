@@ -39,7 +39,7 @@ const guildBotSchema = new Schema({
         consentedRoles: [{ type: String }],
       },
       channels: {
-        allChannles: { type: Boolean, default: true },
+        allChannels: { type: Boolean, default: true },
         allowedChannels: [{ type: String }],
       },
       action: { type: Boolean, default: false },
@@ -56,7 +56,7 @@ const guildBotSchema = new Schema({
         consentedRoles: [{ type: String }],
       },
       channels: {
-        allChannles: { type: Boolean, default: true },
+        allChannels: { type: Boolean, default: true },
         allowedChannels: [{ type: String }],
       },
       action: { type: Boolean, default: true },

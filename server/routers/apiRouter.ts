@@ -18,11 +18,24 @@ const router = Router();
 router.get("/getData", async (req: Request, res: Response) => {
   const client = clientState.client;
 
-  const { channelsArr, rolesArr } = getData(client);
+  let thisGuildCommands: any = client.guildCommands.get(
+    process.env.TMP_GUILD_ID
+  );
+  if (!thisGuildCommands) thisGuildCommands = [];
+
+  const newGuildCommands = {};
+  Array.from(thisGuildCommands).forEach(
+    ([key, _]: any) => (newGuildCommands[key] = _)
+  );
+
+  const { channelsArr, rolesArr } = getData(
+    process.env.TMP_GUILD_ID as string,
+    client
+  );
   res.json({
     err: false,
     data: {
-      commands: client.commands,
+      commands: newGuildCommands,
       prefix: prefixState.PREFIX,
       channels: channelsArr,
       roles: rolesArr,
@@ -38,7 +51,10 @@ router.get("/getData/:id", async (req: Request, res: Response) => {
   );
   if (!thisCmd) return res.json({ err: "Command not found" });
 
-  const { channelsArr, rolesArr } = getData(client);
+  const { channelsArr, rolesArr } = getData(
+    process.env.TMP_GUILD_ID as string,
+    client
+  );
   res.json({
     err: false,
     data: {

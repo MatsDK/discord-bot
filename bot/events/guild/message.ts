@@ -11,7 +11,7 @@ export default async (Discord: any, client: any, message: any) => {
       thisGuildObj: clientGuildObj = clientState.client.guildObjs.get(
         message.guild.id
       );
-    console.log(thisGuildObj);
+
     if (!thisGuildCommands || !thisGuildObj) return;
 
     if (
@@ -39,9 +39,8 @@ export default async (Discord: any, client: any, message: any) => {
     const thisCmd: any = thisGuildCommands.get(cmd.toLowerCase());
     if (!thisCmd) return;
 
-    // FIX TYPO IN DATABASE
     if (
-      !thisCmd.channels.allChannles &&
+      !thisCmd.channels.allChannels &&
       !thisCmd.channels.allowedChannels.includes(message.channel.id)
     )
       return message.reply("This Command cannot be used in this channel");
