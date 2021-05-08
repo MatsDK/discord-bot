@@ -42,6 +42,7 @@ const newPollPage: nextFunctionComponent<NewPollPageProps> = ({ roles }) => {
       method: "POST",
       url: "http://localhost:3001/api/poll/newPoll",
       data: {
+        rolePoll: isRolePoll,
         name: pollNameInput,
         content: pollContentInput,
         description: pollDesriptionInput,

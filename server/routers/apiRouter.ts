@@ -176,7 +176,7 @@ router.post("/changeCmd", async (req: Request, res: Response) => {
               (_: commandType) => _.id === id
             );
 
-            if (idx) {
+            if (idx >= 0) {
               guild.actions[idx] = command;
               await guild.save();
               return res.json({ err: false });

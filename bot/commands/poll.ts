@@ -1,9 +1,9 @@
-import { commandType, PollOption, pollType } from "../types";
+import { commandType, dbGuildType, PollOption, pollType } from "../types";
 import { Command, CommandClass } from "../commandUtils/Command";
-import polls from "../poll.json";
 import Discord, { Client, MessageReaction, Role } from "discord.js";
 import { isTimeStr, msToTime } from "../commandUtils/getTimeInMs";
 import formatTime from "../commandUtils/getTimeInMs";
+import guildBot from "../../server/db/models/guildBot";
 
 export class CommandConstructor {
   command: CommandClass;
@@ -23,16 +23,21 @@ export class CommandConstructor {
           if (!pollName)
             return message.reply("Please provide the name of the poll");
 
-          const key: string | undefined = Object.keys(polls).find(
-            (key: string) =>
-              polls[key].name.toLowerCase() === pollName.toLowerCase()
+          const dbGuild: dbGuildType = await guildBot.findOne({
+            guildId: message.guild.id,
+          });
+          if (!dbGuild) return;
+
+          const thisPoll: pollType | undefined = dbGuild.polls.find(
+            (_: pollType) =>
+              _.name.toLowerCase() === pollName.toLowerCase() ||
+              _.id === pollName.toLowerCase()
           );
-          const thisPoll: pollType = key ? polls[key] : polls[pollName];
           if (!thisPoll) return message.reply("Poll not found");
 
           if (!thisPoll.rolePoll)
-            handlePollCommand(message, args, thisPoll, pollDuration);
-          else handleRolePoll(message, args, thisPoll, pollDuration, client);
+            handlePollCommand(message, thisPoll, pollDuration);
+          else handleRolePoll(message, thisPoll, pollDuration, client);
         } catch (err) {
           console.log(err);
           message.reply("An error occured");
@@ -44,7 +49,6 @@ export class CommandConstructor {
 
 const handleRolePoll = async (
   message: any,
-  args: any[],
   thisPoll: pollType,
   pollDuration: any,
   client: Client
@@ -58,7 +62,7 @@ const handleRolePoll = async (
       const thisRole = message.guild.roles.cache.find(
         (role: Role) => role.id == _.id
       );
-      return { ..._, role: thisRole };
+      return { text: _.text, emoji: _.emoji, id: _.id, role: thisRole };
     }
   );
   rolesArr = rolesArr.filter((_: RoleOptionType) => !!_.role);
@@ -67,6 +71,7 @@ const handleRolePoll = async (
     MessageEmbed = await message.channel.send(embed);
 
   rolesArr = rolesArr.filter((_: RoleOptionType) => !!_.role);
+
   for (let option of rolesArr) await MessageEmbed.react(option.emoji);
 
   const checkReactionAndGetMember = async (
@@ -116,7 +121,6 @@ const handleRolePoll = async (
 
 const handlePollCommand = async (
   message: any,
-  args: any[],
   thisPoll: pollType,
   pollDuration: any
 ) => {
