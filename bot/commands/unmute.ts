@@ -1,6 +1,6 @@
-import { commandType } from "../types";
+import { clientGuildObj, commandType } from "../types";
 import { Command, CommandClass } from "../commandUtils/Command";
-import conf from "../conf.json";
+import { clientState } from "../../bot/client";
 
 export class CommandConstructor {
   command: CommandClass;
@@ -22,14 +22,19 @@ export class CommandConstructor {
               "You don't have enough permissions to use this command"
             );
 
+          const thisGuildObj: clientGuildObj = clientState.client.guildObjs.get(
+            message.guild.id
+          );
+          if (!thisGuildObj) return;
+
           const mutedRole = message.guild.roles.cache.find(
-            (role: any) => role.id === conf.mutedRoleId
+            (role: any) => role.id === thisGuildObj.mutedRoleId
           );
           if (!mutedRole)
             message.reply("There is no Muted role on this server");
 
           const memberRole = message.guild.roles.cache.find(
-            (role: any) => role.id === conf.memberRoleId
+            (role: any) => role.id === thisGuildObj.memberRoleId
           );
           if (!memberRole)
             message.reply("There is no Member role on this server");

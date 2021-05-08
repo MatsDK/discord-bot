@@ -20,6 +20,7 @@ export class Command implements CommandClass {
   description: string;
   reply: string;
   id: string;
+  fileName: string;
 
   constructor(cmdDetails: commandType, execute) {
     this.execute = execute;
@@ -30,5 +31,6 @@ export class Command implements CommandClass {
     this.reply = cmdDetails.reply;
     this.id = cmdDetails.id || "";
     this.action = true;
+    this.fileName = cmdDetails.fileName || "";
   }
 }

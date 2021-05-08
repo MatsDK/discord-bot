@@ -1,9 +1,15 @@
 import axios from "axios";
 import Link from "next/link";
+import { Context } from "node:vm";
+import Router from "next/router";
 
 type ignoredChannel = { name: string; id: string };
 type bannedMember = { name: string; id: string; reason: string; img: string };
 type ignoredUser = { name: string; id: string };
+
+interface nextFunctionComponent<P = {}> extends React.FC<P> {
+  getInitialProps?: (ctx: any) => Promise<P>;
+}
 
 interface IgnoredPageProps {
   ignoredChannels: Array<ignoredChannel>;
@@ -11,7 +17,7 @@ interface IgnoredPageProps {
   ignoredUsers: Array<ignoredUser>;
 }
 
-const Ignored: React.FC<IgnoredPageProps> = ({
+const Ignored: nextFunctionComponent<IgnoredPageProps> = ({
   ignoredChannels,
   bannedMembers,
   ignoredUsers,
@@ -48,23 +54,22 @@ const Ignored: React.FC<IgnoredPageProps> = ({
   );
 };
 
-export async function getServerSideProps(context: any) {
-  const res = await axios({
+Ignored.getInitialProps = async ({ res }: Context) => {
+  const apiRes = await axios({
     method: "GET",
     url: "http://localhost:3001/api/ignored",
   }).catch((err) => {
     console.log(err);
   });
 
-  if (!res || res.data.err)
-    return { props: { ignoredChannels: [], bannedMembers: [] } };
+  if (!apiRes || apiRes.data.err) {
+    if (typeof window === "undefined") return res.redirect("/");
+    else return Router.push("/");
+  }
   return {
-    props: {
-      ignoredChannels: res.data.ignoredChannels,
-      bannedMembers: res.data.bannedMembers,
-      ignoredUsers: res.data.ignoredUsers,
-    },
+    ignoredChannels: apiRes.data.ignoredChannels,
+    bannedMembers: apiRes.data.bannedMembers,
+    ignoredUsers: apiRes.data.ignoredUsers,
   };
-}
-
+};
 export default Ignored;

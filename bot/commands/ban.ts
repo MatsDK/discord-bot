@@ -1,8 +1,8 @@
 import Discord from "discord.js";
 import checkPermission from "../commandUtils/checkPermission";
-import conf from "../conf.json";
-import { commandType } from "../types";
+import { clientGuildObj, commandType } from "../types";
 import { Command, CommandClass } from "../commandUtils/Command";
+import { clientState } from "../../bot/client";
 
 export class CommandConstructor {
   command: CommandClass;
@@ -12,6 +12,11 @@ export class CommandConstructor {
       cmdDetails,
       async (client: any, message: any, args: any[]) => {
         try {
+          const thisGuildObj: clientGuildObj = clientState.client.guildObjs.get(
+            message.guild.id
+          );
+          if (!thisGuildObj) return;
+
           const target =
             message.mentions.members.first() ||
             message.guild.members.cache.get(args[0]);
@@ -28,7 +33,7 @@ export class CommandConstructor {
             .setFooter(`Banned by ${message.author.username}`);
 
           target
-            .ban({ reason, days: conf.defaultBanDuration })
+            .ban({ reason, days: thisGuildObj.defaultBanDuration })
             .catch((err: any) => {
               console.log(err);
               message.reply("An error occured");

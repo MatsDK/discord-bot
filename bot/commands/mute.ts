@@ -1,8 +1,8 @@
 import getTimeInMs from "../commandUtils/getTimeInMs";
-import conf from "../conf.json";
 import Discord from "discord.js";
-import { commandType } from "../types";
+import { clientGuildObj, commandType } from "../types";
 import { Command, CommandClass } from "../commandUtils/Command";
+import { clientState } from "../../bot/client";
 
 export class CommandConstructor {
   command: CommandClass;
@@ -12,6 +12,11 @@ export class CommandConstructor {
       cmdDetails,
       async (client: any, message: any, args: any[]) => {
         try {
+          const thisGuildObj: clientGuildObj = clientState.client.guildObjs.get(
+            message.guild.id
+          );
+          if (!thisGuildObj) return;
+
           const target: any = message.mentions.members.first();
           if (!target)
             message.reply("Please mention the person you want to mute");
@@ -26,13 +31,13 @@ export class CommandConstructor {
             );
 
           const mutedRole = message.guild.roles.cache.find(
-            (role: any) => role.id === conf.mutedRoleId
+            (role: any) => role.id === thisGuildObj.mutedRoleId
           );
           if (!mutedRole)
             message.reply("There is no Muted role on this server");
 
           const memberRole = message.guild.roles.cache.find(
-            (role: any) => role.id === conf.memberRoleId
+            (role: any) => role.id === thisGuildObj.memberRoleId
           );
           if (!memberRole)
             message.reply("There is no Member role on this server");
@@ -52,7 +57,7 @@ export class CommandConstructor {
             setTimeout(() => {
               target.roles.remove(mutedRole);
               target.roles.add(memberRole);
-            }, conf.defaultMuteDuration);
+            }, thisGuildObj.defaultMuteDuration);
             reason = args.slice(1).join(" ") || "Unspecified";
           } else {
             setTimeout(() => {

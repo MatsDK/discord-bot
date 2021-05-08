@@ -7,6 +7,8 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import PollForm from "../../src/components/PollForm";
 import { checkPoll } from "../../src/checkPollOptions";
+import { Context } from "node:vm";
+import Router from "next/router";
 
 interface nextFunctionComponent<P = {}> extends React.FC<P> {
   getInitialProps?: (ctx: any) => Promise<P>;
@@ -90,26 +92,20 @@ const newPollPage: nextFunctionComponent<NewPollPageProps> = ({ roles }) => {
   );
 };
 
-export const getServerSideProps = async (context: any) => {
-  const res = await axios({
+newPollPage.getInitialProps = async ({ res }: Context) => {
+  const apiRes = await axios({
     method: "GET",
     url: "http://localhost:3001/api/getData",
   }).catch((err) => {
     console.log(err);
   });
 
-  if (!res || res.data.err)
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/",
-      },
-    };
-
+  if (!apiRes || apiRes.data.err) {
+    if (typeof window === "undefined") return res.redirect("/poll");
+    else return Router.push("/poll");
+  }
   return {
-    props: {
-      roles: res.data.data.roles,
-    },
+    roles: apiRes.data.data.roles,
   };
 };
 
