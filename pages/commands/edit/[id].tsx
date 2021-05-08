@@ -25,6 +25,7 @@ const edit: nextFunctionComponent<EditPageProps> = ({
   channels,
   roles,
 }) => {
+  const [isSaving, setIsSaving] = useState<boolean>(false);
   const [keywordInput, setKeywordInput] = useState<string>(thisCmd.keyword);
   const [descriptionInput, setDescriptionInput] = useState<string>(
     thisCmd.description
@@ -54,12 +55,14 @@ const edit: nextFunctionComponent<EditPageProps> = ({
       }
     );
 
+    setIsSaving(true);
     axios({
       method: "POST",
       url: "http://localhost:3001/api/changeCmd",
       data: { command: updatedCmd },
     })
       .then((res) => {
+        setIsSaving(false);
         if (res.data.err) return;
       })
       .catch((err) => {
@@ -101,6 +104,7 @@ const edit: nextFunctionComponent<EditPageProps> = ({
         setSelectedRoles={setSelectedRoles}
         selectedRoles={selectedRoles}
       />
+      {isSaving && "Saving changes.."}
       <button onClick={saveChanges}>Save Changes</button>
     </div>
   );

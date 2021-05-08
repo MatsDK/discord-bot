@@ -8,7 +8,7 @@
       "dom",
       "es2017"
     ],
-    "outDir": "dist",
+    "outDir": ".next",
     "module": "commonjs",
     "moduleResolution": "node",
     "noEmit": true,
@@ -31,7 +31,6 @@
     "trash/next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "server/**/*.ts"
   ],
   "exclude": [
     "node_modules"

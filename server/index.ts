@@ -10,7 +10,7 @@ import { NextServer } from "next/dist/server/next";
 import { nanoid } from "nanoid";
 import connectDb from "./db/db";
 
-const dev: boolean = process.env.NODE_ENV !== "production";
+const dev: boolean = process.env.__DEV__ == "true";
 const app: NextServer = next({ dev });
 const handle = app.getRequestHandler();
 

@@ -12,7 +12,7 @@ export const commandHandler = async (client: any, Discord: any) => {
   );
 
   guilds.forEach(async (_: any) => {
-    const thisDbGuild: dbGuildType = dbGuilds.find(
+    const thisDbGuild: dbGuildType = await dbGuilds.find(
         (guild: dbGuildType) => guild.guildId === _.id
       ),
       thisClientMap: Map<string, commandType> = new Map();
