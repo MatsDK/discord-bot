@@ -7,6 +7,7 @@ import { useState } from "react";
 import { checkPoll } from "../../../src/checkPollOptions";
 import Link from "next/link";
 import Router from "next/router";
+import Layout from "src/components/Layout";
 
 interface nextFunctionComponent<P = {}> extends React.FC<P> {
   getInitialProps?: (ctx: any) => Promise<P>;
@@ -65,7 +66,7 @@ const Edit: nextFunctionComponent<editPollProps> = ({ poll, roles }) => {
   };
 
   return (
-    <div>
+    <Layout guildData={{}}>
       <Link href="/">Home</Link>
       <Link href="/poll">Polls</Link>
       <PollForm {...PollFormProps} />
@@ -76,7 +77,7 @@ const Edit: nextFunctionComponent<editPollProps> = ({ poll, roles }) => {
         roles={roles}
       />
       <button onClick={saveChanges}>Save Changes</button>
-    </div>
+    </Layout>
   );
 };
 

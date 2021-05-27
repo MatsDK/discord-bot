@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import SelectChannelsContainer from "../../../src/components/SelectChannelsContainer";
 import SelectRolesContainer from "../../../src/components/SelectRolesContainer";
+import Layout from "src/components/Layout";
 
 interface newCommandProps {
   prefix: string;
@@ -52,7 +53,7 @@ const newCommand = ({ prefix, channels, roles }: newCommandProps) => {
   };
 
   return (
-    <div>
+    <Layout guildData={{}}>
       <NewCommandForm create={createCommand} prefix={prefix} />
       <h3>Channels</h3>
       <SelectChannelsContainer
@@ -66,7 +67,7 @@ const newCommand = ({ prefix, channels, roles }: newCommandProps) => {
         setSelectedRoles={setSelectedRoles}
         selectedRoles={selectedRoles}
       />
-    </div>
+    </Layout>
   );
 };
 

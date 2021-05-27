@@ -2,6 +2,7 @@ import axios from "axios";
 import Link from "next/link";
 import { Context } from "node:vm";
 import Router from "next/router";
+import Layout from "src/components/Layout";
 
 type ignoredChannel = { name: string; id: string };
 type bannedMember = { name: string; id: string; reason: string; img: string };
@@ -23,7 +24,7 @@ const Ignored: nextFunctionComponent<IgnoredPageProps> = ({
   ignoredUsers,
 }) => {
   return (
-    <div>
+    <Layout guildData={{}}>
       <Link href="/">Home</Link>
       <h5>Ignored Channels</h5>
       {ignoredChannels.map((_: ignoredChannel, idx: number) => {
@@ -50,7 +51,7 @@ const Ignored: nextFunctionComponent<IgnoredPageProps> = ({
           </div>
         );
       })}
-    </div>
+    </Layout>
   );
 };
 

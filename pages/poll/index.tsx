@@ -3,6 +3,7 @@ import PollsList from "../../src/components/PollsList";
 import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
+import Layout from "src/components/Layout";
 
 const PollPage = (props: any) => {
   const [polls] = useState<Array<pollType>>(
@@ -10,12 +11,12 @@ const PollPage = (props: any) => {
   );
 
   return (
-    <div>
+    <Layout guildData={{}}>
       <Link href="/">Home</Link>
       <Link href="/poll/new">new poll</Link>
       list of polls
       <PollsList polls={polls} />
-    </div>
+    </Layout>
   );
 };
 

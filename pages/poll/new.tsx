@@ -9,6 +9,7 @@ import PollForm from "../../src/components/PollForm";
 import { checkPoll } from "../../src/checkPollOptions";
 import { Context } from "node:vm";
 import Router from "next/router";
+import Layout from "src/components/Layout";
 
 interface nextFunctionComponent<P = {}> extends React.FC<P> {
   getInitialProps?: (ctx: any) => Promise<P>;
@@ -70,7 +71,7 @@ const newPollPage: nextFunctionComponent<NewPollPageProps> = ({ roles }) => {
   };
 
   return (
-    <div>
+    <Layout guildData={{}}>
       <Link href="/poll">Polls</Link>
       <Link href="/">Home</Link>
       <label>Is role poll</label>
@@ -89,7 +90,7 @@ const newPollPage: nextFunctionComponent<NewPollPageProps> = ({ roles }) => {
       />
 
       <button onClick={savePoll}>Save Poll</button>
-    </div>
+    </Layout>
   );
 };
 

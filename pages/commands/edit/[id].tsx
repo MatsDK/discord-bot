@@ -7,6 +7,7 @@ import { Context } from "node:vm";
 import { useState } from "react";
 import { updateChanges } from "../../../src/updateCmdChanges";
 import Router from "next/router";
+import Layout from "src/components/Layout";
 
 interface nextFunctionComponent<P = {}> extends React.FC<P> {
   getInitialProps?: (ctx: any) => Promise<P>;
@@ -71,7 +72,7 @@ const edit: nextFunctionComponent<EditPageProps> = ({
   };
 
   return (
-    <div>
+    <Layout guildData={{}}>
       <Link href="/">Home</Link>
       <br />
       {prefix}
@@ -106,7 +107,7 @@ const edit: nextFunctionComponent<EditPageProps> = ({
       />
       {isSaving && "Saving changes.."}
       <button onClick={saveChanges}>Save Changes</button>
-    </div>
+    </Layout>
   );
 };
 

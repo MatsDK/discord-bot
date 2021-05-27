@@ -9,7 +9,7 @@ const router = Router();
 
 const getPolls = async (guildId: string): Promise<Array<pollType>> => {
   const dbGuild: dbGuildType = await guildBot.findOne({
-    guildId: process.env.TMP_GUILD_ID,
+    guildId,
   });
   return dbGuild.polls;
 };

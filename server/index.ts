@@ -7,14 +7,11 @@ import apiRouter from "./routers/apiRouter";
 import apiPollsRouter from "./routers/apiPollsRouter";
 import { Bot } from "../bot/Bot";
 import { NextServer } from "next/dist/server/next";
-import { nanoid } from "nanoid";
 import connectDb from "./db/db";
 
 const dev: boolean = process.env.__DEV__ == "true";
 const app: NextServer = next({ dev });
 const handle = app.getRequestHandler();
-
-console.log(nanoid());
 
 app
   .prepare()

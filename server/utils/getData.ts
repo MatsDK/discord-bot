@@ -19,5 +19,5 @@ export const getData = (guildId: string, client: any) => {
     })
   );
 
-  return { channelsArr, rolesArr };
+  return { channelsArr, rolesArr, imgURL: thisGuild.iconURL() };
 };

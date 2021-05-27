@@ -27,10 +27,11 @@ router.get("/getData", async (req: Request, res: Response) => {
     ([key, _]: any) => (newGuildCommands[key] = _)
   );
 
-  const { channelsArr, rolesArr } = getData(
+  const { channelsArr, rolesArr, imgURL } = getData(
     process.env.TMP_GUILD_ID as string,
     client
   );
+
   res.json({
     err: false,
     data: {
@@ -38,6 +39,7 @@ router.get("/getData", async (req: Request, res: Response) => {
       prefix: thisGuildObj.prefix,
       channels: channelsArr,
       roles: rolesArr,
+      imgURL,
     },
   });
 });
@@ -78,10 +80,8 @@ router.post("/createCmd", async (req: Request, res: Response) => {
     const { keyWord, description, reply, ...rest }: createCmdBody = req.body;
     const { channels, allChannels, roles, allRoles } = rest;
 
-    const thisGuildCommands: Map<
-      string,
-      any
-    > = clientState.client.guildCommands.get(process.env.TMP_GUILD_ID);
+    const thisGuildCommands: Map<string, any> =
+      clientState.client.guildCommands.get(process.env.TMP_GUILD_ID);
     if (!thisGuildCommands) return res.json({ err: "Server not found" });
 
     if (cmdExists(thisGuildCommands, keyWord))
@@ -118,22 +118,16 @@ router.post("/createCmd", async (req: Request, res: Response) => {
   }
 });
 
-interface ChangeCommandBody {
-  command: commandType;
-}
-
 router.post("/changeCmd", async (req: Request, res: Response) => {
   try {
     const {
       command: { id, action },
       command,
-    }: ChangeCommandBody = req.body;
+    }: { command: commandType } = req.body;
     if (!id) return res.json({ err: true });
 
-    const thisGuildCommands: Map<
-      string,
-      any
-    > = clientState.client.guildCommands.get(process.env.TMP_GUILD_ID);
+    const thisGuildCommands: Map<string, any> =
+      clientState.client.guildCommands.get(process.env.TMP_GUILD_ID);
     if (!thisGuildCommands) return res.json({ err: "Server not found" });
 
     let thisCmd = Array.from(thisGuildCommands)
@@ -158,7 +152,7 @@ router.post("/changeCmd", async (req: Request, res: Response) => {
               (_: commandType) => _.id === id
             );
 
-            if (idx) {
+            if (idx >= 0) {
               guild.commands[idx] = command;
               await guild.save();
               return res.json({ err: false });

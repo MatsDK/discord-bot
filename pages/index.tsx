@@ -3,15 +3,17 @@ import { commandType } from "../bot/types";
 import Link from "next/link";
 import React, { useState } from "react";
 import UpdatePrefixForm from "src/components/UpdatePrefixForm";
+import Layout from "src/components/Layout";
 
-const HomePage = ({ cmds, prefix }) => {
+const HomePage = ({ cmds, prefix, imgURL }) => {
   const [Prefix, setPrefix] = useState<string>(prefix);
   const [commands] = useState<commandType[]>(
     Object.keys(cmds).map((cmdName: string) => cmds[cmdName])
   );
 
   return (
-    <div>
+    <Layout guildData={{ img: imgURL }}>
+      {/* <img src={imgURL} alt="avatar" /> */}
       <Link href={"/commands/new/"}>New Command</Link>
       <Link href={"/poll"}>Poll</Link>
       <Link href={"/ignored"}>Ignored / banned</Link>
@@ -38,7 +40,7 @@ const HomePage = ({ cmds, prefix }) => {
             </div>
           );
         })}
-    </div>
+    </Layout>
   );
 };
 
@@ -55,6 +57,7 @@ export async function getServerSideProps(context: any) {
     props: {
       cmds: res.data.data.commands,
       prefix: res.data.data.prefix,
+      imgURL: res.data.data.imgURL,
     },
   };
 }
