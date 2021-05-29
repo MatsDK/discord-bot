@@ -1,8 +1,9 @@
 import axios from "axios";
 import Link from "next/link";
 import { Context } from "node:vm";
-import Router from "next/router";
-import Layout from "src/components/Layout";
+import Router, { useRouter } from "next/router";
+import Layout from "../../src/components/Layout";
+import { guildDataObj } from "bot/types";
 
 type ignoredChannel = { name: string; id: string };
 type bannedMember = { name: string; id: string; reason: string; img: string };
@@ -16,16 +17,20 @@ interface IgnoredPageProps {
   ignoredChannels: Array<ignoredChannel>;
   bannedMembers: Array<bannedMember>;
   ignoredUsers: Array<ignoredUser>;
+  guildData: guildDataObj;
 }
 
 const Ignored: nextFunctionComponent<IgnoredPageProps> = ({
   ignoredChannels,
   bannedMembers,
   ignoredUsers,
+  guildData,
 }) => {
+  const router = useRouter();
+
   return (
-    <Layout guildData={{}}>
-      <Link href="/">Home</Link>
+    <Layout guildData={guildData}>
+      <Link href={`/${router.query.guildId}`}>Home</Link>
       <h5>Ignored Channels</h5>
       {ignoredChannels.map((_: ignoredChannel, idx: number) => {
         return (
@@ -55,9 +60,10 @@ const Ignored: nextFunctionComponent<IgnoredPageProps> = ({
   );
 };
 
-Ignored.getInitialProps = async ({ res }: Context) => {
+Ignored.getInitialProps = async ({ res, query }: Context) => {
   const apiRes = await axios({
     method: "GET",
+    params: { guildId: query.guildId },
     url: "http://localhost:3001/api/ignored",
   }).catch((err) => {
     console.log(err);
@@ -71,6 +77,7 @@ Ignored.getInitialProps = async ({ res }: Context) => {
     ignoredChannels: apiRes.data.ignoredChannels,
     bannedMembers: apiRes.data.bannedMembers,
     ignoredUsers: apiRes.data.ignoredUsers,
+    guildData: apiRes.data.guildData,
   };
 };
 export default Ignored;

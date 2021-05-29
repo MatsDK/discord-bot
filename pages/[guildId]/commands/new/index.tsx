@@ -1,11 +1,11 @@
-import { channelsType, commandType, rolesType } from "../../../bot/types";
-import NewCommandForm from "../../../src/components/NewCommandForm";
+import { channelsType, commandType, rolesType } from "../../../../bot/types";
+import NewCommandForm from "../../../../src/components/NewCommandForm";
 import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import SelectChannelsContainer from "../../../src/components/SelectChannelsContainer";
-import SelectRolesContainer from "../../../src/components/SelectRolesContainer";
-import Layout from "src/components/Layout";
+import SelectChannelsContainer from "../../../../src/components/SelectChannelsContainer";
+import SelectRolesContainer from "../../../../src/components/SelectRolesContainer";
+import Layout from "../../../../src/components/Layout";
 
 interface newCommandProps {
   prefix: string;
@@ -15,7 +15,7 @@ interface newCommandProps {
   redirect?: boolean;
 }
 
-const newCommand = ({ prefix, channels, roles }: newCommandProps) => {
+const newCommand: React.FC<newCommandProps> = ({ prefix, channels, roles }) => {
   const router = useRouter();
   const [selectedChannels, setSelectedChannels] = useState<string[]>(
     channels.map((_: channelsType) => _.id)

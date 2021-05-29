@@ -1,13 +1,13 @@
-import { PollOption, pollType, rolesType } from "../../../bot/types";
-import PollForm from "../../../src/components/PollForm";
-import PollOptions from "../../../src/components/PollOptions";
+import { PollOption, pollType, rolesType } from "../../../../bot/types";
+import PollForm from "../../../../src/components/PollForm";
+import PollOptions from "../../../../src/components/PollOptions";
 import axios from "axios";
 import { Context } from "node:vm";
 import { useState } from "react";
-import { checkPoll } from "../../../src/checkPollOptions";
+import { checkPoll } from "../../../../src/checkPollOptions";
 import Link from "next/link";
-import Router from "next/router";
-import Layout from "src/components/Layout";
+import Router, { useRouter } from "next/router";
+import Layout from "../../../../src/components/Layout";
 
 interface nextFunctionComponent<P = {}> extends React.FC<P> {
   getInitialProps?: (ctx: any) => Promise<P>;
@@ -27,6 +27,7 @@ const Edit: nextFunctionComponent<editPollProps> = ({ poll, roles }) => {
   const [pollDesriptionInput, setPollDesriptionInput] = useState<string>(
     poll.description
   );
+  const router = useRouter();
 
   const saveChanges = () => {
     const checkPollOptions = checkPoll(
@@ -67,8 +68,8 @@ const Edit: nextFunctionComponent<editPollProps> = ({ poll, roles }) => {
 
   return (
     <Layout guildData={{}}>
-      <Link href="/">Home</Link>
-      <Link href="/poll">Polls</Link>
+      <Link href={`/${router.query.guildId}`}>Home</Link>
+      <Link href={`/${router.query.guildId}/poll`}>Polls</Link>
       <PollForm {...PollFormProps} />
       <PollOptions
         setOptions={setPollOptions}

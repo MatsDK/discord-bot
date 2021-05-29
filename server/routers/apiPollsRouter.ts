@@ -11,12 +11,18 @@ const getPolls = async (guildId: string): Promise<Array<pollType>> => {
   const dbGuild: dbGuildType = await guildBot.findOne({
     guildId,
   });
-  return dbGuild.polls;
+  return dbGuild?.polls;
 };
 
 router.get("/getPolls", async (req: Request, res: Response) => {
-  const polls = await getPolls(process.env.TMP_GUILD_ID as string);
-  res.json({ polls });
+  const polls = await getPolls(req.query.guildId as string);
+  if (!polls) return res.json({ polls: [] });
+
+  const { data } = await getData(
+    req.query.guildId as string,
+    clientState.client
+  );
+  res.json({ polls, data });
 });
 
 router.post("/newPoll", async (req: Request, res: Response) => {
@@ -51,7 +57,7 @@ router.get("/getPoll/:id", async (req: Request, res: Response) => {
       err: false,
       data: thisPoll,
       roles:
-        getData(process.env.TMP_GUILD_ID as string, clientState.client)
+        (await getData(process.env.TMP_GUILD_ID as string, clientState.client))
           .rolesArr || [],
     });
   } catch (err) {

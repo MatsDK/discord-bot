@@ -8,6 +8,7 @@
   overflow: scroll;
   flex: 1;
   padding: 10px;
+  background-color: #f5f5f5;
 }
 
 .sidebar {
@@ -40,7 +41,7 @@
 }
 
 .sidebarItem:hover {
-  color: #dfdfdf;
+  color: #d8d8d8;
 }
 
 .sidebarTop {
@@ -50,13 +51,36 @@
   display: flex;
   align-items: center;
   padding: 10px 10px;
-  padding-left: 50px;
+  padding-left: 25px;
   cursor: pointer;
 }
 
 .sidebarTop img {
-  height: 50px;
+  height: 40px;
   object-fit: contain;
-  width: 50px;
+  width: 40px;
   border-radius: 50%;
+}
+
+.sidebarTop p {
+  margin: 0;
+  padding-left: 10px;
+  font-size: 20px;
+}
+
+.sidebarTop .serverStatus {
+  font-size: 14px;
+  margin-top: -5px;
+  color: #d8d8d8;
+}
+
+.sidebarTop .activeServerStatus {
+  color: #0080f6;
+}
+
+.dropDownIcon {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10px;
 }

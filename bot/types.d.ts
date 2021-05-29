@@ -73,6 +73,7 @@ export interface dbGuildType {
 }
 
 export interface clientGuildObj {
+  isActive: boolean;
   prefix: string;
   defaultMuteDuration: number;
   defaultBanDuration: number;
@@ -82,4 +83,16 @@ export interface clientGuildObj {
   guildId: string;
   mutedRoleId: string;
   memberRoleId: string;
+}
+
+interface guildData {
+  imgURL: string;
+  name: string;
+  active: boolean;
+  guildId: string;
+}
+
+interface guildDataObj {
+  thisGuild: guildData;
+  guilds: guildData[];
 }

@@ -1,13 +1,13 @@
-import { channelsType, commandType, rolesType } from "../../../bot/types";
-import SelectChannelsContainer from "src/components/SelectChannelsContainer";
-import SelectRolesContainer from "src/components/SelectRolesContainer";
+import { channelsType, commandType, rolesType } from "../../../../bot/types";
+import SelectChannelsContainer from "../../../../src/components/SelectChannelsContainer";
+import SelectRolesContainer from "../../../../src/components/SelectRolesContainer";
 import axios from "axios";
 import Link from "next/link";
 import { Context } from "node:vm";
 import { useState } from "react";
-import { updateChanges } from "../../../src/updateCmdChanges";
-import Router from "next/router";
-import Layout from "src/components/Layout";
+import { updateChanges } from "../../../../src/updateCmdChanges";
+import Router, { useRouter } from "next/router";
+import Layout from "../../../../src/components/Layout";
 
 interface nextFunctionComponent<P = {}> extends React.FC<P> {
   getInitialProps?: (ctx: any) => Promise<P>;
@@ -42,6 +42,7 @@ const edit: nextFunctionComponent<EditPageProps> = ({
       ? roles.map((_: rolesType) => _.id)
       : thisCmd.roles.consentedRoles
   );
+  const router = useRouter();
 
   const saveChanges = () => {
     if (!keywordInput.trim().length) return alert("Invalid Keyword!");
@@ -73,7 +74,7 @@ const edit: nextFunctionComponent<EditPageProps> = ({
 
   return (
     <Layout guildData={{}}>
-      <Link href="/">Home</Link>
+      <Link href={`/${router.query.guildId}`}>Home</Link>
       <br />
       {prefix}
       <input

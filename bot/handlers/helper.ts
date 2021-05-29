@@ -2,6 +2,7 @@ import { clientGuildObj, dbGuildType } from "bot/types";
 
 export default (thisDbGuild: dbGuildType): clientGuildObj => {
   return {
+    isActive: thisDbGuild.isActive,
     prefix: thisDbGuild.prefix,
     defaultMuteDuration: thisDbGuild.defaultMuteDuration,
     defaultBanDuration: thisDbGuild.defaultBanDuration,

@@ -10,16 +10,13 @@ import { cmdExists } from "../../server/utils/cmdExists";
 const router = Router();
 
 router.get("/getData", async (req: Request, res: Response) => {
-  const client = clientState.client;
+  const client = clientState.client,
+    guildId = req.query.guildId;
 
-  let thisGuildCommands: any = client.guildCommands.get(
-    process.env.TMP_GUILD_ID
-  );
+  let thisGuildCommands: any = client.guildCommands.get(guildId);
   if (!thisGuildCommands) thisGuildCommands = [];
 
-  const thisGuildObj: clientGuildObj = client.guildObjs.get(
-    process.env.TMP_GUILD_ID
-  );
+  const thisGuildObj: clientGuildObj = client.guildObjs.get(guildId);
   if (!thisGuildObj) return res.json({ err: "Server not found" });
 
   const newGuildCommands = {};
@@ -27,8 +24,8 @@ router.get("/getData", async (req: Request, res: Response) => {
     ([key, _]: any) => (newGuildCommands[key] = _)
   );
 
-  const { channelsArr, rolesArr, imgURL } = getData(
-    process.env.TMP_GUILD_ID as string,
+  const { channelsArr, rolesArr, data } = await getData(
+    guildId as string,
     client
   );
 
@@ -39,7 +36,7 @@ router.get("/getData", async (req: Request, res: Response) => {
       prefix: thisGuildObj.prefix,
       channels: channelsArr,
       roles: rolesArr,
-      imgURL,
+      data,
     },
   });
 });
@@ -60,7 +57,7 @@ router.get("/getData/:id", async (req: Request, res: Response) => {
   );
   if (!thisGuildObj) return res.json({ err: "Server not found" });
 
-  const { channelsArr, rolesArr } = getData(
+  const { channelsArr, rolesArr } = await getData(
     process.env.TMP_GUILD_ID as string,
     client
   );
@@ -207,12 +204,14 @@ router.post("/setPrefix", async (req: Request, res: Response) => {
 
 router.get("/ignored", async (req: Request, res: Response) => {
   try {
-    const guild = clientState.client.guilds.cache.get(process.env.TMP_GUILD_ID);
+    const guildId = req.query.guildId;
+    if (!guildId) return res.json({ err: "can't find guild" });
+
+    const guild = clientState.client.guilds.cache.get(guildId);
     if (!guild) return res.json({ err: "server not found" });
 
-    const thisGuildObj: clientGuildObj = clientState.client.guildObjs.get(
-      process.env.TMP_GUILD_ID
-    );
+    const thisGuildObj: clientGuildObj =
+      clientState.client.guildObjs.get(guildId);
     if (!thisGuildObj) return res.json({ err: "server not found" });
 
     let bannedMembers = await guild.fetchBans(),
@@ -237,11 +236,14 @@ router.get("/ignored", async (req: Request, res: Response) => {
       .filter((_: any) => _)
       .map((_: any) => ({ name: _.user.tag, id: _.id }));
 
+    const { data } = await getData(guildId as string, clientState.client);
+
     return res.json({
       err: false,
       ignoredChannels,
       bannedMembers,
       ignoredUsers,
+      guildData: data,
     });
   } catch (err) {
     res.json({ err: err.message });

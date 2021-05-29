@@ -1,6 +1,7 @@
-import { channelsType, rolesType } from "../../bot/types";
+import { channelsType, clientGuildObj, rolesType } from "../../bot/types";
+import { getGuildObj } from "./getGuildObjs";
 
-export const getData = (guildId: string, client: any) => {
+export const getData = async (guildId: string, client: any) => {
   const thisGuild = client.guilds.cache.get(guildId);
   if (!thisGuild) return { channelsArr: [], rolesArr: [] };
 
@@ -19,5 +20,20 @@ export const getData = (guildId: string, client: any) => {
     })
   );
 
-  return { channelsArr, rolesArr, imgURL: thisGuild.iconURL() };
+  const thisGuildObj: clientGuildObj = client.guildObjs.get(guildId),
+    guilds = await getGuildObj(client);
+
+  return {
+    channelsArr,
+    rolesArr,
+    data: {
+      thisGuild: {
+        imgURL: thisGuild.iconURL(),
+        name: thisGuild.name,
+        active: thisGuildObj?.isActive,
+        id: thisGuild.id,
+      },
+      guilds: guilds || [],
+    },
+  };
 };

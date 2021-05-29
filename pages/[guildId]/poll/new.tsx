@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { useState } from "react";
 import "emoji-mart/css/emoji-mart.css";
-import { PollOption, rolesType } from "../../bot/types";
-import PollOptions from "../../src/components/PollOptions";
+import { PollOption, rolesType } from "../../../bot/types";
+import PollOptions from "../../../src/components/PollOptions";
 import axios from "axios";
 import { useRouter } from "next/router";
-import PollForm from "../../src/components/PollForm";
-import { checkPoll } from "../../src/checkPollOptions";
+import PollForm from "../../../src/components/PollForm";
+import { checkPoll } from "../../../src/checkPollOptions";
 import { Context } from "node:vm";
 import Router from "next/router";
 import Layout from "src/components/Layout";
@@ -72,8 +72,8 @@ const newPollPage: nextFunctionComponent<NewPollPageProps> = ({ roles }) => {
 
   return (
     <Layout guildData={{}}>
-      <Link href="/poll">Polls</Link>
-      <Link href="/">Home</Link>
+      <Link href={`/${router.query.guildId}/poll`}>Polls</Link>
+      <Link href={`/${router.query.guildId}`}>Home</Link>
       <label>Is role poll</label>
       <input
         type="checkbox"
