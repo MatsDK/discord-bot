@@ -1,0 +1,164 @@
+.pageHeader {
+  height: 240px;
+  padding: 0 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pageHeader h1 {
+  font-size: 60px;
+}
+
+.pageHeader button {
+  font-size: 30px;
+  padding: 5px 15px;
+  margin: 0 4px;
+  border-radius: 5px;
+  border: 0;
+  background-color: #f5f5f5;
+  cursor: pointer;
+  transition: 0.1s ease;
+}
+
+.pageHeader button:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.07);
+  background-color: #fff;
+}
+
+.commandsList {
+  /* margin-top: 100px; */
+  padding: 0 100px;
+}
+
+.commandsList .commandsListItem {
+  display: flex;
+  background-color: #fff;
+  margin: 15px 0px;
+  padding: 10px 40px;
+  align-items: center;
+  transition: 0.1s ease;
+  justify-content: space-between;
+}
+
+.commandsList .commandsListItem p,
+.commandsListItem span {
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.commandsList .commandsListItem .description {
+  font-size: 20px;
+  text-align: start;
+  flex: 1;
+}
+
+.commandsListItem:hover {
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.07);
+}
+
+.commandsList .commandsListItem .keyWord {
+  font-size: 20px;
+  width: 35%;
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.commandsListItem .prefix {
+  color: #0080f6;
+}
+
+.commandsList .commandsListItem div {
+  width: 100px;
+}
+
+.commandsListItem .buttonsWrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.buttonsWrapper svg {
+  cursor: pointer;
+}
+
+.commandsListHeader {
+  padding: 0 140px;
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.commandsListHeader span {
+  margin-bottom: -5px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.changePrefixHeader {
+  font-weight: 600;
+  font-size: 22px;
+}
+
+.updatePrefixWrapper {
+  padding: 20px 100px;
+  margin-bottom: 50px;
+}
+
+.updatePrefixWrapper form {
+  display: flex;
+  margin-top: 15px;
+  align-items: center;
+  margin-left: 5px;
+}
+
+.updatePrefixWrapper div {
+  height: 30px;
+  align-items: center;
+  display: flex;
+  border-radius: 5px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.07);
+}
+
+.updatePrefixWrapper div input {
+  outline: none;
+  color: #0080f6;
+  border: 0;
+  background: #fff;
+  padding: 3px 5px;
+  font-size: 17px;
+  width: 100px;
+}
+
+.updatePrefixWrapper form div button {
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.updatePrefixWrapper div button svg {
+  width: 10px;
+  height: 10px;
+}
+
+.updatePrefixWrapper form .saveButton {
+  background-color: #f5f5f5;
+  transition: 0.1s ease;
+  border: 0;
+  height: 30px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 500;
+  margin-left: 4px;
+  border-radius: 5px;
+}
+
+.updatePrefixWrapper .saveButton:hover {
+  background-color: #fff;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.07);
+}

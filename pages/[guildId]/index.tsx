@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import UpdatePrefixForm from "../../src/components/UpdatePrefixForm";
 import Layout from "../../src/components/Layout";
 import { useRouter } from "next/router";
+import styles from "../../src/css/commandPage.module.css";
+import { EditIcon, RemoveIcon } from "src/components/icons";
 
 interface HomePageProps {
   cmds: { [key: string]: commandType };
@@ -14,6 +16,8 @@ interface HomePageProps {
 
 const HomePage: React.FC<HomePageProps> = ({ cmds, prefix, data }) => {
   const [Prefix, setPrefix] = useState<string>(prefix);
+  const [showUpdatePrefixForm, setShowUpdatePrefixForm] =
+    useState<boolean>(false);
   const [commands] = useState<commandType[]>(
     Object.keys(cmds).map((cmdName: string) => cmds[cmdName])
   );
@@ -22,33 +26,59 @@ const HomePage: React.FC<HomePageProps> = ({ cmds, prefix, data }) => {
 
   return (
     <Layout guildData={data}>
-      <Link href={`/${guildId}/commands/new/`}>New Command</Link>
-      <Link href={`/${guildId}/poll`}>Poll</Link>
-      <Link href={`/${guildId}/ignored`}>Ignored / banned</Link>
-      <UpdatePrefixForm
-        guildId={guildId as string}
-        initialPrefix={prefix}
-        prefix={Prefix}
-        setPrefix={setPrefix}
-      />
-      {commands
-        .sort((a: commandType, b: commandType) => {
-          const textA = a.keyword.toUpperCase();
-          const textB = b.keyword.toUpperCase();
-          return textA < textB ? -1 : textA > textB ? 1 : 0;
-        })
-        .map((_: commandType, idx: number) => {
-          return (
-            <div key={idx} style={{ display: "flex" }}>
-              <p className="keyWord">
-                {Prefix}
-                {_.keyword}
-              </p>
-              <p className="desc">{_.description}</p>
-              <Link href={`/${guildId}/commands/edit/${_.id}`}>Edit</Link>
-            </div>
-          );
-        })}
+      <div className={styles.pageHeader}>
+        <h1>Commands</h1>
+        <div>
+          <button
+            onClick={() => setShowUpdatePrefixForm(!showUpdatePrefixForm)}
+          >
+            Change Prefix
+          </button>
+          <Link href={`/${guildId}/commands/new`}>
+            <button>New Command</button>
+          </Link>
+        </div>
+      </div>
+      {showUpdatePrefixForm && (
+        <UpdatePrefixForm
+          guildId={guildId as string}
+          initialPrefix={prefix}
+          prefix={Prefix}
+          setPrefix={setPrefix}
+        />
+      )}
+      <div className={styles.commandsListHeader}>
+      <span style={{ width: "35%", textAlign: "start" }}>Keyword</span>
+        <span style={{ textAlign: "start", flex: "1" }}>Description</span>
+        <div style={{ width: "100px" }}></div>
+      </div>
+      <div className={styles.commandsList}>
+        {commands
+          .sort((a: commandType, b: commandType) => {
+            const textA = a.keyword.toUpperCase();
+            const textB = b.keyword.toUpperCase();
+            return textA < textB ? -1 : textA > textB ? 1 : 0;
+          })
+          .map((_: commandType, idx: number) => {
+            return (
+              <div key={idx} className={styles.commandsListItem}>
+                <p className={styles.keyWord}>
+                  <p className={styles.prefix}>{Prefix}</p>
+                  {_.keyword}
+                </p>
+                <span className={styles.description}>{_.description}</span>
+                <div className={styles.buttonsWrapper}>
+                  <RemoveIcon />
+                  <Link href={`/${guildId}/commands/edit/${_.id}`}>
+                    <p>
+                      <EditIcon />
+                    </p>
+                  </Link>
+                </div>
+              </div>
+            );
+          })}
+      </div>
     </Layout>
   );
 };

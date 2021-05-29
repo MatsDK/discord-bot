@@ -86,3 +86,78 @@ export const DropDownIcon = () => {
     </svg>
   );
 };
+
+export const EditIcon = () => {
+  return (
+    <svg
+      width="26"
+      height="26"
+      viewBox="0 0 26 26"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect y="20" width="5.98603" height="6" fill="#303030" />
+      <rect
+        width="8.47541"
+        height="24.0481"
+        transform="matrix(0.706282 0.70793 -0.706282 0.70793 16.9847 2.97562)"
+        fill="#303030"
+      />
+      <rect
+        width="8.47541"
+        height="2.91084"
+        transform="matrix(0.706282 0.70793 -0.706282 0.70793 20.0139 0)"
+        fill="#303030"
+      />
+    </svg>
+  );
+};
+
+export const RemoveIcon = ({ color }: { color?: string }) => {
+  return (
+    <svg
+      width="21"
+      height="21"
+      viewBox="0 0 21 21"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect
+        width="26.2791"
+        height="3"
+        transform="matrix(0.707106 -0.707108 0.707106 0.707108 0 18.5822)"
+        fill={color || "#303030"}
+      />
+      <rect
+        width="26.2791"
+        height="3"
+        transform="matrix(0.707106 -0.707108 0.707106 0.707108 0 18.5822)"
+        fill={color || "#303030"}
+      />
+      <rect
+        width="26.2791"
+        height="3"
+        transform="matrix(0.707106 -0.707108 0.707106 0.707108 0 18.5822)"
+        fill={color || "#303030"}
+      />
+      <rect
+        width="26.2791"
+        height="3"
+        transform="matrix(0.707106 0.707108 -0.707106 0.707108 2.41785 7.62939e-06)"
+        fill={color || "#303030"}
+      />
+      <rect
+        width="26.2791"
+        height="3"
+        transform="matrix(0.707106 0.707108 -0.707106 0.707108 2.41785 7.62939e-06)"
+        fill={color || "#303030"}
+      />
+      <rect
+        width="26.2791"
+        height="3"
+        transform="matrix(0.707106 0.707108 -0.707106 0.707108 2.41785 7.62939e-06)"
+        fill={color || "#303030"}
+      />
+    </svg>
+  );
+};

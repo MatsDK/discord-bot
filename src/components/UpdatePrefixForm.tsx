@@ -1,5 +1,7 @@
 import axios from "axios";
+import styles from "../../src/css/commandPage.module.css";
 import { FormEvent } from "react";
+import { RemoveIcon } from "./icons";
 
 interface UpdatePrefixProps {
   prefix: string;
@@ -36,16 +38,22 @@ const UpdatePrefixForm: React.FC<UpdatePrefixProps> = ({
   };
 
   return (
-    <div>
-      <h5 style={{ margin: "0" }}>Set Prefix</h5>
+    <div className={styles.updatePrefixWrapper}>
+      <span className={styles.changePrefixHeader}>Change Prefix</span>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={prefix}
-          onChange={(e) => setPrefix(e.target.value)}
-        />
-        <button onClick={() => setPrefix(initialPrefix)}>Reset</button>
-        <button type="submit">Save prefix</button>
+        <div>
+          <input
+            type="text"
+            value={prefix}
+            onChange={(e) => setPrefix(e.target.value)}
+          />
+          <button onClick={() => setPrefix(initialPrefix)}>
+            <RemoveIcon color="rgb(83, 83, 83)" />
+          </button>
+        </div>
+        <button className={styles.saveButton} type="submit">
+          Save
+        </button>
       </form>
     </div>
   );
