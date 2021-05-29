@@ -5,12 +5,14 @@ interface UpdatePrefixProps {
   prefix: string;
   initialPrefix: string;
   setPrefix: Function;
+  guildId: string;
 }
 
 const UpdatePrefixForm: React.FC<UpdatePrefixProps> = ({
   prefix,
   initialPrefix,
   setPrefix,
+  guildId,
 }) => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -20,6 +22,7 @@ const UpdatePrefixForm: React.FC<UpdatePrefixProps> = ({
       method: "POST",
       url: "http://localhost:3001/api/setPrefix",
       data: {
+        guildId,
         prefix,
       },
     })

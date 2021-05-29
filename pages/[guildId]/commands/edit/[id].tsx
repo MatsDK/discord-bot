@@ -1,4 +1,9 @@
-import { channelsType, commandType, rolesType } from "../../../../bot/types";
+import {
+  channelsType,
+  commandType,
+  guildDataObj,
+  rolesType,
+} from "../../../../bot/types";
 import SelectChannelsContainer from "../../../../src/components/SelectChannelsContainer";
 import SelectRolesContainer from "../../../../src/components/SelectRolesContainer";
 import axios from "axios";
@@ -18,6 +23,7 @@ interface EditPageProps {
   channels: Array<channelsType>;
   roles: Array<rolesType>;
   thisCmd: commandType;
+  guildData: guildDataObj;
 }
 
 const edit: nextFunctionComponent<EditPageProps> = ({
@@ -25,6 +31,7 @@ const edit: nextFunctionComponent<EditPageProps> = ({
   prefix,
   channels,
   roles,
+  guildData,
 }) => {
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const [keywordInput, setKeywordInput] = useState<string>(thisCmd.keyword);
@@ -61,7 +68,7 @@ const edit: nextFunctionComponent<EditPageProps> = ({
     axios({
       method: "POST",
       url: "http://localhost:3001/api/changeCmd",
-      data: { command: updatedCmd },
+      data: { guildId: router.query.guildId, command: updatedCmd },
     })
       .then((res) => {
         setIsSaving(false);
@@ -73,7 +80,7 @@ const edit: nextFunctionComponent<EditPageProps> = ({
   };
 
   return (
-    <Layout guildData={{}}>
+    <Layout guildData={guildData}>
       <Link href={`/${router.query.guildId}`}>Home</Link>
       <br />
       {prefix}
@@ -113,17 +120,18 @@ const edit: nextFunctionComponent<EditPageProps> = ({
 };
 
 edit.getInitialProps = async ({ query, res }: Context) => {
-  const { id }: { id: string } = query;
+  const { id, guildId }: { id: string; guildId: string } = query;
   const apiRes = await axios({
     method: "GET",
     url: `http://localhost:3001/api/getData/${id}`,
+    params: { guildId },
   }).catch((err) => {
     console.log(err);
   });
 
   if (!apiRes || apiRes.data.err) {
-    if (typeof window === "undefined") return res.redirect("/");
-    else return Router.push("/");
+    if (typeof window === "undefined") return res.redirect(`/${guildId}`);
+    else return Router.push(`/${guildId}`);
   }
 
   return {
@@ -131,6 +139,7 @@ edit.getInitialProps = async ({ query, res }: Context) => {
     prefix: apiRes.data.data.prefix,
     channels: apiRes.data.data.channels,
     roles: apiRes.data.data.roles,
+    guildData: apiRes.data.data.guildData,
   };
 };
 

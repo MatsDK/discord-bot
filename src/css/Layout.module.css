@@ -17,6 +17,7 @@
   color: #fff;
   /* box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.158); */
   box-shadow: 8px 4px 22px 2px rgba(0, 0, 0, 0.25);
+  z-index: 2;
 }
 
 .sidebarItem {
@@ -53,6 +54,16 @@
   padding: 10px 10px;
   padding-left: 25px;
   cursor: pointer;
+  transition: 0.1s ease;
+}
+
+.sidebarTop:hover,
+.sidebarTop.active {
+  background-color: rgb(20, 22, 27);
+}
+
+.sidebarTop.active .dropDownIcon {
+  transform: rotateX(180deg);
 }
 
 .sidebarTop img {
@@ -79,8 +90,30 @@
 }
 
 .dropDownIcon {
+  transition: 0.1s ease;
+  transform: rotateX(0);
   flex: 1;
   display: flex;
   justify-content: flex-end;
   margin-right: 10px;
+}
+
+.dropDownMenu {
+  position: absolute;
+  top: 81px;
+  background-color: rgb(20, 22, 27);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.336);
+  width: 360px;
+  border-radius: 4px;
+  left: 0;
+}
+
+.dropDownMenu .dropDownItem {
+  padding: 10px;
+  padding-left: 25px;
+  display: flex;
+}
+
+.dropDownMenu .dropDownItem:hover {
+  background-color: #1b1e22;
 }

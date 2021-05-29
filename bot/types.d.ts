@@ -31,6 +31,7 @@ export interface createCmdBody {
   channels: string[];
   allChannels: boolean;
   roles: string[];
+  guildId: string;
   allRoles: boolean;
   keyWord: string;
   description: string;

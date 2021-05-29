@@ -1,4 +1,9 @@
-import { channelsType, commandType, rolesType } from "../../../../bot/types";
+import {
+  channelsType,
+  commandType,
+  guildDataObj,
+  rolesType,
+} from "../../../../bot/types";
 import NewCommandForm from "../../../../src/components/NewCommandForm";
 import axios from "axios";
 import { useState } from "react";
@@ -12,10 +17,16 @@ interface newCommandProps {
   channels: channelsType[];
   roles: rolesType[];
   cmds: commandType[];
+  guildData: guildDataObj;
   redirect?: boolean;
 }
 
-const newCommand: React.FC<newCommandProps> = ({ prefix, channels, roles }) => {
+const newCommand: React.FC<newCommandProps> = ({
+  prefix,
+  channels,
+  roles,
+  guildData,
+}) => {
   const router = useRouter();
   const [selectedChannels, setSelectedChannels] = useState<string[]>(
     channels.map((_: channelsType) => _.id)
@@ -38,14 +49,14 @@ const newCommand: React.FC<newCommandProps> = ({ prefix, channels, roles }) => {
         allChannels: selectedChannels.length === channels.length,
         roles: selectedRoles,
         allRoles: selectedRoles.length === roles.length,
-
+        guildId: router.query.guildId,
         description: descriptionInput,
         reply: replyInput,
       },
     })
       .then((res) => {
         if (res.data.err) return alert(res.data.err);
-        router.push("/");
+        router.push(`/${router.query.guildId}`);
       })
       .catch((err) => {
         alert(err);
@@ -53,7 +64,7 @@ const newCommand: React.FC<newCommandProps> = ({ prefix, channels, roles }) => {
   };
 
   return (
-    <Layout guildData={{}}>
+    <Layout guildData={guildData}>
       <NewCommandForm create={createCommand} prefix={prefix} />
       <h3>Channels</h3>
       <SelectChannelsContainer
@@ -71,9 +82,10 @@ const newCommand: React.FC<newCommandProps> = ({ prefix, channels, roles }) => {
   );
 };
 
-export async function getServerSideProps(context: any) {
+export const getServerSideProps = async (context: any) => {
   const res = await axios({
     method: "GET",
+    params: { guildId: context.query.guildId },
     url: "http://localhost:3001/api/getData",
   }).catch((err) => {
     console.log(err);
@@ -83,7 +95,7 @@ export async function getServerSideProps(context: any) {
     return {
       redirect: {
         permanent: false,
-        destination: "/",
+        destination: `/${context.query.guildId}`,
       },
     };
 
@@ -93,8 +105,9 @@ export async function getServerSideProps(context: any) {
       prefix: res.data.data.prefix,
       channels: res.data.data.channels,
       roles: res.data.data.roles,
+      guildData: res.data.data.data,
     },
   };
-}
+};
 
 export default newCommand;

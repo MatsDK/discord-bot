@@ -16,11 +16,12 @@ const PollPage: React.FC<PollPageProps> = ({ polls, guildData }) => {
     Object.keys(polls).map((key: any) => polls[key])
   );
   const router = useRouter();
+  const { guildId } = router.query;
 
   return (
     <Layout guildData={guildData}>
-      <Link href={`/${router.query.guildId}`}>Home</Link>
-      <Link href={`/${router.query.guildId}/poll/new`}>new poll</Link>
+      <Link href={`/${guildId}`}>Home</Link>
+      <Link href={`/${guildId}/poll/new`}>new poll</Link>
       list of polls
       <PollsList polls={pollsArr} />
     </Layout>

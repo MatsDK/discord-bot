@@ -3,6 +3,7 @@ import guildBot from "../../server/db/models/guildBot";
 
 export const getGuildObj = async (client: any): Promise<Array<guildData>> => {
   let guilds: dbGuildType[] = await guildBot.find();
+
   if (!Array.isArray(guilds)) guilds = [guilds];
 
   const guildsDataArr: guildData[] = guilds.map((_: dbGuildType) => {

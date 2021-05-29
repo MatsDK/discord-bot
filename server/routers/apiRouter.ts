@@ -6,6 +6,7 @@ import { clientState } from "../../bot/client";
 import { getData } from "../utils/getData";
 import guildBot from "../../server/db/models/guildBot";
 import { cmdExists } from "../../server/utils/cmdExists";
+import { getGuildObj } from "../../server/utils/getGuildObjs";
 
 const router = Router();
 
@@ -41,10 +42,16 @@ router.get("/getData", async (req: Request, res: Response) => {
   });
 });
 
+router.get("/getGuilds", async (req: Request, res: Response) => {
+  const guilds = await getGuildObj(clientState.client);
+  res.json({ guilds });
+});
+
 router.get("/getData/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
+  const { guildId } = req.query;
   const client = clientState.client;
-  const thisGuildCommands = client.guildCommands.get(process.env.TMP_GUILD_ID);
+  const thisGuildCommands = client.guildCommands.get(guildId);
   if (!thisGuildCommands) return res.json({ err: "Command not found" });
 
   const thisCmd: commandType | undefined = Array.from(thisGuildCommands)
@@ -52,13 +59,11 @@ router.get("/getData/:id", async (req: Request, res: Response) => {
     .find((_: any) => _.id === id);
   if (!thisCmd) return res.json({ err: "Command not found" });
 
-  const thisGuildObj: clientGuildObj = client.guildObjs.get(
-    process.env.TMP_GUILD_ID
-  );
+  const thisGuildObj: clientGuildObj = client.guildObjs.get(guildId);
   if (!thisGuildObj) return res.json({ err: "Server not found" });
 
-  const { channelsArr, rolesArr } = await getData(
-    process.env.TMP_GUILD_ID as string,
+  const { channelsArr, rolesArr, data } = await getData(
+    guildId as string,
     client
   );
   res.json({
@@ -68,17 +73,19 @@ router.get("/getData/:id", async (req: Request, res: Response) => {
       prefix: thisGuildObj.prefix,
       channels: channelsArr,
       roles: rolesArr,
+      guildData: data,
     },
   });
 });
 
 router.post("/createCmd", async (req: Request, res: Response) => {
   try {
-    const { keyWord, description, reply, ...rest }: createCmdBody = req.body;
+    const { keyWord, description, reply, guildId, ...rest }: createCmdBody =
+      req.body;
     const { channels, allChannels, roles, allRoles } = rest;
 
     const thisGuildCommands: Map<string, any> =
-      clientState.client.guildCommands.get(process.env.TMP_GUILD_ID);
+      clientState.client.guildCommands.get(guildId);
     if (!thisGuildCommands) return res.json({ err: "Server not found" });
 
     if (cmdExists(thisGuildCommands, keyWord))
@@ -104,7 +111,7 @@ router.post("/createCmd", async (req: Request, res: Response) => {
 
     await guildBot.updateOne(
       {
-        guildId: process.env.TMP_GUILD_ID,
+        guildId,
       },
       { $push: { commands: newCmd } }
     );
@@ -118,13 +125,14 @@ router.post("/createCmd", async (req: Request, res: Response) => {
 router.post("/changeCmd", async (req: Request, res: Response) => {
   try {
     const {
+      guildId,
       command: { id, action },
       command,
-    }: { command: commandType } = req.body;
+    }: { guildId: string; command: commandType } = req.body;
     if (!id) return res.json({ err: true });
 
     const thisGuildCommands: Map<string, any> =
-      clientState.client.guildCommands.get(process.env.TMP_GUILD_ID);
+      clientState.client.guildCommands.get(guildId);
     if (!thisGuildCommands) return res.json({ err: "Server not found" });
 
     let thisCmd = Array.from(thisGuildCommands)
@@ -138,43 +146,23 @@ router.post("/changeCmd", async (req: Request, res: Response) => {
       thisGuildCommands.delete(thisCmd.keyword);
       thisGuildCommands.set(command.keyword, command);
 
-      if (!action) {
-        return guildBot.findOne(
-          { guildId: process.env.TMP_GUILD_ID },
-          async (err: any, guild: any) => {
-            if (err) return res.json({ err: err.message });
-            if (!guild) return res.json({ err: "Server not found" });
+      return guildBot.findOne({ guildId }, async (err: any, guild: any) => {
+        if (err) return res.json({ err: err.message });
+        if (!guild) return res.json({ err: "Server not found" });
 
-            const idx: number = guild.commands.findIndex(
-              (_: commandType) => _.id === id
-            );
+        let idx: number;
+        if (!action)
+          idx = guild.commands.findIndex((_: commandType) => _.id === id);
+        else idx = guild.actions.findIndex((_: commandType) => _.id === id);
 
-            if (idx >= 0) {
-              guild.commands[idx] = command;
-              await guild.save();
-              return res.json({ err: false });
-            }
-          }
-        );
-      } else {
-        return guildBot.findOne(
-          { guildId: process.env.TMP_GUILD_ID },
-          async (err: any, guild: any) => {
-            if (err) return res.json({ err: err.message });
-            if (!guild) return res.json({ err: "Server not found" });
+        if (idx >= 0) {
+          if (!action) guild.commands[idx] = command;
+          else guild.actions[idx] = command;
 
-            const idx: number = guild.actions.findIndex(
-              (_: commandType) => _.id === id
-            );
-
-            if (idx >= 0) {
-              guild.actions[idx] = command;
-              await guild.save();
-              return res.json({ err: false });
-            }
-          }
-        );
-      }
+          await guild.save();
+          return res.json({ err: false });
+        }
+      });
     }
 
     res.json({ err: false });
@@ -186,15 +174,14 @@ router.post("/changeCmd", async (req: Request, res: Response) => {
 
 router.post("/setPrefix", async (req: Request, res: Response) => {
   try {
-    const { prefix } = req.body;
+    const { prefix, guildId } = req.body;
     if (!prefix) return res.json({ err: "Invalid prefix" });
 
-    const thisGuildObj: clientGuildObj = clientState.client.guildObjs.get(
-      process.env.TMP_GUILD_ID
-    );
+    const thisGuildObj: clientGuildObj =
+      clientState.client.guildObjs.get(guildId);
     if (!thisGuildObj) return res.json({ err: "server not found" });
 
-    setPrefix(process.env.TMP_GUILD_ID as string, prefix);
+    setPrefix(guildId as string, prefix);
     res.json({ err: false });
   } catch (err) {
     console.log(err);

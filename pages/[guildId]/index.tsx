@@ -18,13 +18,15 @@ const HomePage: React.FC<HomePageProps> = ({ cmds, prefix, data }) => {
     Object.keys(cmds).map((cmdName: string) => cmds[cmdName])
   );
   const router = useRouter();
+  const { guildId } = router.query;
 
   return (
     <Layout guildData={data}>
-      <Link href={`/${router.query.guildId}/commands/new/`}>New Command</Link>
-      <Link href={`/${router.query.guildId}/poll`}>Poll</Link>
-      <Link href={`/${router.query.guildId}/ignored`}>Ignored / banned</Link>
+      <Link href={`/${guildId}/commands/new/`}>New Command</Link>
+      <Link href={`/${guildId}/poll`}>Poll</Link>
+      <Link href={`/${guildId}/ignored`}>Ignored / banned</Link>
       <UpdatePrefixForm
+        guildId={guildId as string}
         initialPrefix={prefix}
         prefix={Prefix}
         setPrefix={setPrefix}
@@ -43,7 +45,7 @@ const HomePage: React.FC<HomePageProps> = ({ cmds, prefix, data }) => {
                 {_.keyword}
               </p>
               <p className="desc">{_.description}</p>
-              <Link href={`/commands/edit/${_.id}`}>Edit</Link>
+              <Link href={`/${guildId}/commands/edit/${_.id}`}>Edit</Link>
             </div>
           );
         })}
@@ -60,7 +62,7 @@ export const getServerSideProps = async (context: any) => {
     console.log(err);
   });
 
-  if (!res || res.data.err) return { props: { cmds: {}, prefix: "" } };
+  if (!res || res.data.err) return { redirect: { destination: "/" } };
   return {
     props: {
       cmds: res.data.data.commands,

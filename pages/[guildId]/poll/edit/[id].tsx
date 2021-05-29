@@ -1,4 +1,9 @@
-import { PollOption, pollType, rolesType } from "../../../../bot/types";
+import {
+  guildDataObj,
+  PollOption,
+  pollType,
+  rolesType,
+} from "../../../../bot/types";
 import PollForm from "../../../../src/components/PollForm";
 import PollOptions from "../../../../src/components/PollOptions";
 import axios from "axios";
@@ -16,9 +21,15 @@ interface nextFunctionComponent<P = {}> extends React.FC<P> {
 interface editPollProps {
   poll: pollType;
   roles: Array<rolesType>;
+  guildData: guildDataObj;
 }
 
-const Edit: nextFunctionComponent<editPollProps> = ({ poll, roles }) => {
+const Edit: nextFunctionComponent<editPollProps> = ({
+  poll,
+  roles,
+  guildData,
+}) => {
+  const [isSaving, setIsSaving] = useState<boolean>(false);
   const [pollOptions, setPollOptions] = useState<PollOption[]>(poll.options);
   const [pollNameInput, setPollNameInput] = useState<string>(poll.name);
   const [pollContentInput, setPollContentInput] = useState<string>(
@@ -37,19 +48,22 @@ const Edit: nextFunctionComponent<editPollProps> = ({ poll, roles }) => {
       poll.rolePoll
     );
     if (checkPollOptions.err) return alert(checkPollOptions.err);
+    setIsSaving(true);
 
     axios({
       method: "POST",
       url: "http://localhost:3001/api/poll/updatePoll",
+      params: { guildId: router.query.guildId },
       data: {
         ...poll,
         name: pollNameInput,
         content: pollContentInput,
-        desriptions: pollDesriptionInput,
+        description: pollDesriptionInput,
         options: pollOptions,
       },
     })
       .then((res) => {
+        setIsSaving(false);
         if (res.data.err) return alert(res.data.err);
       })
       .catch((err) => {
@@ -67,7 +81,7 @@ const Edit: nextFunctionComponent<editPollProps> = ({ poll, roles }) => {
   };
 
   return (
-    <Layout guildData={{}}>
+    <Layout guildData={guildData}>
       <Link href={`/${router.query.guildId}`}>Home</Link>
       <Link href={`/${router.query.guildId}/poll`}>Polls</Link>
       <PollForm {...PollFormProps} />
@@ -77,15 +91,20 @@ const Edit: nextFunctionComponent<editPollProps> = ({ poll, roles }) => {
         withRoles={poll.rolePoll}
         roles={roles}
       />
-      <button onClick={saveChanges}>Save Changes</button>
+      {isSaving ? (
+        "saving changes..."
+      ) : (
+        <button onClick={saveChanges}>Save Changes</button>
+      )}
     </Layout>
   );
 };
 
 Edit.getInitialProps = async ({ query, res }: Context) => {
-  const { id }: { id: string } = query;
+  const { id, guildId }: { id: string; guildId: string } = query;
   const apiRes = await axios({
     method: "GET",
+    params: { guildId },
     url: `http://localhost:3001/api/poll/getPoll/${id}`,
   }).catch((err) => {
     console.log(err);
@@ -95,7 +114,11 @@ Edit.getInitialProps = async ({ query, res }: Context) => {
     if (typeof window === "undefined") return res.redirect("/");
     else return Router.push("/");
   }
-  return { poll: apiRes.data.data, roles: apiRes.data.roles };
+  return {
+    poll: apiRes.data.data,
+    roles: apiRes.data.roles,
+    guildData: apiRes.data.guildData,
+  };
 };
 
 export default Edit;

@@ -1,13 +1,12 @@
 import Link from "next/link";
 import { useState } from "react";
 import "emoji-mart/css/emoji-mart.css";
-import { PollOption, rolesType } from "../../../bot/types";
+import { guildDataObj, PollOption, rolesType } from "../../../bot/types";
 import PollOptions from "../../../src/components/PollOptions";
 import axios from "axios";
 import { useRouter } from "next/router";
 import PollForm from "../../../src/components/PollForm";
 import { checkPoll } from "../../../src/checkPollOptions";
-import { Context } from "node:vm";
 import Router from "next/router";
 import Layout from "src/components/Layout";
 
@@ -17,9 +16,13 @@ interface nextFunctionComponent<P = {}> extends React.FC<P> {
 
 interface NewPollPageProps {
   roles: Array<rolesType>;
+  guildData: guildDataObj;
 }
 
-const newPollPage: nextFunctionComponent<NewPollPageProps> = ({ roles }) => {
+const newPollPage: nextFunctionComponent<NewPollPageProps> = ({
+  guildData,
+  roles,
+}) => {
   const router = useRouter();
   const [isRolePoll, setIsRolePoll] = useState<boolean>(false);
   const [pollNameInput, setPollNameInput] = useState<string>("");
@@ -43,6 +46,7 @@ const newPollPage: nextFunctionComponent<NewPollPageProps> = ({ roles }) => {
       method: "POST",
       url: "http://localhost:3001/api/poll/newPoll",
       data: {
+        guildId: router.query.guildId,
         rolePoll: isRolePoll,
         name: pollNameInput,
         content: pollContentInput,
@@ -54,7 +58,7 @@ const newPollPage: nextFunctionComponent<NewPollPageProps> = ({ roles }) => {
     })
       .then((res) => {
         if (res.data.err) return alert(res.data.err);
-        router.push("/poll");
+        router.push(`/${router.query.guildId}/poll`);
       })
       .catch((err) => {
         console.log(err);
@@ -71,7 +75,7 @@ const newPollPage: nextFunctionComponent<NewPollPageProps> = ({ roles }) => {
   };
 
   return (
-    <Layout guildData={{}}>
+    <Layout guildData={guildData}>
       <Link href={`/${router.query.guildId}/poll`}>Polls</Link>
       <Link href={`/${router.query.guildId}`}>Home</Link>
       <label>Is role poll</label>
@@ -94,20 +98,22 @@ const newPollPage: nextFunctionComponent<NewPollPageProps> = ({ roles }) => {
   );
 };
 
-newPollPage.getInitialProps = async ({ res }: Context) => {
+newPollPage.getInitialProps = async ({ res, query: { guildId } }: any) => {
   const apiRes = await axios({
     method: "GET",
+    params: { guildId },
     url: "http://localhost:3001/api/getData",
   }).catch((err) => {
     console.log(err);
   });
 
   if (!apiRes || apiRes.data.err) {
-    if (typeof window === "undefined") return res.redirect("/poll");
-    else return Router.push("/poll");
+    if (typeof window === "undefined") return res.redirect(`/${guildId}/poll`);
+    else return Router.push(`/${guildId}/poll`);
   }
   return {
     roles: apiRes.data.data.roles,
+    guildData: apiRes.data.data.data,
   };
 };
 
