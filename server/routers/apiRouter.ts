@@ -7,10 +7,18 @@ import { getData } from "../utils/getData";
 import guildBot from "../../server/db/models/guildBot";
 import { cmdExists } from "../../server/utils/cmdExists";
 import { getGuildObj } from "../../server/utils/getGuildObjs";
+import {
+  getIgnoredChannels,
+  getBannedMembers,
+  getIgnoredMembers,
+  removeChannels,
+  removeMembers,
+  removeBanned,
+} from "../../server/utils/ignore";
 
 const router = Router();
 
-router.get("/getData", async (req: Request, res: Response) => {
+router.get("/get  Data", async (req: Request, res: Response) => {
   const client = clientState.client,
     guildId = req.query.guildId;
 
@@ -205,23 +213,9 @@ router.get("/ignored", async (req: Request, res: Response) => {
       ignoredChannels: any[] = thisGuildObj.ignoredChannels,
       ignoredUsers: any[] = thisGuildObj.ignoredUsers;
 
-    bannedMembers = Array.from(bannedMembers).map(([userId, _]: any) => {
-      const { reason, user } = _;
-      return { name: user.tag, id: userId, reason, img: user.avatarURL() };
-    });
-
-    ignoredChannels = ignoredChannels
-      .map((_: string) =>
-        guild.channels.cache.find((channel: any) => channel.id === _)
-      )
-      .filter((_: any) => _)
-      .map((_: any) => ({ name: _.name, id: _.id }));
-
-    const members = await guild.members.fetch();
-    ignoredUsers = ignoredUsers
-      .map((_: string) => members.find((member: any) => member.id === _))
-      .filter((_: any) => _)
-      .map((_: any) => ({ name: _.user.tag, id: _.id }));
+    bannedMembers = getBannedMembers(bannedMembers);
+    ignoredChannels = getIgnoredChannels(thisGuildObj.ignoredChannels, guild);
+    ignoredUsers = await getIgnoredMembers(thisGuildObj.ignoredUsers, guild);
 
     const { data } = await getData(guildId as string, clientState.client);
 
@@ -235,6 +229,39 @@ router.get("/ignored", async (req: Request, res: Response) => {
   } catch (err) {
     res.json({ err: err.message });
   }
+});
+
+type changeIgnoredBody = {
+  removeIgnoredChannels: string[];
+  removeIgnoredMembers: string[];
+  removeBannedMembers: string[];
+  guildId: string;
+};
+
+router.post("/changeIgnored", async (req: Request, res: Response) => {
+  const {
+    removeIgnoredChannels,
+    removeIgnoredMembers,
+    removeBannedMembers,
+    guildId,
+  }: changeIgnoredBody = req.body;
+
+  const ignoredChannels: any = removeChannels(
+    removeIgnoredChannels || [],
+    guildId
+  );
+  if (ignoredChannels.err) return res.json({ err: ignoredChannels.err });
+
+  const ignoredMembers: any = await removeMembers(
+    removeIgnoredMembers || [],
+    guildId
+  );
+  if (ignoredMembers.err) return res.json({ err: ignoredMembers.err });
+
+  const bannedMembers: any = removeBanned(removeBannedMembers, guildId);
+  if (bannedMembers.err) return res.json({ err: bannedMembers.err });
+
+  res.json({ ignoredChannels, ignoredMembers, bannedMembers });
 });
 
 export default router;

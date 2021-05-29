@@ -48,7 +48,7 @@ const HomePage: React.FC<HomePageProps> = ({ cmds, prefix, data }) => {
         />
       )}
       <div className={styles.commandsListHeader}>
-      <span style={{ width: "35%", textAlign: "start" }}>Keyword</span>
+        <span style={{ width: "35%", textAlign: "start" }}>Keyword</span>
         <span style={{ textAlign: "start", flex: "1" }}>Description</span>
         <div style={{ width: "100px" }}></div>
       </div>
@@ -63,7 +63,7 @@ const HomePage: React.FC<HomePageProps> = ({ cmds, prefix, data }) => {
             return (
               <div key={idx} className={styles.commandsListItem}>
                 <p className={styles.keyWord}>
-                  <p className={styles.prefix}>{Prefix}</p>
+                  <span className={styles.prefix}>{Prefix}</span>
                   {_.keyword}
                 </p>
                 <span className={styles.description}>{_.description}</span>

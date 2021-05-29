@@ -1,0 +1,68 @@
+.ignoredPageHeader {
+  display: flex;
+  align-items: center;
+  height: 240px;
+  padding: 0 100px;
+}
+
+.ignoredPageHeader h1 {
+  font-size: 60px;
+}
+
+.ignoredContainers {
+  display: flex;
+  padding: 20px 100px;
+}
+
+.container {
+  flex: 1;
+  margin: 10px;
+  background-color: #fff;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.048);
+  border-radius: 5px;
+  overflow: hidden;
+  height: fit-content;
+}
+
+.containerHeader {
+  background-color: rgb(20, 22, 27);
+  color: rgba(241, 241, 241, 0.774);
+  font-size: 30px;
+  font-weight: 600;
+  padding: 15px 20px;
+}
+
+.containerContent:last-child {
+  border: 0;
+}
+
+.containerContent div {
+  height: 20px;
+  padding: 20px;
+  border-bottom: 1px solid rgba(241, 241, 241, 0.774);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 18px;
+  padding-right: 6px;
+}
+
+.containerContent div svg {
+  width: 15px;
+}
+
+.containerRemoveButton {
+  opacity: 0;
+  transition: 0.1s ease;
+}
+
+.containerContent div:hover .containerRemoveButton {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.noItems {
+  padding: 20px;
+  margin: 0;
+  font-size: 18px;
+}
