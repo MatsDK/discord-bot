@@ -1,10 +1,11 @@
 import { guildDataObj, pollType } from "../../../bot/types";
 import PollsList from "../../../src/components/PollsList";
 import axios from "axios";
-import Link from "next/link";
 import { useState } from "react";
 import Layout from "../../../src/components/Layout";
+import styles from "../../../src/css/pollsPage.module.css";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 interface PollPageProps {
   polls: pollType[];
@@ -20,9 +21,12 @@ const PollPage: React.FC<PollPageProps> = ({ polls, guildData }) => {
 
   return (
     <Layout guildData={guildData}>
-      <Link href={`/${guildId}`}>Home</Link>
-      <Link href={`/${guildId}/poll/new`}>new poll</Link>
-      list of polls
+      <div className={styles.pollPageHeader}>
+        <h1>Polls</h1>
+        <Link href={`/${guildId}/poll/new`}>
+          <button>New Command</button>
+        </Link>
+      </div>
       <PollsList polls={pollsArr} />
     </Layout>
   );

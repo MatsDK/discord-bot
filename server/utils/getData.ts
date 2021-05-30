@@ -37,3 +37,12 @@ export const getData = async (guildId: string, client: any) => {
     },
   };
 };
+
+export const formatedGuildCommands = (thisGuildCommands: Map<string, any>) => {
+  const newGuildCommands = {};
+  Array.from(thisGuildCommands).forEach(
+    ([key, _]: any) => (newGuildCommands[key] = _)
+  );
+
+  return newGuildCommands;
+};

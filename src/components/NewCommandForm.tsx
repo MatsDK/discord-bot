@@ -1,9 +1,18 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useCallback, useState } from "react";
+
+function useInput<T>(initialValue: T): [T, (e: any) => void] {
+  const [state, setState] = useState<T>(initialValue);
+  const onChange = useCallback((e) => {
+    setState(e.currentTarget.value);
+  }, []);
+
+  return [state, onChange];
+}
 
 const NewCommandForm = ({ prefix, create }) => {
-  const [keyWordInput, setKeyWordInput] = useState<string>("");
-  const [descriptionInput, setDesriptionInput] = useState<string>("");
-  const [replyInput, setReplyInput] = useState<string>("");
+  const [keyWordInput, setKeyWordInput] = useInput<string>("");
+  const [descriptionInput, setDesriptionInput] = useInput<string>("");
+  const [replyInput, setReplyInput] = useInput<string>("");
 
   const createCommand = (e: FormEvent) => {
     e.preventDefault();
@@ -18,18 +27,18 @@ const NewCommandForm = ({ prefix, create }) => {
           type="text"
           placeholder="keyword"
           value={keyWordInput}
-          onChange={(e) => setKeyWordInput(e.target.value)}
+          onChange={setKeyWordInput}
         />
         <input
           type="text"
           placeholder="description"
           value={descriptionInput}
-          onChange={(e) => setDesriptionInput(e.target.value)}
+          onChange={setDesriptionInput}
         />
         <textarea
           placeholder="reply"
           value={replyInput}
-          onChange={(e) => setReplyInput(e.target.value)}
+          onChange={setReplyInput}
         />
         <button type="submit">Submit</button>
       </form>

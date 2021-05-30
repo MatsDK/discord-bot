@@ -18,11 +18,31 @@ const HomePage: React.FC<HomePageProps> = ({ cmds, prefix, data }) => {
   const [Prefix, setPrefix] = useState<string>(prefix);
   const [showUpdatePrefixForm, setShowUpdatePrefixForm] =
     useState<boolean>(false);
-  const [commands] = useState<commandType[]>(
+  const [commands, setCommands] = useState<commandType[]>(
     Object.keys(cmds).map((cmdName: string) => cmds[cmdName])
   );
   const router = useRouter();
   const { guildId } = router.query;
+
+  const deleteCommand = ({ id, action, keyword }: commandType) => {
+    console.log(id, action);
+    axios({
+      method: "DELETE",
+      data: { id, isAction: action, guildId, keyword },
+      url: "http://localhost:3001/api/deleteCommand",
+    })
+      .then((res) => {
+        if (res.data.err) return alert(res.data.err);
+        setCommands(
+          Object.keys(res.data.commands).map(
+            (_: string) => res.data.commands[_]
+          )
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Layout guildData={data}>
@@ -68,7 +88,9 @@ const HomePage: React.FC<HomePageProps> = ({ cmds, prefix, data }) => {
                 </p>
                 <span className={styles.description}>{_.description}</span>
                 <div className={styles.buttonsWrapper}>
-                  <RemoveIcon />
+                  <p onClick={() => deleteCommand(_)}>
+                    <RemoveIcon />
+                  </p>
                   <Link href={`/${guildId}/commands/edit/${_.id}`}>
                     <p>
                       <EditIcon />
@@ -84,6 +106,9 @@ const HomePage: React.FC<HomePageProps> = ({ cmds, prefix, data }) => {
 };
 
 export const getServerSideProps = async (context: any) => {
+  // if (context.query.guildId === "favicon.ico")
+  //   return { redirect: { destination: "/" } };
+
   const res = await axios({
     method: "GET",
     params: { guildId: context.query.guildId },

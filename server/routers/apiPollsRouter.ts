@@ -103,4 +103,16 @@ router.post("/updatePoll", async (req: Request, res: Response) => {
   }
 });
 
+router.delete("/deletePoll", async (req: Request, res: Response) => {
+  const { id, guildId } = req.body;
+
+  const thisGuild = await guildBot.findOne({ guildId });
+  if (!thisGuild) return res.json({ err: "Guild not found" });
+
+  thisGuild.polls = thisGuild.polls.filter((_: any) => _.id !== id);
+  await thisGuild.save();
+
+  return res.json({ err: false, polls: thisGuild.polls });
+});
+
 export default router;

@@ -3,7 +3,7 @@ import { Request, Response, Router } from "express";
 import { clientGuildObj, commandType, createCmdBody } from "../../bot/types";
 import { nanoid } from "nanoid";
 import { clientState } from "../../bot/client";
-import { getData } from "../utils/getData";
+import { formatedGuildCommands, getData } from "../utils/getData";
 import guildBot from "../../server/db/models/guildBot";
 import { cmdExists } from "../../server/utils/cmdExists";
 import { getGuildObj } from "../../server/utils/getGuildObjs";
@@ -18,7 +18,7 @@ import {
 
 const router = Router();
 
-router.get("/get  Data", async (req: Request, res: Response) => {
+router.get("/getData", async (req: Request, res: Response) => {
   const client = clientState.client,
     guildId = req.query.guildId;
 
@@ -28,10 +28,7 @@ router.get("/get  Data", async (req: Request, res: Response) => {
   const thisGuildObj: clientGuildObj = client.guildObjs.get(guildId);
   if (!thisGuildObj) return res.json({ err: "Server not found" });
 
-  const newGuildCommands = {};
-  Array.from(thisGuildCommands).forEach(
-    ([key, _]: any) => (newGuildCommands[key] = _)
-  );
+  const newGuildCommands = formatedGuildCommands(thisGuildCommands);
 
   const { channelsArr, rolesArr, data } = await getData(
     guildId as string,
@@ -51,8 +48,12 @@ router.get("/get  Data", async (req: Request, res: Response) => {
 });
 
 router.get("/getGuilds", async (req: Request, res: Response) => {
-  const guilds = await getGuildObj(clientState.client);
-  res.json({ guilds });
+  try {
+    const guilds = await getGuildObj(clientState.client);
+    res.json({ guilds });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 router.get("/getData/:id", async (req: Request, res: Response) => {
@@ -262,6 +263,31 @@ router.post("/changeIgnored", async (req: Request, res: Response) => {
   if (bannedMembers.err) return res.json({ err: bannedMembers.err });
 
   res.json({ ignoredChannels, ignoredMembers, bannedMembers });
+});
+
+router.delete("/deleteCommand", async (req: Request, res: Response) => {
+  const { keyword, guildId, isAction, id } = req.body;
+  const thisGuildCommands: Map<string, any> =
+    clientState.client.guildCommands.get(guildId);
+  if (thisGuildCommands) thisGuildCommands.delete(keyword);
+
+  await guildBot.findOne({ guildId }, async (err: any, doc: any) => {
+    if (err) return res.json({ err: err });
+
+    if (doc) {
+      if (isAction) doc.actions = doc.actions.filter((_: any) => _.id !== id);
+      else doc.commands = doc.commands.filter((_: any) => _.id !== id);
+
+      await doc.save();
+      return res.json({
+        commands: formatedGuildCommands(
+          clientState.client.guildCommands.get(guildId) || []
+        ),
+      });
+    }
+
+    return res.json({ err: false });
+  });
 });
 
 export default router;

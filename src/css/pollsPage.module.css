@@ -1,0 +1,108 @@
+.pollPageHeader {
+  height: 240px;
+  padding: 0 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pollPageHeader h1 {
+  font-size: 60px;
+}
+
+.pollPageHeader button {
+  font-size: 30px;
+  padding: 5px 15px;
+  margin: 0 4px;
+  border-radius: 5px;
+  border: 0;
+  background-color: #f5f5f5;
+  cursor: pointer;
+  transition: 0.1s ease;
+}
+
+.pollPageHeader button:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.07);
+  background-color: #fff;
+}
+
+.pollsList {
+  padding: 0px 100px;
+}
+
+.pollsListItem {
+  display: flex;
+  background-color: #fff;
+  margin: 15px 0px;
+  padding: 10px 40px;
+  align-items: center;
+  transition: 0.1s ease;
+  justify-content: space-between;
+}
+
+.pollsListItem .description {
+  flex: 1;
+  text-align: start;
+}
+
+.pollsListItem .options {
+  width: 20%;
+}
+
+.pollsListItem .pollName {
+  width: 25%;
+}
+
+.options,
+.description,
+.pollName {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 100%;
+
+  font-size: 20px;
+}
+
+.pollsListItem:hover {
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.07);
+}
+
+.buttonsWrapper {
+  width: 100px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.buttonsWrapper div {
+  cursor: pointer;
+}
+
+.pollsListHeader {
+  padding: 0 140px;
+  display: flex;
+  align-items: center;
+}
+
+.pollsListHeader span {
+  margin-bottom: -5px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.pollsListHeader div {
+  width: 100px;
+}
+
+.pollsListHeader .descriptionHeader {
+  flex: 1;
+}
+
+.pollsListHeader .optionsHeader {
+  width: 21%;
+}
+
+.pollsListHeader .nameHeader {
+  width: 25%;
+}

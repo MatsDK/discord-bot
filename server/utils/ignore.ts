@@ -26,14 +26,13 @@ export const removeChannels = (
 export const getIgnoredChannels = (
   ignoredIds: string[],
   guild: any
-): { id: string; name: string }[] => {
-  return ignoredIds
+): { id: string; name: string }[] =>
+  ignoredIds
     .map((_: string) =>
       guild.channels.cache.find((channel: any) => channel.id === _)
     )
     .filter((_: any) => _)
     .map((_: any) => ({ name: _.name, id: _.id }));
-};
 
 export const removeMembers = async (members: string[], guildId: string) => {
   const thisGuildObj: clientGuildObj =
