@@ -161,3 +161,35 @@ export const RemoveIcon = ({ color }: { color?: string }) => {
     </svg>
   );
 };
+
+export const ScrollToTopBtn = () => {
+  return (
+    <svg
+      width="30"
+      height="40"
+      viewBox="0 0 30 40"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect
+        x="12.928"
+        y="3.4176"
+        width="4.09953"
+        height="36.5825"
+        fill="#1B1E22"
+      />
+      <rect
+        width="4.31814"
+        height="21.8403"
+        transform="matrix(-0.686656 -0.726982 -0.686656 0.726982 17.9619 3.13922)"
+        fill="#1B1E22"
+      />
+      <rect
+        width="4.31814"
+        height="21.3973"
+        transform="matrix(0.686656 -0.726982 -0.686656 -0.726982 27.0349 19.0121)"
+        fill="#1B1E22"
+      />
+    </svg>
+  );
+};

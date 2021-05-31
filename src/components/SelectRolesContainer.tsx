@@ -1,4 +1,5 @@
 import { rolesType } from "../../bot/types";
+import styles from "../css/commandPage.module.css";
 
 interface SelectRolesProps {
   roles: Array<rolesType>;
@@ -18,34 +19,50 @@ const SelectRolesContainer: React.FC<SelectRolesProps> = ({
 
   return (
     <div>
-      <button onClick={selectAll}>Select All</button>
-      {roles
-        .sort((a: rolesType, b: rolesType) => b.rawPosition - a.rawPosition)
-        .map((_: rolesType, idx: number) => {
-          const active: boolean = !!selectedRoles.find(
-            (channelId: string) => channelId === _.id
-          );
+      <div className={styles.selectionContainerHeader}>
+        <label>Roles</label>
+        <button
+          type="button"
+          className={styles.selectAllButton}
+          onClick={selectAll}
+        >
+          Select All
+        </button>
+      </div>
+      <div className={styles.selectionItemsContainer}>
+        {roles
+          .sort((a: rolesType, b: rolesType) => b.rawPosition - a.rawPosition)
+          .map((_: rolesType, idx: number) => {
+            const active: boolean = !!selectedRoles.find(
+              (channelId: string) => channelId === _.id
+            );
 
-          return (
-            <div
-              key={idx}
-              style={{ color: active ? `blue` : "black" }}
-              onClick={() => {
-                const i: number = selectedRoles.indexOf(_.id);
-                if (i < 0)
-                  setSelectedRoles((selectedRoles) => [_.id, ...selectedRoles]);
-                else
-                  setSelectedRoles((selectedRoles) =>
-                    selectedRoles.filter(
-                      (_: string, index: number) => index !== i
-                    )
-                  );
-              }}
-            >
-              {_.name}
-            </div>
-          );
-        })}
+            return (
+              <div
+                className={`${styles.selectionItem} ${
+                  active && styles.activeSelectionItem
+                }`}
+                key={idx}
+                onClick={() => {
+                  const i: number = selectedRoles.indexOf(_.id);
+                  if (i < 0)
+                    setSelectedRoles((selectedRoles) => [
+                      _.id,
+                      ...selectedRoles,
+                    ]);
+                  else
+                    setSelectedRoles((selectedRoles) =>
+                      selectedRoles.filter(
+                        (_: string, index: number) => index !== i
+                      )
+                    );
+                }}
+              >
+                {_.name}
+              </div>
+            );
+          })}
+      </div>
     </div>
   );
 };

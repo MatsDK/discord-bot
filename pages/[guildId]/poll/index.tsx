@@ -24,7 +24,7 @@ const PollPage: React.FC<PollPageProps> = ({ polls, guildData }) => {
       <div className={styles.pollPageHeader}>
         <h1>Polls</h1>
         <Link href={`/${guildId}/poll/new`}>
-          <button>New Command</button>
+          <button>New Poll</button>
         </Link>
       </div>
       <PollsList polls={pollsArr} />

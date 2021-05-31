@@ -6,11 +6,9 @@ import {
 } from "../../../../bot/types";
 import NewCommandForm from "../../../../src/components/NewCommandForm";
 import axios from "axios";
-import { useState } from "react";
 import { useRouter } from "next/router";
-import SelectChannelsContainer from "../../../../src/components/SelectChannelsContainer";
-import SelectRolesContainer from "../../../../src/components/SelectRolesContainer";
 import Layout from "../../../../src/components/Layout";
+import styles from "../../../../src/css/commandPage.module.css";
 
 interface newCommandProps {
   prefix: string;
@@ -28,18 +26,17 @@ const newCommand: React.FC<newCommandProps> = ({
   guildData,
 }) => {
   const router = useRouter();
-  const [selectedChannels, setSelectedChannels] = useState<string[]>(
-    channels.map((_: channelsType) => _.id)
-  );
-  const [selectedRoles, setSelectedRoles] = useState<string[]>(
-    roles.map((_: rolesType) => _.id)
-  );
 
   const createCommand = (
     keyWordInput: string,
     descriptionInput: string,
-    replyInput: string
+    replyInput: string,
+    selectedChannels: any,
+    selectedRoles: any
   ) => {
+    if (!keyWordInput.trim().length || !replyInput.trim().length)
+      return alert("Please enter a valid keyword and reply");
+
     axios({
       method: "POST",
       url: "http://localhost:3001/api/createCmd",
@@ -65,19 +62,17 @@ const newCommand: React.FC<newCommandProps> = ({
 
   return (
     <Layout guildData={guildData}>
-      <NewCommandForm create={createCommand} prefix={prefix} />
-      <h3>Channels</h3>
-      <SelectChannelsContainer
-        channels={channels}
-        setSelectedChannels={setSelectedChannels}
-        selectedChannels={selectedChannels}
-      />
-      <h3>Roles</h3>
-      <SelectRolesContainer
-        roles={roles}
-        setSelectedRoles={setSelectedRoles}
-        selectedRoles={selectedRoles}
-      />
+      <div className={styles.newCommandPageHeader}>
+        <h1>New Command</h1>
+      </div>
+      <div className={styles.newCommandContainer}>
+        <NewCommandForm
+          channels={channels}
+          roles={roles}
+          create={createCommand}
+          prefix={prefix}
+        />
+      </div>
     </Layout>
   );
 };

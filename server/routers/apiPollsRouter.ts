@@ -84,6 +84,15 @@ router.post("/updatePoll", async (req: Request, res: Response) => {
     if (thisPoll.id !== updatedPoll.id)
       return res.json("Unable to change the Id");
 
+    if (
+      polls.find(
+        (_: pollType) =>
+          _.name.trim().toLowerCase() ==
+            updatedPoll.name.trim().toLowerCase() && _.id != updatedPoll.id
+      )
+    )
+      return res.json({ err: "Poll with that name already exists" });
+
     return guildBot.findOne({ guildId }, async (err: any, guild: any) => {
       if (err) return res.json({ err: err.message });
       if (!guild) return res.json({ err: "Server not found" });
