@@ -10,9 +10,10 @@ import axios from "axios";
 import { Context } from "node:vm";
 import { useState } from "react";
 import { checkPoll } from "../../../../src/checkPollOptions";
-import Link from "next/link";
 import Router, { useRouter } from "next/router";
 import Layout from "../../../../src/components/Layout";
+import { useInput } from "src/hooks/useInput";
+import styles from "../../../../src/css/pollsPage.module.css";
 
 interface nextFunctionComponent<P = {}> extends React.FC<P> {
   getInitialProps?: (ctx: any) => Promise<P>;
@@ -31,11 +32,11 @@ const Edit: nextFunctionComponent<editPollProps> = ({
 }) => {
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const [pollOptions, setPollOptions] = useState<PollOption[]>(poll.options);
-  const [pollNameInput, setPollNameInput] = useState<string>(poll.name);
-  const [pollContentInput, setPollContentInput] = useState<string>(
+  const [pollNameInput, setPollNameInput] = useInput<string>(poll.name);
+  const [pollContentInput, setPollContentInput] = useInput<string>(
     poll.content
   );
-  const [pollDesriptionInput, setPollDesriptionInput] = useState<string>(
+  const [pollDesriptionInput, setPollDesriptionInput] = useInput<string>(
     poll.description
   );
   const router = useRouter();
@@ -82,20 +83,26 @@ const Edit: nextFunctionComponent<editPollProps> = ({
 
   return (
     <Layout guildData={guildData}>
-      <Link href={`/${router.query.guildId}`}>Home</Link>
-      <Link href={`/${router.query.guildId}/poll`}>Polls</Link>
-      <PollForm {...PollFormProps} />
-      <PollOptions
-        setOptions={setPollOptions}
-        options={pollOptions}
-        withRoles={poll.rolePoll}
-        roles={roles}
-      />
-      {isSaving ? (
-        "saving changes..."
-      ) : (
-        <button onClick={saveChanges}>Save Changes</button>
-      )}
+      <div className={styles.pollsPageHeader}>
+        <h1>Edit Poll</h1>
+      </div>
+      <div className={styles.editPollPage}>
+        <PollForm {...PollFormProps} />
+        <label>Options</label>
+        <PollOptions
+          setOptions={setPollOptions}
+          options={pollOptions}
+          withRoles={poll.rolePoll}
+          roles={roles}
+        />
+        {isSaving ? (
+          "saving changes..."
+        ) : (
+          <button className={styles.saveButton} onClick={saveChanges}>
+            Save Changes
+          </button>
+        )}
+      </div>
     </Layout>
   );
 };

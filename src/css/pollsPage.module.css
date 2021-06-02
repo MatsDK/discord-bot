@@ -1,4 +1,6 @@
-.pollPageHeader {
+.pollPageHeader,
+.newPollHeader,
+.pollsPageHeader {
   height: 240px;
   padding: 0 100px;
   display: flex;
@@ -6,7 +8,9 @@
   justify-content: space-between;
 }
 
-.pollPageHeader h1 {
+.pollPageHeader h1,
+.newPollHeader h1,
+.pollsPageHeader h1 {
   font-size: 60px;
 }
 
@@ -27,7 +31,7 @@
 }
 
 .pollsList {
-  padding: 0px 100px;
+  padding: 2px 100px;
 }
 
 .pollsListItem {
@@ -105,4 +109,158 @@
 
 .pollsListHeader .nameHeader {
   width: 25%;
+}
+
+.newPollPageContainer,
+.editPollPage {
+  padding: 20px 100px;
+}
+
+.pollFormContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.newPollPageContainer label,
+.pollFormContainer label,
+.editPollPage label {
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: -5px;
+  margin-left: 3px;
+  font-size: 22px;
+}
+
+.pollFormInput {
+  padding: 5px 15px;
+  width: 70%;
+  font-size: 20px;
+  min-width: 10%;
+  border-radius: 5px;
+  overflow: hidden;
+  min-height: 10%;
+  max-width: 70%;
+  height: 30px;
+  outline: none;
+  margin: 10px 0;
+  border: 0;
+  background-color: #fff;
+}
+
+.pollFormContainer textarea {
+  padding-top: 10px;
+}
+
+.pollFormContainer .nameInput {
+  width: 20%;
+}
+
+.isRolePollCheckbox {
+  padding: 10px 5px;
+  font-size: 20px;
+}
+
+.pollOptionsList {
+  padding: 20px 10px;
+}
+
+.pollOption {
+  display: flex;
+  align-items: center;
+
+  background-color: #fff;
+  margin-bottom: 10px;
+  width: fit-content;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.emojiPlaceHolder {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  align-items: center;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.emojiPlaceHolder p {
+  margin: 0;
+  font-size: 20px;
+  text-align: center;
+}
+
+.pollOption input {
+  border: none;
+  font-size: 20px;
+  flex: 1;
+  outline: none;
+  min-width: 250px;
+}
+
+.pollOption .removeButton {
+  background-color: transparent;
+  cursor: pointer;
+  border: 0;
+  margin-left: 10px;
+  outline: none;
+  margin-top: 4px;
+}
+
+.pollOption .removeButton svg {
+  width: 18px;
+  height: 18px;
+}
+
+.emojiPlaceHolder .placeHolder {
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  width: 25px;
+  height: 25px;
+}
+
+.selectRole > div {
+  width: 200px;
+}
+
+.addOptionButton {
+  display: flex;
+  background-color: transparent;
+  border-radius: 5px;
+  padding: 4px 10px;
+  border: 0;
+  outline: none;
+  margin-top: 20px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.addOptionButton p {
+  margin: 0;
+  margin-left: 10px;
+  font-size: 18px;
+}
+
+.addOptionButton svg {
+  width: 20px;
+}
+
+.saveButton {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.123);
+  border: 0;
+  border-radius: 4px;
+  padding: 5px 12px;
+  background-color: white;
+  cursor: pointer;
+  transition: 0.15s ease;
+  font-weight: bold;
+  font-size: 22px;
+  margin: 15px 5px;
+
+  width: fit-content;
+}
+
+.saveButton:hover {
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.123);
 }

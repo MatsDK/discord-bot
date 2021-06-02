@@ -1,5 +1,6 @@
 .pageHeader,
-.newCommandPageHeader {
+.newCommandPageHeader,
+.editCommandPageHeader {
   height: 240px;
   padding: 0 100px;
   display: flex;
@@ -7,8 +8,20 @@
   justify-content: space-between;
 }
 
+.editCommandPageHeader {
+  justify-content: start;
+}
+
+.editCommandPageHeader span {
+  margin-left: 25px;
+  margin-top: 20px;
+  font-size: 30px;
+  color: #0080f6;
+}
+
 .pageHeader h1,
-.newCommandPageHeader h1 {
+.newCommandPageHeader h1,
+.editCommandPageHeader h1 {
   font-size: 60px;
 }
 
@@ -176,7 +189,9 @@
 }
 
 .newCommandForm input,
-.newCommandForm textarea {
+.newCommandForm textarea,
+.editCommandContainer input,
+.editCommandContainer textarea {
   padding: 5px 15px;
   width: 70%;
   font-size: 20px;
@@ -192,12 +207,13 @@
   background-color: #fff;
 }
 
-.newCommandForm textarea {
+.newCommandForm textarea,
+.editCommandContainer textarea {
   padding-top: 10px;
   height: 100px;
 }
 
-.newCommandForm .keywordInput {
+.keywordInput {
   display: flex;
   margin: 10px 0;
   background-color: #fff;
@@ -207,14 +223,14 @@
   align-items: center;
 }
 
-.newCommandForm .keywordInput p {
+.keywordInput p {
   margin: 0;
   color: #0080f6;
   font-size: 22px;
   margin-bottom: 4px;
 }
 
-.newCommandForm .keywordInput input {
+.keywordInput input {
   padding: 0 0;
   margin: 5px 0;
   flex: 1;
@@ -222,7 +238,8 @@
 }
 
 .newCommandForm label,
-.selectionContainerHeader label {
+.selectionContainerHeader label,
+.editCommandContainer label {
   font-weight: bold;
   margin-top: 10px;
   margin-bottom: -5px;
@@ -265,7 +282,8 @@
   font-size: 16px;
 }
 
-.saveButton {
+.saveButton,
+.editCommandSaveButton button {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.123);
   border: 0;
   border-radius: 4px;
@@ -279,6 +297,23 @@
   width: fit-content;
 }
 
-.saveButton:hover {
+.saveButton:hover,
+.editCommandSaveButton button:hover {
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.123);
+}
+
+.editCommandContainer {
+  padding: 20px 100px;
+  display: flex;
+  flex-direction: column;
+}
+
+.editCommandSaveButton {
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5px;
+  width: fit-content;
+  margin-top: 25px;
 }

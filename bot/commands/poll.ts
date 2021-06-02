@@ -70,7 +70,7 @@ const handleRolePoll = async (
   const embed = createPollEmbed(thisPoll, rolesArr, pollDuration),
     MessageEmbed = await message.channel.send(embed);
 
-  rolesArr = rolesArr.filter((_: RoleOptionType) => !!_.role);
+  rolesArr = rolesArr.filter((_: RoleOptionType) => !!_.role && !!_.emoji);
 
   for (let option of rolesArr) await MessageEmbed.react(option.emoji);
 

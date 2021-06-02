@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import styles from "../css/Layout.module.css";
 import { ScrollToTopBtn } from "./icons";
 import Siderbar from "./Siderbar";
+import Head from "next/head";
 
 const Layout: React.FC<{ guildData: any }> = ({ children, guildData }) => {
   const [showScrollToTopButton, setShowScrollToTopButton] =
@@ -18,6 +19,9 @@ const Layout: React.FC<{ guildData: any }> = ({ children, guildData }) => {
 
   return (
     <div className={styles.main_container}>
+      <Head>
+        <title>{guildData.thisGuild.name || "Server"}</title>
+      </Head>
       <Siderbar guildData={guildData} />
       <div ref={pageContent} onScroll={scroll} className={styles.page_content}>
         {children}

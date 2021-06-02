@@ -193,3 +193,24 @@ export const ScrollToTopBtn = () => {
     </svg>
   );
 };
+
+export const PlusIcon = () => {
+  return (
+    <svg
+      width="27"
+      height="27"
+      viewBox="0 0 27 27"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect x="12" width="3" height="27" fill="#303030" />
+      <rect
+        y="15"
+        width="3"
+        height="27"
+        transform="rotate(-90 0 15)"
+        fill="#303030"
+      />
+    </svg>
+  );
+};

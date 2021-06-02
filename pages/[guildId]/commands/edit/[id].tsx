@@ -7,12 +7,13 @@ import {
 import SelectChannelsContainer from "../../../../src/components/SelectChannelsContainer";
 import SelectRolesContainer from "../../../../src/components/SelectRolesContainer";
 import axios from "axios";
-import Link from "next/link";
 import { Context } from "node:vm";
 import { useState } from "react";
 import { updateChanges } from "../../../../src/updateCmdChanges";
 import Router, { useRouter } from "next/router";
 import Layout from "../../../../src/components/Layout";
+import styles from "../../../../src/css/commandPage.module.css";
+import { useInput } from "src/hooks/useInput";
 
 interface nextFunctionComponent<P = {}> extends React.FC<P> {
   getInitialProps?: (ctx: any) => Promise<P>;
@@ -34,11 +35,11 @@ const edit: nextFunctionComponent<EditPageProps> = ({
   guildData,
 }) => {
   const [isSaving, setIsSaving] = useState<boolean>(false);
-  const [keywordInput, setKeywordInput] = useState<string>(thisCmd.keyword);
-  const [descriptionInput, setDescriptionInput] = useState<string>(
+  const [keywordInput, setKeywordInput] = useInput<string>(thisCmd.keyword);
+  const [descriptionInput, setDescriptionInput] = useInput<string>(
     thisCmd.description
   );
-  const [replyInput, setReplyInput] = useState<string>(thisCmd.reply);
+  const [replyInput, setReplyInput] = useInput<string>(thisCmd.reply);
   const [selectedChannels, setSelectedChannels] = useState<Array<string>>(
     thisCmd.channels.allChannels
       ? channels.map((_: channelsType) => _.id)
@@ -81,40 +82,56 @@ const edit: nextFunctionComponent<EditPageProps> = ({
 
   return (
     <Layout guildData={guildData}>
-      <Link href={`/${router.query.guildId}`}>Home</Link>
-      <br />
-      {prefix}
-      <input
-        type="text"
-        value={keywordInput}
-        placeholder="Keyword"
-        onChange={(e) => setKeywordInput(e.target.value)}
-      />
-      <input
-        type="text"
-        value={descriptionInput}
-        placeholder="Description"
-        onChange={(e) => setDescriptionInput(e.target.value)}
-      />
-      {!thisCmd.action && (
-        <textarea
-          value={replyInput}
-          onChange={(e) => setReplyInput(e.target.value)}
-          placeholder="Reply"
+      <div className={styles.editCommandPageHeader}>
+        <h1>Edit command</h1>
+        <span>
+          {prefix}
+          {thisCmd.keyword}
+        </span>
+      </div>
+      <div className={styles.editCommandContainer}>
+        <label>Keyword</label>
+        <div className={styles.keywordInput}>
+          <p>{prefix}</p>
+          <input
+            type="text"
+            value={keywordInput}
+            placeholder="Keyword"
+            onChange={setKeywordInput}
+          />
+        </div>
+        <label>Description</label>
+        <input
+          type="text"
+          value={descriptionInput}
+          placeholder="Description"
+          onChange={setDescriptionInput}
         />
-      )}
-      <SelectChannelsContainer
-        channels={channels}
-        setSelectedChannels={setSelectedChannels}
-        selectedChannels={selectedChannels}
-      />
-      <SelectRolesContainer
-        roles={roles}
-        setSelectedRoles={setSelectedRoles}
-        selectedRoles={selectedRoles}
-      />
-      {isSaving && "Saving changes.."}
-      <button onClick={saveChanges}>Save Changes</button>
+        {!thisCmd.action && (
+          <>
+            <label>Response</label>
+            <textarea
+              value={replyInput}
+              onChange={setReplyInput}
+              placeholder="Reply"
+            />
+          </>
+        )}
+        <SelectChannelsContainer
+          channels={channels}
+          setSelectedChannels={setSelectedChannels}
+          selectedChannels={selectedChannels}
+        />
+        <SelectRolesContainer
+          roles={roles}
+          setSelectedRoles={setSelectedRoles}
+          selectedRoles={selectedRoles}
+        />
+        <div className={styles.editCommandSaveButton}>
+          {isSaving && <p>"Saving changes.."</p>}
+          <button onClick={saveChanges}>Save Changes</button>
+        </div>
+      </div>
     </Layout>
   );
 };

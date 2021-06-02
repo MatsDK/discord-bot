@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { useState } from "react";
 import "emoji-mart/css/emoji-mart.css";
 import { guildDataObj, PollOption, rolesType } from "../../../bot/types";
@@ -8,7 +7,9 @@ import { useRouter } from "next/router";
 import PollForm from "../../../src/components/PollForm";
 import { checkPoll } from "../../../src/checkPollOptions";
 import Router from "next/router";
-import Layout from "src/components/Layout";
+import Layout from "../../../src/components/Layout";
+import styles from "../../../src/css/pollsPage.module.css";
+import { useInput } from "src/hooks/useInput";
 
 interface nextFunctionComponent<P = {}> extends React.FC<P> {
   getInitialProps?: (ctx: any) => Promise<P>;
@@ -25,9 +26,9 @@ const newPollPage: nextFunctionComponent<NewPollPageProps> = ({
 }) => {
   const router = useRouter();
   const [isRolePoll, setIsRolePoll] = useState<boolean>(false);
-  const [pollNameInput, setPollNameInput] = useState<string>("");
-  const [pollContentInput, setPollContentInput] = useState<string>("");
-  const [pollDesriptionInput, setPollDesriptionInput] = useState<string>("");
+  const [pollNameInput, setPollNameInput] = useInput<string>("");
+  const [pollContentInput, setPollContentInput] = useInput<string>("");
+  const [pollDesriptionInput, setPollDesriptionInput] = useInput<string>("");
   const [pollOptions, setPollOptions] = useState<PollOption[]>([
     { text: "yes", emoji: "✔" },
     { text: "No", emoji: "❌" },
@@ -76,24 +77,33 @@ const newPollPage: nextFunctionComponent<NewPollPageProps> = ({
 
   return (
     <Layout guildData={guildData}>
-      <Link href={`/${router.query.guildId}/poll`}>Polls</Link>
-      <Link href={`/${router.query.guildId}`}>Home</Link>
-      <label>Is role poll</label>
-      <input
-        type="checkbox"
-        defaultChecked={isRolePoll}
-        onChange={(e) => setIsRolePoll(e.target.checked)}
-      />
+      <div className={styles.newPollHeader}>
+        <h1>New Poll</h1>
+      </div>
+      <div className={styles.newPollPageContainer}>
+        <PollForm {...PollFormProps} />
+        <label>Options</label>
+        <div>
+          <div className={styles.isRolePollCheckbox}>
+            <span>Role Poll</span>
+            <input
+              type="checkbox"
+              defaultChecked={isRolePoll}
+              onChange={(e) => setIsRolePoll(e.target.checked)}
+            />
+          </div>
+          <PollOptions
+            options={pollOptions}
+            setOptions={setPollOptions}
+            withRoles={isRolePoll}
+            roles={roles}
+          />
+        </div>
 
-      <PollForm {...PollFormProps} />
-      <PollOptions
-        options={pollOptions}
-        setOptions={setPollOptions}
-        withRoles={isRolePoll}
-        roles={roles}
-      />
-
-      <button onClick={savePoll}>Save Poll</button>
+        <button className={styles.saveButton} onClick={savePoll}>
+          Save Poll
+        </button>
+      </div>
     </Layout>
   );
 };

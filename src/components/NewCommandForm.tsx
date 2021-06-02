@@ -1,19 +1,31 @@
 import { channelsType, rolesType } from "bot/types";
-import { FormEvent, useCallback, useState } from "react";
+import { FormEvent, useState } from "react";
+import { useInput } from "src/hooks/useInput";
 import styles from "../css/commandPage.module.css";
 import SelectChannelsContainer from "./SelectChannelsContainer";
 import SelectRolesContainer from "./SelectRolesContainer";
 
-function useInput<T>(initialValue: T): [T, (e: any) => void] {
-  const [state, setState] = useState<T>(initialValue);
-  const onChange = useCallback((e) => {
-    setState(e.currentTarget.value);
-  }, []);
+type createFunction = (
+  keywordInput: string,
+  descriptionInput: string,
+  replyInput: string,
+  selectedChannels: string[],
+  selectedRoles: string[]
+) => void;
 
-  return [state, onChange];
+interface NewCommandFormProps {
+  prefix: string;
+  create: createFunction;
+  channels: channelsType[];
+  roles: rolesType[];
 }
 
-const NewCommandForm = ({ prefix, create, channels, roles }) => {
+const NewCommandForm: React.FC<NewCommandFormProps> = ({
+  prefix,
+  create,
+  channels,
+  roles,
+}) => {
   const [keyWordInput, setKeyWordInput] = useInput<string>("");
   const [descriptionInput, setDesriptionInput] = useInput<string>("");
   const [replyInput, setReplyInput] = useInput<string>("");

@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
 import dynamic from "next/dynamic";
+import styles from "../css/pollsPage.module.css";
+import { PlusIcon, RemoveIcon } from "./icons";
 
 interface PollOptionsProps {
   options: Array<PollOption>;
@@ -31,7 +33,7 @@ const PollOptions: React.FC<PollOptionsProps> = ({
   };
 
   return (
-    <div>
+    <div className={styles.pollOptionsList}>
       {options.map((_: PollOption, idx: number) => {
         const updateOption = (text: string, emoji: string, id?: string) => {
           const newObj: any = { text, emoji };
@@ -64,7 +66,10 @@ const PollOptions: React.FC<PollOptionsProps> = ({
           />
         );
       })}
-      <button onClick={newOption}>New Option</button>
+      <button className={styles.addOptionButton} onClick={newOption}>
+        <PlusIcon />
+        <p>Add Option</p>
+      </button>
     </div>
   );
 };
@@ -81,13 +86,16 @@ const Option: React.FC<OptionProps> = ({ emoji, text, ...funcs }) => {
   const [optionTextInput, setOptionTextInput] = useState<string>(text);
 
   return (
-    <div style={{ display: "flex" }}>
+    <div className={styles.pollOption}>
       <div
         tabIndex={0}
         onBlur={() => setShowEmojiPicker(false)}
         onClick={(e) => setShowEmojiPicker(!showEmojiPicker)}
       >
-        {emoji || "emoji"}
+        <div className={styles.emojiPlaceHolder}>
+          {emoji ? <p>{emoji}</p> : <p className={styles.placeHolder}></p>}
+        </div>
+
         {showEmojiPicker && (
           <div
             onMouseDown={(e) => e.preventDefault()}
@@ -112,7 +120,12 @@ const Option: React.FC<OptionProps> = ({ emoji, text, ...funcs }) => {
           funcs.updateOption(e.target.value, emoji);
         }}
       />
-      <button onClick={() => funcs.deleteOption()}>Delete</button>
+      <button
+        className={styles.removeButton}
+        onClick={() => funcs.deleteOption()}
+      >
+        <RemoveIcon />
+      </button>
     </div>
   );
 };
@@ -141,13 +154,15 @@ const RoleOption: React.FC<RoleOptionProps> = ({
   }, [selectedRole]);
 
   return (
-    <div style={{ display: "flex" }}>
+    <div className={styles.pollOption}>
       <div
         tabIndex={0}
         onBlur={() => setShowEmojiPicker(false)}
         onClick={(e) => setShowEmojiPicker(!showEmojiPicker)}
       >
-        {emoji || "emoji"}
+        <div className={styles.emojiPlaceHolder}>
+          {!!emoji ? <p>{emoji}</p> : <p className={styles.placeHolder}></p>}
+        </div>
         {showEmojiPicker && (
           <div
             onMouseDown={(e) => e.preventDefault()}
@@ -173,7 +188,7 @@ const RoleOption: React.FC<RoleOptionProps> = ({
           funcs.updateOption(e.target.value, selectedEmoji);
         }}
       />
-      <div style={{ width: "150px" }}>
+      <div className={styles.selectRole}>
         <Select
           value={selectedRole}
           onChange={(selectedRole: any) => {
@@ -182,7 +197,12 @@ const RoleOption: React.FC<RoleOptionProps> = ({
           options={roles}
         />
       </div>
-      <button onClick={() => funcs.deleteOption()}>Delete</button>
+      <button
+        className={styles.removeButton}
+        onClick={() => funcs.deleteOption()}
+      >
+        <RemoveIcon />
+      </button>
     </div>
   );
 };

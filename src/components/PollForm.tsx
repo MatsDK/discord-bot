@@ -1,23 +1,30 @@
+import styles from "../css/pollsPage.module.css";
+
 const PollForm = ({ updateFuncs, inputs }) => {
   return (
-    <div>
+    <div className={styles.pollFormContainer}>
+      <label>Name</label>
       <input
         value={inputs.pollNameInput}
-        onChange={(e) => updateFuncs.setPollNameInput(e.target.value)}
+        onChange={updateFuncs.setPollNameInput}
+        className={`${styles.pollFormInput} ${styles.nameInput}`}
         type="text"
         placeholder="Name"
       />
-      <input
-        value={inputs.pollContentInput}
-        onChange={(e) => updateFuncs.setPollContentInput(e.target.value)}
-        type="text"
-        placeholder="Question"
-      />
+      <label>Description</label>
       <input
         value={inputs.pollDesriptionInput}
-        onChange={(e) => updateFuncs.setPollDesriptionInput(e.target.value)}
+        onChange={updateFuncs.setPollDesriptionInput}
+        className={styles.pollFormInput}
         type="text"
         placeholder="Desription"
+      />
+      <label>Question</label>
+      <textarea
+        value={inputs.pollContentInput}
+        className={styles.pollFormInput}
+        onChange={updateFuncs.setPollContentInput}
+        // placeholder="Question"
       />
     </div>
   );
