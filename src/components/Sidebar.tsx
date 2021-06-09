@@ -5,7 +5,7 @@ import Link from "next/link";
 import { guildData, guildDataObj } from "bot/types";
 import { useState } from "react";
 
-const Siderbar: React.FC<{ guildData: guildDataObj }> = ({ guildData }) => {
+const Sidebar: React.FC<{ guildData: guildDataObj }> = ({ guildData }) => {
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const router = useRouter();
   const { thisGuild, guilds } = guildData;
@@ -122,4 +122,4 @@ const IgnoredItem: SidebarItem = ({ router }) => {
   );
 };
 
-export default Siderbar;
+export default Sidebar;
